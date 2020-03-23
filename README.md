@@ -6,3 +6,5 @@ Début : 6 avril 2020
 Fin : ?
 
 ## L'application
+### Description
+RESA est une application qui permet aux restaurants de créer un plan de leur établissement et de gérer automatiquement les réservations.
