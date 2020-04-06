@@ -9,3 +9,6 @@ Début : lundi 6 avril 2020 - Fin : lundi 8 juin 2020 avant 12:00
 ## L'application
 ### Description
 RESA est une application qui permet aux restaurants de créer un plan de leur établissement et de gérer automatiquement les réservations.
+
+### Base de données
+Avant d'implémenter la base de données, je dois créer l'UML. Lien vers l'UML : https://dbdiagram.io/d/5e8acbb14495b02c3b894c54
