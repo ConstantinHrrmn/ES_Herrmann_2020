@@ -1,5 +1,5 @@
-#JOURNAL DE BORD
--------
+# JOURNAL DE BORD
+
 ## 06.04.20
 - Création du Github
 - Création du Trello 
