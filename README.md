@@ -20,4 +20,6 @@ Le journal de bord ce trouve dans le logbook.md à la racine du github
 RESA est une application qui permet aux restaurants de créer un plan de leur établissement et de gérer automatiquement les réservations.
 
 ### Base de données
-Avant d'implémenter la base de données, je dois créer l'UML. Lien vers l'UML : https://dbdiagram.io/d/5e8acbb14495b02c3b894c54
+La base de données v1:
+
+![DB Resa V1](/Documentation/Images/resa_db_v1.png)
