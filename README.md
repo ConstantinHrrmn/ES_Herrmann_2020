@@ -13,7 +13,7 @@ Le planning "réel" : https://docs.google.com/spreadsheets/d/1dTO0zxQ2RLKxubmTuq
 Afin de suivre le projet, un planning trello à été mis en place. Celui-ci evoluera au fur et à mesure de l'avancement du projet. Le lien vers le trello : https://trello.com/b/o39uNyia/travail-de-dipl%C3%B4me-es
 
 ## Journal de bord
-Le journal de bord ce trouve dans le logbook.md à la racine du github
+Le [journal de bord (logbook)](/logbook.md) ce trouve à la racine du github 
 
 ## L'application
 ### Description
