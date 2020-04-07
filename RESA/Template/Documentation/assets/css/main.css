@@ -1,0 +1,443 @@
+@charset "utf-8";
+
+/*
+CSS Table of Content
+1.   General Styles
+  1.1. Typography
+  1.2. Buttons
+2.   Header
+3.   Footer
+4.   Home page
+5.   Products page
+6.   Documentation page
+*/
+
+
+/* 1. General Styles */
+
+img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+}
+
+
+/* 1.1. Typography */
+
+body {
+    color: #333;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 28px;
+    overflow-x: hidden;
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 auto 20px;
+}
+
+h1 {
+    font-size: 42px;
+}
+
+h2 {
+    font-size: 36px;
+}
+
+h3 {
+    font-size: 30px;
+}
+
+h4 {
+    font-size: 26px;
+}
+
+h5 {
+    font-size: 24px;
+}
+
+h6 {
+    font-size: 18px;
+    line-height: 28px;
+}
+
+a:hover,
+a:focus {
+    text-decoration: none;
+    outline: none;
+}
+
+li {
+    list-style-type: none;
+}
+
+.vf-bulleted-list li {
+    list-style-type: disc;
+}
+
+.vf-numbered-list li {
+    list-style-type: decimal;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.alert-primary {
+    background-color: #D1ECF1;
+}
+
+p {
+    font-size: 14px;
+    line-height: 27px;
+    margin: 18px 0;
+    text-align: justify
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+a:hover,
+a:focus {
+    text-decoration: none;
+    outline: none;
+    color: #FF0018;
+}
+
+main#main-content {
+    padding: 4em 0;
+    : 400px;
+    background-image: url('../img/slidesigma-watermark.png');
+    background-repeat: no-repeat;
+    background-position: top center;
+}
+
+.primary-color {
+    color: #440E62;
+}
+
+.secondary-color {
+    color: #003464;
+}
+
+.tertiary-color {
+    color: #FF0018;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.vf-title {
+    position: relative;
+    font-weight: 700;
+    margin-bottom: 50px;
+    display: inline-block;
+}
+
+.vf-title::before {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 40px;
+    width: calc(100% - 40px);
+    height: 5px;
+    background-color: #ECECEC;
+}
+
+.vf-title::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    width: 40px;
+    height: 5px;
+    background-color: #FF0018;
+}
+
+
+/* 1.2. Buttons */
+
+.btn {
+    position: relative;
+    font-weight: 600;
+    color: #fff;
+    background: #440E62;
+    border: 0;
+    border-radius: 0;
+    text-transform: uppercase;
+    transition: all 0.4s;
+    z-index: 2;
+}
+
+.btn:hover,
+.btn:focus {
+    color: #fff;
+}
+
+.btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    background: #003464;
+    transition: all 0.4s;
+    z-index: -1;
+}
+
+.btn:hover::before,
+.btn:focus::before {
+    width: 100%;
+}
+
+.btn.btn-lg {
+    font-size: 14px;
+    padding: 16px 55px;
+}
+
+
+/* 2. Header */
+
+.site-header {
+    position: relative;
+    height: 700px;
+    background-image: url('../img/medical-documentation.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    z-index: 1;
+    padding: 15px 30px;
+}
+
+.site-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to top, #000000, #FF0018);
+    opacity: 0.57;
+    z-index: -1;
+}
+
+.site-header img {
+    z-index: 999;
+    width: 250px;
+}
+
+.heading-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+}
+
+.heading-container h1 {
+    text-transform: uppercase;
+    margin-bottom: 50px;
+}
+
+
+/*Header background images of different products*/
+
+#sacredia-header {
+    background-image: url('../img/sacredia_header.jpeg');
+}
+
+.vf-nav-logo img {
+    width: 200px;
+}
+
+.vf-nav-logo {
+    position: relative;
+    padding: 80px 40px;
+    background-color: #000000;
+    text-align: center;
+}
+
+.vf-version {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    margin: 0;
+    color: #fff;
+    background-color: #FF0018;
+    padding: 3px 10px;
+}
+
+
+/* 3. Footer */
+
+.site-footer {
+    font-weight: 700;
+}
+
+.site-footer ul {
+    padding: 0;
+}
+
+.site-footer li {
+    display: inline-block;
+}
+
+.site-footer li a {
+    display: block;
+    padding: 10px;
+}
+
+
+/* 4. Home page */
+
+.vf-options {
+    display: inline-block;
+}
+
+.vf-options:hover {
+    opacity: 0.7;
+    color: #333;
+}
+
+.vf-options p {
+    font-weight: 700;
+}
+
+
+/*5. Products page */
+
+.vf-product {
+    position: relative;
+    background: #fff;
+    padding: 40px;
+    box-shadow: 1px 6px 24px rgba(0, 0, 0, 0.16);
+    margin-bottom: 50px;
+    transition: 0.4s;
+}
+
+.vf-product:hover {
+    box-shadow: 1px 6px 24px rgba(0, 0, 0, 0.30);
+}
+
+.vf-product-thumbnail {
+    float: left;
+    margin: 0 20px 20px 0;
+}
+
+.vf-product-name {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.vf-product-description {
+    color: #707070;
+    margin-bottom: 10px;
+}
+
+.vf-product-links {
+    padding: 0;
+}
+
+.vf-product-links li {
+    float: left;
+    width: 33.33%;
+    text-align: center;
+}
+
+.vf-product-links li a {
+    display: block;
+    font-weight: 700;
+    padding: 0 20px;
+}
+
+.vf-product-links li:first-child a {
+    padding: 0 20px 0 0;
+}
+
+
+/* 6. Documentation page */
+
+.docs-nav {
+    position: relative;
+    background: #fff;
+    padding: 40px;
+    box-shadow: 1px 6px 24px rgba(0, 0, 0, 0.16);
+    margin-bottom: 20px;
+}
+
+.docs-nav ul {
+    padding: 0;
+    font-weight: 700;
+}
+
+.docs-nav ul li.vf-nav-item a {
+    display: block;
+    padding: 20px 0;
+    border-bottom: 1px solid #DFDFDF;
+}
+
+.docs-nav ul li.vf-nav-item:first-child a {
+    padding: 0 0 20px 0;
+}
+
+.docs-nav ul li.vf-nav-item:last-child a {
+    border-bottom: 0;
+    padding: 20px 0 0 0;
+}
+
+.docs-nav ul.vf-submenu {
+    padding-left: 20px;
+}
+
+.docs-nav ul.vf-submenu li.vf-nav-item a {
+    padding: 5px 0;
+    border-bottom: 0;
+}
+
+.vf-active-doc {
+    color: #FF0018;
+}
+
+.vf-last-updated {
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+
+.vf-hire-expert {
+    font-weight: 700;
+}
+
+.vf-hire-expert a,
+.vf-last-updated a {
+    color: #440E62;
+}
+
+section h4,
+section h5 {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.ms-bulleted-list li {
+    list-style-type: disc;
+}
+.ms-numbered-list li {
+    list-style-type: decimal;
+}
+.alert-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
