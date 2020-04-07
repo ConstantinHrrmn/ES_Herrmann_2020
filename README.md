@@ -2,7 +2,8 @@
 Ce github regroupe le code et la documentation pour le projet de diplôme technicien ES de Constantin H. 
 
 ## Dates importantes
-Début : lundi 6 avril 2020 - Fin : lundi 8 juin 2020 avant 12:00
+- Début : lundi 6 avril 2020
+- Fin : lundi 8 juin 2020 avant 12:00
 
 ## Planning
 Le planning "prévisionnel" : https://docs.google.com/spreadsheets/d/1dTO0zxQ2RLKxubmTuq7U1TBCRfghbKc_WyhnDCEOcs8/edit?usp=sharing
@@ -10,6 +11,9 @@ Le planning "prévisionnel" : https://docs.google.com/spreadsheets/d/1dTO0zxQ2RL
 Le planning "réel" : https://docs.google.com/spreadsheets/d/1dTO0zxQ2RLKxubmTuq7U1TBCRfghbKc_WyhnDCEOcs8/edit?usp=sharing
 
 Afin de suivre le projet, un planning trello à été mis en place. Celui-ci evoluera au fur et à mesure de l'avancement du projet. Le lien vers le trello : https://trello.com/b/o39uNyia/travail-de-dipl%C3%B4me-es
+
+## Journal de bord
+Le journal de bord ce trouve dans le logbook.md à la racine du github
 
 ## L'application
 ### Description
