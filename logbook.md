@@ -13,4 +13,5 @@
 
 ![Resa database v1](/Documentation/Images/resa_db_v1.png)
 
-
+- Mise en place et branchement du raspberry PI sur mon réseau local
+- Mon rapsberry aura une adressen statique sur mon réseau privé afin de pouvoir tester l'âpplication depuis differents appareils
