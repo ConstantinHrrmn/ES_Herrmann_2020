@@ -13,11 +13,13 @@ Le planning "réel" : https://docs.google.com/spreadsheets/d/1dTO0zxQ2RLKxubmTuq
 Afin de suivre le projet, un planning trello à été mis en place. Celui-ci evoluera au fur et à mesure de l'avancement du projet. Le lien vers le trello : https://trello.com/b/o39uNyia/travail-de-dipl%C3%B4me-es
 
 ## Journal de bord
-Le journal de bord ce trouve dans le logbook.md à la racine du github
+Le [journal de bord (logbook)](/logbook.md) ce trouve à la racine du github 
 
 ## L'application
 ### Description
 RESA est une application qui permet aux restaurants de créer un plan de leur établissement et de gérer automatiquement les réservations.
 
 ### Base de données
-Avant d'implémenter la base de données, je dois créer l'UML. Lien vers l'UML : https://dbdiagram.io/d/5e8acbb14495b02c3b894c54
+La base de données v1:
+
+![DB Resa V1](/Documentation/Images/resa_db_v1.png)
