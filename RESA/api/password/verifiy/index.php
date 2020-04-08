@@ -9,7 +9,9 @@ function VerifiyPassword($username, $password){
 }
 
 if(isset($_GET['verify']) && isset($_GET['username']) && isset($_GET['password'])){
+
     $username = $_GET['username'];
     $password = $_GET['password'];
-    var_dump(VerifiyPassword($username, hash('sha256', $password)));
+
+    echo json_encode(VerifiyPassword($username, hash('sha256', $password)));
 }
