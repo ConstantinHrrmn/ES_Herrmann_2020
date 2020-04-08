@@ -15,3 +15,6 @@
 
 - Mise en place et branchement du raspberry PI sur mon réseau local
 - Mon rapsberry aura une adressen statique sur mon réseau privé afin de pouvoir tester l'âpplication depuis differents appareils
+
+## 08.04.20
+- Mise en place des liens entre les tables de la base de données
