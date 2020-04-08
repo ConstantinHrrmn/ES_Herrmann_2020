@@ -18,8 +18,3 @@ Le [journal de bord (logbook)](/logbook.md) ce trouve à la racine du github
 ## L'application
 ### Description
 RESA est une application qui permet aux restaurants de créer un plan de leur établissement et de gérer automatiquement les réservations.
-
-### Base de données
-La base de données v1:
-
-![DB Resa V1](/Documentation/Images/resa_db_v1.png)
