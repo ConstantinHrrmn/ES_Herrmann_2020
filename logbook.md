@@ -34,3 +34,18 @@ Afin de stocker les mot de passe en hashé dans la base de données j'utilise un
 4. On conquataine les deux chaines 
 5. La chaîne finale est encore une fois hashée en sha256
 6. Le programme copmpare la chaîne hashée avec la chaîne stockée dans la base
+
+## 09.04.20
+- Création de la section READ pour la table client dans l'API
+
+### API : READ Client
+La liste des fonctions dans le get :
+- **GetAllCLients** : récupère tous les clients de la base de données
+    1. get/?all
+- **GetClientById** : récupère un client en fonction de son **id**
+    1. get/?id=[l'id que l'on cherche] (ex : get/?id=1)
+- **GetClientByLastname** : récupère tous les clients avec le nom de famille passé en paramètre
+    1. get/?lastname=[nom que l'on cherche] (ex : get/?lastname=Pala)
+- **GetClientByFirstname** : récupère tous les clients avec le prénom passé en paramètre
+    1. get/?firstname=[prénom que l'on cherche] (ex : get/?firstname=Ana)
+
