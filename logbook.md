@@ -39,13 +39,13 @@ Afin de stocker les mot de passe en hashé dans la base de données j'utilise un
 - Création de la section READ pour la table client dans l'API
 
 ### API : READ Client
-La liste des fonctions dans le get :
 - **GetAllCLients** : récupère tous les clients de la base de données
-    1. get/?all
+    1. api/client/get/?all
 - **GetClientById** : récupère un client en fonction de son **id**
-    1. get/?id=[l'id que l'on cherche] (ex : get/?id=1)
+    1. api/client/get/?id=[l'id que l'on cherche] (ex : get/?id=1)
 - **GetClientByLastname** : récupère tous les clients avec le nom de famille passé en paramètre
-    1. get/?lastname=[nom que l'on cherche] (ex : get/?lastname=Pala)
+    1. api/client/get/?lastname=[nom que l'on cherche] (ex : get/?lastname=Pala)
 - **GetClientByFirstname** : récupère tous les clients avec le prénom passé en paramètre
-    1. get/?firstname=[prénom que l'on cherche] (ex : get/?firstname=Ana)
+    1. api/client/get/?firstname=[prénom que l'on cherche] (ex : get/?firstname=Ana)
 
+### API : CREATE Client
