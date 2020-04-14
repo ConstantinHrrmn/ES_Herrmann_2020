@@ -27,7 +27,7 @@ function GetEmployeeLogin($username, $password){
     static $query = null;
 
     if ($query == null) {
-      $req = "SELECT `employe`.`id`, `first_name`, `last_name`, `phone`, `email`, `username`, `permission`.`level`, `permission`.`name` FROM `employe` INNER JOIN `permission` ON `permission`.`id` = `employe`.`idPermission` WHERE `username` = '$username' AND `password` = '$password'";
+      $req = "SELECT `employe`.`id`, `first_name`, `last_name`, `phone`, `email`, `username`, `permission`.`level`, `permission`.`name` FROM `employe` INNER JOIN `permission` ON `permission`.`id` = `employe`.`idPermission` WHERE `username` = $username AND `password` = '$password'";
       $query = database()->prepare($req);
     }
 
