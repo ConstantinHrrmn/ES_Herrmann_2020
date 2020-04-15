@@ -110,3 +110,7 @@ Afin de stocker les mot de passe en hashé dans la base de données j'utilise un
     1. Ajout de la table images
     2. Ajout de la table de liasion entre menu et images + table de liaison entre etablissement et images
     3. Fusion de la table client et employé
+- Après avoir mis à jour la base de données avec l'uml. Je dois refaire l'impo rtation dans mon serveur et mettre à jour les fichiers de l'API que j'avais déjà développer
+- Je dois egallement réintroduire des données dans la base. Pour le moment je ne vais que créer des utilisateurs (les mêmes que cité ci-dessus), un restaurant, quelques zones, horaires et tables. Je m'occuperais de toute la partie réservation plus tard.
+
+- Pour demain : mettre à jour la base de donnée du serveur
