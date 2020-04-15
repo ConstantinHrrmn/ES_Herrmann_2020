@@ -99,3 +99,11 @@ Afin de stocker les mot de passe en hashé dans la base de données j'utilise un
     1. Piste de danse : 11:15 - 19:30
     2. Coté bar : 11:15 - 23:30
     3. Coté fenêtre : 11:15 - 23:30
+
+## 15.04.20
+
+- Discussion avec M. Garcia
+    1. Ce focaliser sur la réservation interne 
+    2. On est ouvert sur l'évolution de la visibilité exterieur 
+    3. Fusionner les tables client et employé
+    4. (Tâche future) Simuler de la charge 
