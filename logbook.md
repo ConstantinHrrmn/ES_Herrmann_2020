@@ -63,20 +63,20 @@ Afin de stocker les mot de passe en hashé dans la base de données j'utilise un
 #### Employés
 ##### Administrateur
 - username : 2008
-- password : admin
+- password : admin (b3ab939cbaa34ecf36b7e07bdcefce4d2c913517bd345daecab7f91c69fbe269)
 
 ##### Manager du Restaurant "Port Martignot"
 - username : 3383
-- password : manager
+- password : manager (30963bb3ca13371a5b776434c2959c87b53113d7817a23a1f523c15863350ee7)
 
 ##### Employés du Restaurant
 ###### Olivier
 - username : 5243
-- password : e1
+- password : e1 (3710f1a472febbc82026d64452ee8f1b38e801149b1c72310dc8e576b1d3b972)
 
 ###### Mathilde
 - username : 9902
-- password : e2
+- password : e2 (4c4b520592f51d5456edd751d3f8d771a5c0895d65de5f8c9537804cffc32ad0)
 
 #### Divers informations pour le restaurant
 ##### Floors (étages)
@@ -114,3 +114,43 @@ Afin de stocker les mot de passe en hashé dans la base de données j'utilise un
 - Je dois egallement réintroduire des données dans la base. Pour le moment je ne vais que créer des utilisateurs (les mêmes que cité ci-dessus), un restaurant, quelques zones, horaires et tables. Je m'occuperais de toute la partie réservation plus tard.
 
 - Pour demain : mettre à jour la base de donnée du serveur
+
+## 19.04.20
+- La v2 de la base de données à été ajoutée au serveur
+- Création des liens entre les tables
+
+### Les niveaux de permissions
+1. Administrateur
+2. Manager
+3. Serveur
+4. Stagiaire (Je ne sais pas si ce niveau sera réellement utile, mais on ne sait jamais)
+5. Client
+6. Invité
+
+### API V2
+Afin de maintenir la base de données à jour avec l'api, j'ai décidé de reprendre l'api v1 et d'en faire une v2 afin de garantir le fonctionnement de la v1.
+
+#### Les changements par rapport à la v1
+1. Il n'y a plus de dossier "user" et "employe", car les deux ont été funsionné (comme les tables) en user.
+2. Dans le dossier user, on retrouve toujours le dossier get et set (qui ne sont pas terminés à ce stade) et un dossier employe. Ce dossier va me permettre de mieux gerer la partie uniquement employés. Je pense également mettre un dossier "clients" afin de mieux gerer les clients de la base de données.
+
+#### La table "user"
+La table user change donc. Il y a toujours le champ (permission qui risque de changer de table car un user peut etre manager d'un restaurant mais client d'un autre...)
+
+/!\ Du coup je viens de me rendre compte que je dois changer ma base de données... Je ne vais pas créer un v3, je vais juste supprimer les tables non nécéssaires et ajoutés celles dont je vais avoir besoin. 
+
+- Je supprime donc les tables "work_for" et "is_manager" ainsi que le champ "permission_id" de la table "user"
+- je vais créer une table de liasion nommée "is_in_as" comme référence à : is in etablishement as ...". Cette table va prendre 3 champs
+    1. L'id de l'user
+    2. L'id du restaurant (etablissement)
+    3. L'id de la permission
+- L'id du restaurant reste NULL si c'est un administrateur qui as tous les droits sur tous les restaurants et sur l'application en entier 
+
+#### Récuperer tous les employés qui sont dans la table "user"
+Pour récuperer tous les user qui sont employés d'un ou de plusieurs restaurants, je dois passer par la table de laision "is_in_for".
+Du coup j'ai créer une commande sql qui permet de retrouver tous les user en fonction de leur(s) permission(s).
+- La commande : SELECT `user`.`first_name` FROM `user` WHERE `user`.`id` IN (SELECT `is_in_as`.`idUser` FROM `is_in_as` WHERE `is_in_as`.`idPermission` = [id de la permission que l'on cherche])
+
+Cette commande je vais la mettre dans le dossier "get" du dossier "user" et sara accessible comme ceci : Travail_diplome_ES_2020/RESA/api/v2/user/get/?as=[id de la permission que l'on cherche]
+
+Je pense aussi faire la version ou on peut chercher en mettant le nom. par exemple : "manager" au lieu de "2", mais je ne sais pas si c'est vraiment utile 
