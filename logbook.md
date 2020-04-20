@@ -166,3 +166,29 @@ Je pense aussi faire la version ou on peut chercher en mettant le nom. par exemp
 - Avancement de l'API V2
 - Avancement de la documentation en suivant les demandes faites par m. Garcia.
 - Creation d'un répertoire de sauvegarde dans EDUGE + ajout du lien dans la documentation et le journal de bord
+
+- Pour trouver tous les employés d'un restaurant, qu'il soit stagiaire, serveur ou manager, je vais créer une fonction qui regroupe tous les employés uniquemement en tapant l'id du restaurant.
+  - La requete SQL : SELECT `user`.`first_name`, `user`.`last_name`, `user`.`phone`, `user`.`email`, `user`.`username` FROM `user` WHERE `user`.`id` IN (SELECT `is_in_as`.`idUser` FROM `is_in_as` WHERE `is_in_as`.`idEtablishement` = [id de l'établissement])
+
+### /!\ Problème 1
+
+#### Problématique
+Je me retrouve face à un problème : la table "is_in_as" possède l'id du user, l'id de l'établissement et l'id de la permission.
+
+Le but est que uniquement en mettant l'id de l'établissement, on puisse trouver les information de l'utilisateur avec ses permissions correspondantes pour l'établissement en question.
+
+![Illustration de mon probleme](./Documentation/Images/Probleme1.jpg)
+
+#### Solution possibles
+1. J'ai d'abord regarder la solution de "UNION", mais ça ne correspond pas à ce que je cherche.
+2. Faire un join et ensuite un select (pas sûr)
+
+#### Solution
+La solution à donc bien été de faire des inner join ( plus facile que ce que je pensais... !). La requête SQL ressemble donc à ceci : 
+
+- SELECT u.first_name as user_firstname, u.last_name as user_lastname, p.name as permission_name, p.level as permission_level FROM is_in_as as iis INNER JOIN permission as p ON p.id = iis.idPermission INNER JOIN user as u ON u.id = iis.idUser WHERE iis.idEtablishement =  [id de l'établissement rechercher]
+
+A présent, pour trouver tous les employés travaillant dans un restaurant, il suffit de rechercher l'id du restaurant désiré. 
+
+ex : /RESA/api/v2/user/employes/?workingFor=1 (1 = Port Martignot)
+

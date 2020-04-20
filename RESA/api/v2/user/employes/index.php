@@ -12,11 +12,11 @@ VERSION     : 1.0
 include '../../pdo.php';
 
 // Get all users permet de récupérer tous les users de la base de données
-function GetAllEmployes(){
+function GetEmployesForEtablishement($idEtablishement){
   static $query = null;
 
   if ($query == null) {
-    $req = '';
+    $req = 'SELECT u.first_name as user_firstname, u.last_name as user_lastname, p.name as permission_name, p.level as permission_level FROM is_in_as as iis INNER JOIN permission as p ON p.id = iis.idPermission INNER JOIN user as u ON u.id = iis.idUser WHERE iis.idEtablishement = '.$idEtablishement;
     $query = database()->prepare($req);
   }
 
@@ -32,6 +32,12 @@ function GetAllEmployes(){
   return $res;
 }
 
-if(isset($_GET['all'])){
-    echo json_encode(GetAllEmployes());
+if(isset($_GET['workingFor'])){
+    $idEtablishement = $_GET['workingFor'];
+    // Vérification qu'il s'agit bien d'un int
+    if(is_numeric($idEtablishement)){
+      echo json_encode(GetEmployesForEtablishement($idEtablishement));
+    }else{
+      echo json_encode("Valeur non integer");
+    }
 }

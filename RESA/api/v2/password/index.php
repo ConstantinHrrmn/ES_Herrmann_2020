@@ -1,12 +1,11 @@
 <?php
-include '../../employee/get/index.php';
+include '../pdo.php';
 
-// Verifie que le mot de passe et les nom d'utilisateurs coresspondes bien
 function VerifiyPasswordEmployee($username, $password){
     $key = "u7csu5qH6Cp9xWkrIgtGvTsOosnKvH9RhQOXteJtNhknqrEHcjp8dCGYuv02SBoHGsBRoN0zGeGeToULmWUDTb2HAgnSGntNJHmg";
     $pass = hash('sha256', hash('sha256', $key).$password);
 
-    return GetEmployeeLogin($username, $pass);
+    //return GetEmployeeLogin($username, $pass);
 }
 
 function GeneratePassword($password){
