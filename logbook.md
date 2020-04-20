@@ -132,6 +132,10 @@ Comme toute la structure de la base de données à changer, j'ai du changer l'AP
 ### API V2
 Afin de maintenir la base de données à jour avec l'api, j'ai décidé de reprendre l'api v1 et d'en faire une v2 afin de garantir le fonctionnement de la v1.
 
+Voici le diagramme de la base de données dans la V2 de l'API :
+
+![Resa database v5](RESA/SQL/V5/RESA_v5.png)
+
 #### Les changements par rapport à la v1
 1. Il n'y a plus de dossier "user" et "employe", car les deux ont été funsionné (comme les tables) en user.
 2. Dans le dossier user, on retrouve toujours le dossier get et set (qui ne sont pas terminés à ce stade) et un dossier employe. Ce dossier va me permettre de mieux gerer la partie uniquement employés. Je pense également mettre un dossier "clients" afin de mieux gerer les clients de la base de données.
@@ -161,3 +165,4 @@ Je pense aussi faire la version ou on peut chercher en mettant le nom. par exemp
 - Afin de garantir la sécurité de mes requètes, j'ai quand même mis en places quelques mesures de sécurités. Par exemple, dans la requête ci-dessus, avant de l'éxécuter, je vérifie bien que le paramètre envoyé est bien un entier afin de ne pas laisser entrer des requêtes externes.
 - Avancement de l'API V2
 - Avancement de la documentation en suivant les demandes faites par m. Garcia.
+- Creation d'un répertoire de sauvegarde dans EDUGE + ajout du lien dans la documentation et le journal de bord
