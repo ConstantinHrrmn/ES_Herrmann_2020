@@ -36,17 +36,19 @@ Afin de stocker les mot de passe en hashé dans la base de données j'utilise un
 6. Le programme copmpare la chaîne hashée avec la chaîne stockée dans la base
 
 ## 09.04.20
-- Création de la section READ pour la table client dans l'API
+ - ~~Création de la section READ pour la table client dans l'API~~
 
-### API : READ Client
-- **GetAllCLients** : récupère tous les clients de la base de données
-    1. api/client/get/?all
-- **GetClientById** : récupère un client en fonction de son **id**
-    1. api/client/get/?id=[l'id que l'on cherche] (ex : get/?id=1)
-- **GetClientByLastname** : récupère tous les clients avec le nom de famille passé en paramètre
-    1. api/client/get/?lastname=[nom que l'on cherche] (ex : get/?lastname=Pala)
-- **GetClientByFirstname** : récupère tous les clients avec le prénom passé en paramètre
-    1. api/client/get/?firstname=[prénom que l'on cherche] (ex : get/?firstname=Ana)
+### ~~API : READ Client~~
+- ~~**GetAllCLients** : récupère tous les clients de la base de données~~
+    1. ~~api/client/get/?all~~
+- ~~**GetClientById** : récupère un client en fonction de son **id**~~
+    1. ~~api/client/get/?id=[l'id que l'on cherche] (ex : get/?id=1)~~
+- ~~**GetClientByLastname** : récupère tous les clients avec le nom de famille passé en paramètre~~
+    1. ~~api/client/get/?lastname=[nom que l'on cherche] (ex : get/?lastname=Pala)~~
+- ~~**GetClientByFirstname** : récupère tous les clients avec le prénom passé en paramètre~~
+   1. ~~api/client/get/?firstname=[prénom que l'on cherche] (ex : get/?firstname=Ana)~~
+
+Comme toute la structure de la base de données à changer, j'ai du changer l'API (en passant à la v2) et donc les fonctionnalités ci-dessus ne sont plus d'actualités.
 
 ## 14.04.20
 - Mise à jour du Trello et réponses aux remarques de M. Garcia 
@@ -149,8 +151,13 @@ La table user change donc. Il y a toujours le champ (permission qui risque de ch
 #### Récuperer tous les employés qui sont dans la table "user"
 Pour récuperer tous les user qui sont employés d'un ou de plusieurs restaurants, je dois passer par la table de laision "is_in_for".
 Du coup j'ai créer une commande sql qui permet de retrouver tous les user en fonction de leur(s) permission(s).
-- La commande : SELECT `user`.`first_name` FROM `user` WHERE `user`.`id` IN (SELECT `is_in_as`.`idUser` FROM `is_in_as` WHERE `is_in_as`.`idPermission` = [id de la permission que l'on cherche])
+- La commande : "SELECT `user`.`first_name`, `user`.`last_name`, `user`.`phone`, `user`.`email`, `user`.`username` FROM `user` WHERE `user`.`id` IN (SELECT `is_in_as`.`idUser` FROM `is_in_as` WHERE `is_in_as`.`idPermission` = [id de la permission que l'on cherche])"
 
 Cette commande je vais la mettre dans le dossier "get" du dossier "user" et sara accessible comme ceci : Travail_diplome_ES_2020/RESA/api/v2/user/get/?as=[id de la permission que l'on cherche]
 
-Je pense aussi faire la version ou on peut chercher en mettant le nom. par exemple : "manager" au lieu de "2", mais je ne sais pas si c'est vraiment utile 
+Je pense aussi faire la version ou on peut chercher en mettant le nom. par exemple : "manager" au lieu de "2", mais je ne sais pas si c'est vraiment utile en sachant que c'est l'application qui va faire les appels à l'API et non l'utilisateur
+
+## 20.04.20
+- Afin de garantir la sécurité de mes requètes, j'ai quand même mis en places quelques mesures de sécurités. Par exemple, dans la requête ci-dessus, avant de l'éxécuter, je vérifie bien que le paramètre envoyé est bien un entier afin de ne pas laisser entrer des requêtes externes.
+- Avancement de l'API V2
+- Avancement de la documentation en suivant les demandes faites par m. Garcia.
