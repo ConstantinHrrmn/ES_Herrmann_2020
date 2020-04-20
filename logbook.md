@@ -192,3 +192,9 @@ A présent, pour trouver tous les employés travaillant dans un restaurant, il s
 
 ex : /RESA/api/v2/user/employes/?workingFor=1 (1 = Port Martignot)
 
+### Etablissement
+Il est possible qu'une de mes tables porte a confusion. La table "menu". En réalité cette table devrais s'appeller "carte", car la carte regroupe les différents menus que propose le restaurant.
+
+Il faudrais aussi que j'ajoute une table pour des plats à l'unité mais ce n'est pas l'option clé de cette application.
+
+- Ajout de la fonction pour pouvoir rechercher tous les restaurants ou juste un d'après son id.

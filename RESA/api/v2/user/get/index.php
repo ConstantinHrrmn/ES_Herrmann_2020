@@ -52,10 +52,7 @@ function GetUsersByPermission($idPermission){
   return $res;
 }
 
-if(isset($_GET['all'])){
-    echo json_encode(GetAllUsers());
-}
-else if(isset($_GET['byPermission'])){
+if(isset($_GET['byPermission'])){
   $idPermission = $_GET['byPermission'];
   // Vérification qu'il s'agit bien d'un int
   if(is_numeric($idPermission)){
@@ -63,4 +60,7 @@ else if(isset($_GET['byPermission'])){
   }else{
     echo json_encode("Valeur non integer");
   }
+}
+else{
+  echo json_encode(GetAllUsers());
 }
