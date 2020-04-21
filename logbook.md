@@ -177,7 +177,7 @@ Je me retrouve face à un problème : la table "is_in_as" possède l'id du user,
 
 Le but est que uniquement en mettant l'id de l'établissement, on puisse trouver les information de l'utilisateur avec ses permissions correspondantes pour l'établissement en question.
 
-![Illustration de mon probleme](./Documentation/Images/Probleme1.jpg)
+![Illustration de mon probleme](./Documentation/Images/Probleme1.JPF)
 
 #### Solution possibles
 1. J'ai d'abord regarder la solution de "UNION", mais ça ne correspond pas à ce que je cherche.
@@ -201,7 +201,7 @@ Il faudrais aussi que j'ajoute une table pour des plats à l'unité mais ce n'es
 
 ## 21.04.20
 - Voici le schéma pour construire une zone dans un restaurant :
-![Schema construction zone](./Documentation/Images/Construction_zone.jpg)
+![Schema construction zone](./Documentation/Images/Construction_zone.JPG)
 
 Afin de réaliser des tests, je vais utiliser les des zones (appartenant au restaurant port m.) et les horaires suivante :
 1. Vue mer : 11:00 - 15:00
@@ -234,3 +234,10 @@ Afin de vérifier que les liasons soient correctes, je vais ajouter dans l'api u
 
 - Requête SQL pour récupérer toutes les infos sur les étages : "SELECT f.id as floor_id, f.name as floor_name, z.name as zone_name, s.begin, s.end FROM `floor` as f JOIN `has_zone` as hz ON hz.idFloor = f.id JOIN `zone` as z ON z.id = hz.idZone JOIN `zone_has_schudle` as zhs ON zhs.idZone = z.id JOIN `schudle` as s ON s.id = zhs.idSchudle WHERE f.idEtablishment = 1"
 
+Je dois maintenant faire le tri dans les données que je recois, car quand j'appelle la méthode, l'API me retorune pour le moment un tableau avec plusieurs fois le même étage (parcque cet étage a plusieurs zones). Hors, moi je veux 1 étages avec un tableau de ses zones.
+
+Voici le résultat que j'obtiens avant le tri :
+![Résultat avant tri](./Documentation/Images/Resultat_SQL_Floors_and_zones.PNG)
+
+Afinde trier les données, j'ai créer une fonction qui va automatiquement créer un tableau d'étages qui contiendra le nom de l'étage et un tableau des zones :
+![Résultat avant tri](./Documentation/Images/Fonction_recherche_etages.PNG)
