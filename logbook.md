@@ -177,7 +177,7 @@ Je me retrouve face à un problème : la table "is_in_as" possède l'id du user,
 
 Le but est que uniquement en mettant l'id de l'établissement, on puisse trouver les information de l'utilisateur avec ses permissions correspondantes pour l'établissement en question.
 
-![Illustration de mon probleme](./Documentation/Images/Probleme1.jpg)
+![Illustration de mon probleme](./Documentation/Images/Probleme1.JPG)
 
 #### Solution possibles
 1. J'ai d'abord regarder la solution de "UNION", mais ça ne correspond pas à ce que je cherche.
@@ -201,7 +201,7 @@ Il faudrais aussi que j'ajoute une table pour des plats à l'unité mais ce n'es
 
 ## 21.04.20
 - Voici le schéma pour construire une zone dans un restaurant :
-![Schema construction zone](./Documentation/Images/Construction_zone.jpg)
+![Schema construction zone](./Documentation/Images/Construction_zone.JPG)
 
 Afin de réaliser des tests, je vais utiliser les des zones (appartenant au restaurant port m.) et les horaires suivante :
 1. Vue mer : 11:00 - 15:00
