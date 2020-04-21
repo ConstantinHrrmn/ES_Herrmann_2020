@@ -198,3 +198,39 @@ Il est possible qu'une de mes tables porte a confusion. La table "menu". En réa
 Il faudrais aussi que j'ajoute une table pour des plats à l'unité mais ce n'est pas l'option clé de cette application.
 
 - Ajout de la fonction pour pouvoir rechercher tous les restaurants ou juste un d'après son id.
+
+## 21.04.20
+- Voici le schéma pour construire une zone dans un restaurant :
+![Schema construction zone](./Documentation/Images/Construction_zone.jpg)
+
+Afin de réaliser des tests, je vais utiliser les des zones (appartenant au restaurant port m.) et les horaires suivante :
+1. Vue mer : 11:00 - 15:00
+2. Vue village : 11:00 - 15:00
+3. Piste de danse : 11:15 - 19:00
+4. Côté bar : 17:00 - 23:00
+5. Côté fenêtre : 11:15 - 23:30
+
+"vue mer" et "vue village" ce trouvent sur "la terasse", alors que "piste de danse", "côté bar" et côté fenêtre" ce trouvent dans la salle principale.
+
+1. Terasse
+   1. Vue mer
+   2. Vue village
+2. Salle principale
+   1. Piste de danse
+   2. Côté bar
+   3. Côté fenêtre
+
+La table horaire contiens les données suivantes:
+1. 11:00 - 15:00
+2. 11:15 - 23:30
+3. 11:15 - 19:00
+4. 17:00 - 23:00
+
+Afin de vérifier que les liasons soient correctes, je vais ajouter dans l'api une fonction qui permet de récupérer tous les étages avec toutes les informations les concernant d'un restaurant.
+
+- Requête SQL pour récuperer tous les étages (floor) d'un restaurant : "SELECT f.name FROM `floor` as f WHERE f.idEtablishment = 1"
+
+- Requête SQL pour récupérer tous les étages avec leurs zones : "SELECT f.id, f.name, z.name FROM `floor` as f JOIN `has_zone` as hz ON hz.idFloor = f.id JOIN `zone` as z ON z.id = hz.idZone WHERE f.idEtablishment = 1"
+
+- Requête SQL pour récupérer toutes les infos sur les étages : "SELECT f.id as floor_id, f.name as floor_name, z.name as zone_name, s.begin, s.end FROM `floor` as f JOIN `has_zone` as hz ON hz.idFloor = f.id JOIN `zone` as z ON z.id = hz.idZone JOIN `zone_has_schudle` as zhs ON zhs.idZone = z.id JOIN `schudle` as s ON s.id = zhs.idSchudle WHERE f.idEtablishment = 1"
+
