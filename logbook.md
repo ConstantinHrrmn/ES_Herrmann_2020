@@ -177,7 +177,7 @@ Je me retrouve face à un problème : la table "is_in_as" possède l'id du user,
 
 Le but est que uniquement en mettant l'id de l'établissement, on puisse trouver les information de l'utilisateur avec ses permissions correspondantes pour l'établissement en question.
 
-![Illustration de mon probleme](./Documentation/Images/Probleme1.JPF)
+![Illustration de mon probleme](./Documentation/Images/Probleme1.JPG)
 
 #### Solution possibles
 1. J'ai d'abord regarder la solution de "UNION", mais ça ne correspond pas à ce que je cherche.
