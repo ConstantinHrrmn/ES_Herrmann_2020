@@ -6,6 +6,7 @@
 - Appel avec m. Garcia pour mise en route du travail
 - Création du document word pour la documentation
 
+---
 ## 07.04.20
 - Création du planning 
 - Mise à jour du trello en fonction du planning
@@ -16,6 +17,7 @@
 - Mise en place et branchement du raspberry PI sur mon réseau local
 - Mon rapsberry aura une adressen statique sur mon réseau privé afin de pouvoir tester l'âpplication depuis differents appareils
 
+--- 
 ## 08.04.20
 - Mise en place des liens entre les tables de la base de données. La base de données n'est pas encore complète. Il manque principalement la structure pour le stockage des position et forme pour l'UI style "drag & drop".
 - Création de l'api
@@ -35,6 +37,7 @@ Afin de stocker les mot de passe en hashé dans la base de données j'utilise un
 5. La chaîne finale est encore une fois hashée en sha256
 6. Le programme copmpare la chaîne hashée avec la chaîne stockée dans la base
 
+---
 ## 09.04.20
  - ~~Création de la section READ pour la table client dans l'API~~
 
@@ -50,6 +53,7 @@ Afin de stocker les mot de passe en hashé dans la base de données j'utilise un
 
 Comme toute la structure de la base de données à changer, j'ai du changer l'API (en passant à la v2) et donc les fonctionnalités ci-dessus ne sont plus d'actualités.
 
+---
 ## 14.04.20
 - Mise à jour du Trello et réponses aux remarques de M. Garcia 
 - Mise à jour du planning prévisionnel en incluant la mise en place de tests unitaires
@@ -102,6 +106,7 @@ Comme toute la structure de la base de données à changer, j'ai du changer l'AP
     2. Coté bar : 11:15 - 23:30
     3. Coté fenêtre : 11:15 - 23:30
 
+---
 ## 15.04.20
 - Discussion avec M. Garcia
     1. Ce focaliser sur la réservation interne 
@@ -117,6 +122,7 @@ Comme toute la structure de la base de données à changer, j'ai du changer l'AP
 
 - Pour demain : mettre à jour la base de donnée du serveur
 
+---
 ## 19.04.20
 - La v2 de la base de données à été ajoutée au serveur
 - Création des liens entre les tables
@@ -155,12 +161,13 @@ La table user change donc. Il y a toujours le champ (permission qui risque de ch
 #### Récuperer tous les employés qui sont dans la table "user"
 Pour récuperer tous les user qui sont employés d'un ou de plusieurs restaurants, je dois passer par la table de laision "is_in_for".
 Du coup j'ai créer une commande sql qui permet de retrouver tous les user en fonction de leur(s) permission(s).
-- La commande : "SELECT `user`.`first_name`, `user`.`last_name`, `user`.`phone`, `user`.`email`, `user`.`username` FROM `user` WHERE `user`.`id` IN (SELECT `is_in_as`.`idUser` FROM `is_in_as` WHERE `is_in_as`.`idPermission` = [id de la permission que l'on cherche])"
+- La commande : ```SELECT `user`.`first_name`, `user`.`last_name`, `user`.`phone`, `user`.`email`, `user`.`username` FROM `user` WHERE `user`.`id` IN (SELECT `is_in_as`.`idUser` FROM `is_in_as` WHERE `is_in_as`.`idPermission` = [id de la permission que l'on cherche])```
 
 Cette commande je vais la mettre dans le dossier "get" du dossier "user" et sara accessible comme ceci : Travail_diplome_ES_2020/RESA/api/v2/user/get/?as=[id de la permission que l'on cherche]
 
 Je pense aussi faire la version ou on peut chercher en mettant le nom. par exemple : "manager" au lieu de "2", mais je ne sais pas si c'est vraiment utile en sachant que c'est l'application qui va faire les appels à l'API et non l'utilisateur
 
+---
 ## 20.04.20
 - Afin de garantir la sécurité de mes requètes, j'ai quand même mis en places quelques mesures de sécurités. Par exemple, dans la requête ci-dessus, avant de l'éxécuter, je vérifie bien que le paramètre envoyé est bien un entier afin de ne pas laisser entrer des requêtes externes.
 - Avancement de l'API V2
@@ -168,7 +175,7 @@ Je pense aussi faire la version ou on peut chercher en mettant le nom. par exemp
 - Creation d'un répertoire de sauvegarde dans EDUGE + ajout du lien dans la documentation et le journal de bord
 
 - Pour trouver tous les employés d'un restaurant, qu'il soit stagiaire, serveur ou manager, je vais créer une fonction qui regroupe tous les employés uniquemement en tapant l'id du restaurant.
-  - La requete SQL : SELECT `user`.`first_name`, `user`.`last_name`, `user`.`phone`, `user`.`email`, `user`.`username` FROM `user` WHERE `user`.`id` IN (SELECT `is_in_as`.`idUser` FROM `is_in_as` WHERE `is_in_as`.`idEtablishement` = [id de l'établissement])
+  - La requete SQL : ```SELECT `user`.`first_name`, `user`.`last_name`, `user`.`phone`, `user`.`email`, `user`.`username` FROM `user` WHERE `user`.`id` IN (SELECT `is_in_as`.`idUser` FROM `is_in_as` WHERE `is_in_as`.`idEtablishement` = [id de l'établissement])```
 
 ### /!\ Problème 1
 
@@ -186,7 +193,7 @@ Le but est que uniquement en mettant l'id de l'établissement, on puisse trouver
 #### Solution
 La solution à donc bien été de faire des inner join ( plus facile que ce que je pensais... !). La requête SQL ressemble donc à ceci : 
 
-- SELECT u.first_name as user_firstname, u.last_name as user_lastname, p.name as permission_name, p.level as permission_level FROM is_in_as as iis INNER JOIN permission as p ON p.id = iis.idPermission INNER JOIN user as u ON u.id = iis.idUser WHERE iis.idEtablishement =  [id de l'établissement rechercher]
+- ```SELECT u.first_name as user_firstname, u.last_name as user_lastname, p.name as permission_name, p.level as permission_level FROM is_in_as as iis INNER JOIN permission as p ON p.id = iis.idPermission INNER JOIN user as u ON u.id = iis.idUser WHERE iis.idEtablishement =  [id de l'établissement rechercher]```
 
 A présent, pour trouver tous les employés travaillant dans un restaurant, il suffit de rechercher l'id du restaurant désiré. 
 
@@ -199,6 +206,7 @@ Il faudrais aussi que j'ajoute une table pour des plats à l'unité mais ce n'es
 
 - Ajout de la fonction pour pouvoir rechercher tous les restaurants ou juste un d'après son id.
 
+---
 ## 21.04.20
 - Voici le schéma pour construire une zone dans un restaurant :
 ![Schema construction zone](./Documentation/Images/Construction_zone.JPG)
@@ -228,11 +236,11 @@ La table horaire contiens les données suivantes:
 
 Afin de vérifier que les liasons soient correctes, je vais ajouter dans l'api une fonction qui permet de récupérer tous les étages avec toutes les informations les concernant d'un restaurant.
 
-- Requête SQL pour récuperer tous les étages (floor) d'un restaurant : "SELECT f.name FROM `floor` as f WHERE f.idEtablishment = 1"
+- Requête SQL pour récuperer tous les étages (floor) d'un restaurant : ```SELECT f.name FROM `floor` as f WHERE f.idEtablishment = 1```
 
-- Requête SQL pour récupérer tous les étages avec leurs zones : "SELECT f.id, f.name, z.name FROM `floor` as f JOIN `has_zone` as hz ON hz.idFloor = f.id JOIN `zone` as z ON z.id = hz.idZone WHERE f.idEtablishment = 1"
+- Requête SQL pour récupérer tous les étages avec leurs zones : ```SELECT f.id, f.name, z.name FROM `floor` as f JOIN `has_zone` as hz ON hz.idFloor = f.id JOIN `zone` as z ON z.id = hz.idZone WHERE f.idEtablishment = 1```
 
-- Requête SQL pour récupérer toutes les infos sur les étages : "SELECT f.id as floor_id, f.name as floor_name, z.name as zone_name, s.begin, s.end FROM `floor` as f JOIN `has_zone` as hz ON hz.idFloor = f.id JOIN `zone` as z ON z.id = hz.idZone JOIN `zone_has_schudle` as zhs ON zhs.idZone = z.id JOIN `schudle` as s ON s.id = zhs.idSchudle WHERE f.idEtablishment = 1"
+- Requête SQL pour récupérer toutes les infos sur les étages : ```SELECT f.id as floor_id, f.name as floor_name, z.name as zone_name, s.begin, s.end FROM `floor` as f JOIN `has_zone` as hz ON hz.idFloor = f.id JOIN `zone` as z ON z.id = hz.idZone JOIN `zone_has_schudle` as zhs ON zhs.idZone = z.id JOIN `schudle` as s ON s.id = zhs.idSchudle WHERE f.idEtablishment = 1```
 
 Je dois maintenant faire le tri dans les données que je recois, car quand j'appelle la méthode, l'API me retorune pour le moment un tableau avec plusieurs fois le même étage (parcque cet étage a plusieurs zones). Hors, moi je veux 1 étages avec un tableau de ses zones.
 
@@ -240,4 +248,44 @@ Voici le résultat que j'obtiens avant le tri :
 ![Résultat avant tri](./Documentation/Images/Resultat_SQL_Floors_and_zones.PNG)
 
 Afinde trier les données, j'ai créer une fonction qui va automatiquement créer un tableau d'étages qui contiendra le nom de l'étage et un tableau des zones :
-![Résultat avant tri](./Documentation/Images/Fonction_recherche_etages.PNG)
+![Fonction de tri](./Documentation/Images/Fonction_recherche_etages.PNG)
+
+---
+
+## 22.04.20
+
+- J'ai ajouté 2 salles dans un nouvel établissement afin de tester le fait que la suppression d'un étage supprime bien les zones qui lui étaient associées
+- Avant de faire le point ci-dessus, je vais d'abord faire en sorte de pouvoire créer un établissement, des étages et des zones
+- Je viens de penser au fait que je devrais ajouter une table qui permet de gérer les exceptions, par exemple un jour une zone dois fermer plus tôt
+- Création du "CREATE" pour les établissements
+- Ajout de la table meal et de la table menu_has_meal
+- La base de données gère comme ceci les menus des restaurants : 
+![Schéma base de données pour les menus](./Documentation/Images/Base_de_donnees_meals.JPG)
+- J'ai ajouter des données dans la base afin de pouvoir faire des tests.
+
+### Récupérer le menus d'un restaurant
+Afin de pouvoir récupérer tous les plats et compositions dans le menu d'un restaruant je dois procédé étape par étape. 
+1. Récupérer le menu du restaurant : 
+    - ```SELECT m.id, m.name, m.description FROM `menu` as m WHERE m.id IN (SELECT e.id_menu FROM `establishment`as e WHERE e.id = [id du restaurant])``` 
+2. Récupérer tous les plats qui ce trouvent dans ce menu
+    - ```SELECT m.name as menu_name, m.description as menu_description, d.name as dish_name, d.price as dish_price, dt.name as type_name FROM `menu` as m INNER JOIN `menu_has_dishes` as mhd ON mhd.idMenu = m.id INNER JOIN `dish` as d ON d.id = mhd.idDish INNER JOIN `dish_type` as dt ON dt.id = d.idType WHERE m.id IN (SELECT e.id_menu FROM `establishment`as e WHERE e.id = [id du restaurant])```
+
+(Pour anouveau avoir le même résultat qu'avec les étages, je vais devoir reprendre la fonction [ci-dessus](./Documentation/Images/Fonction_recherche_etages.PNG) et l'ajuster pour les menus)
+
+
+### Appel avec M. Garcia
+- Ajouter un état "non réservable" sur les fournitures
+- Utiliser "distinct" ou "group by" pour la fonction de recherche de étages
+
+### Test de "distinc" et de "group by"
+#### Group by
+- J'ai ajouté le paramètre suivant à ma requête SQL : ```GROUP BY f.id``` ou f.id = floor id. Mais SQL me donnais une erreur comme quoi je devais trier avec tous les champs.
+- J'ai donc transformer le group by comme ceci : ```GROUP BY f.id, z.name, s.begin, s.end```. Le résultat était éxactement le même que sans rien...
+
+#### Distinc
+Le paramètre "distinc" permet de retourner uniquement des valeurs différentes. Le problème est que tous mes champs sont déjà différents, car chaque zone n'est attribuée que à un étage.
+
+#### Conclusion
+Les deux outils sont puissants et vont certainement êtres utiles dans un futur proche, mais pour cette fonction, ils ne sont malheureusement pas adaptés à ce que je veux faire.
+
+
