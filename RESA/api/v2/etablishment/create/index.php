@@ -49,17 +49,10 @@ if(isset($_GET['name']) && isset($_GET['address']) && isset($_GET['phone']) && i
     $phone = $_GET['phone'];
     $email = $_GET['email'];
     if(CreateEtablishment($name, $address, $phone, $email)){
-        if(isset($_GET['menu_name']) && isset($_GET['menu_description'])){
-            $menu_name = $_GET['menu_name'];
-            $menu_description = $_GET['menu_description'];
-        }else{
-            echo json_encode("Creation etablissement sans menu");
-        }  
+        echo json_encode("OK");
     }else{
         echo json_encode("Une erreur est survenue");
     }
-
-
 }
 else{
     echo json_encode("Les informations sont incompletes");
