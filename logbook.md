@@ -258,10 +258,6 @@ Afinde trier les données, j'ai créer une fonction qui va automatiquement crée
 - Avant de faire le point ci-dessus, je vais d'abord faire en sorte de pouvoire créer un établissement, des étages et des zones
 - Je viens de penser au fait que je devrais ajouter une table qui permet de gérer les exceptions, par exemple un jour une zone dois fermer plus tôt
 - Création du "CREATE" pour les établissements
-- Ajout de la table meal et de la table menu_has_meal
-- La base de données gère comme ceci les menus des restaurants : 
-![Schéma base de données pour les menus](./Documentation/Images/Base_de_donnees_meals.jpg)
-- J'ai ajouter des données dans la base afin de pouvoir faire des tests.
 - Je souhaites récupérer toutes les permissions pour un utilisateurs. Pour ce faire je procède en 3 étapes :
     1. Je récupère les infos de l'utilisateurs
         -   ```SELECT `id`, `first_name`, `last_name`, `phone`, `email`, `username` FROM `user` WHERE `id` = [id de l'utilisateur]```
@@ -277,7 +273,10 @@ Afin de pouvoir récupérer tous les plats et compositions dans le menu d'un res
 3. La prmière requête me donne un tableau avec les données de l'utilisateur et la deuxième me rend un tableau de tableau avec les permissions pour chaque établissement. J'ajoute donc un index nommé "permissions" dans le tableau de l'utilisateur ce qui donne ceci : ![Schema de résultat](./Documentation/Images/schema_user.jpg)
 
 
-
+- Ajout de la table meal et de la table menu_has_meal
+- La base de données gère comme ceci les menus des restaurants : 
+![Schéma base de données pour les menus](./Documentation/Images/Base_de_donnees_meals.jpg)
+- J'ai ajouter des données dans la base afin de pouvoir faire des tests.
 (Pour anouveau avoir le même résultat qu'avec les étages, je vais devoir reprendre la fonction [ci-dessus](./Documentation/Images/Fonction_recherche_etages.PNG) et l'ajuster pour les menus)
 
 Pour récupérer les menus composés, il faut éxécuter une autre requête SQL
@@ -315,4 +314,9 @@ Le paramètre "distinc" permet de retourner uniquement des valeurs différentes.
 #### Conclusion
 Les deux outils sont puissants et vont certainement êtres utiles dans un futur proche, mais pour cette fonction, ils ne sont malheureusement pas adaptés à ce que je veux faire.
 
+---
+
+#### Le développement de l'API va me prendre beaucoup plus de temps que prévu... je vais devoir faire des choix sur les fonctionnalités à ajouter... A suivre
+
+---
 
