@@ -260,7 +260,7 @@ Afinde trier les données, j'ai créer une fonction qui va automatiquement crée
 - Création du "CREATE" pour les établissements
 - Ajout de la table meal et de la table menu_has_meal
 - La base de données gère comme ceci les menus des restaurants : 
-![Schéma base de données pour les menus](./Documentation/Images/Base_de_donnees_meals.JPG)
+![Schéma base de données pour les menus](./Documentation/Images/Base_de_donnees_meals.jpg)
 - J'ai ajouter des données dans la base afin de pouvoir faire des tests.
 
 ### Récupérer le menus d'un restaurant
