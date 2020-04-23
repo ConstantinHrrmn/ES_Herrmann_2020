@@ -11,12 +11,16 @@ VERSION     : 1.0
 // On inclu le connecteur de la base de données
 include '../../pdo.php';
 
-// Get all users permet de récupérer tous les users de la base de données
+/*
+* Récupère les users qui travaillent dans un établissement donné
+* Params :
+*   - $idEtablishement : L'id de l'établissement
+*/
 function GetEmployesForEtablishement($idEtablishement){
   static $query = null;
 
   if ($query == null) {
-    $req = 'SELECT u.first_name as user_firstname, u.last_name as user_lastname, p.name as permission_name, p.level as permission_level FROM is_in_as as iis INNER JOIN permission as p ON p.id = iis.idPermission INNER JOIN user as u ON u.id = iis.idUser WHERE iis.idEtablishement = '.$idEtablishement;
+    $req = 'SELECT u.id as id,  u.first_name as user_firstname, u.last_name as user_lastname, p.name as permission_name, p.level as permission_level FROM is_in_as as iis INNER JOIN permission as p ON p.id = iis.idPermission INNER JOIN user as u ON u.id = iis.idUser WHERE iis.idEtablishement = '.$idEtablishement;
     $query = database()->prepare($req);
   }
 

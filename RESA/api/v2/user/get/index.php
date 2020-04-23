@@ -12,7 +12,7 @@ VERSION     : 1.0
 include '../../pdo.php';
 
 // On inclu le fichier que génère le mot de passe pour l'utilisateur
-include '../login/index.php';
+include '../password/index.php';
 
 // Une clé qui sera hashée avec le mot de passe pour pouvoir le stocker de manière sécurisée dans la base de données
 // Cette clé sera certainement stockée autre part dans le futur

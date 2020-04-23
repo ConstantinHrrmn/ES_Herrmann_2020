@@ -334,6 +334,9 @@ La complexité de mon travail de diplôme est la gestion de réservation en fonc
   - Le but de ce cheat sheet est de faciliter l'utilisation de l'API aux personnes qui aurons besoin de l'utiliser afin de continuer l'application ou pour une autre utilisation.
   - Ca me permet également de retrouver ou et comment récupérer un certain type de données que je cherche.
 
+- Au début je pensais commencer des vues, mais le cheat sheet me prend pas mal de temps, je commencerais donc les premières vues demain.
 ### APPEL M. Garcia
 - Regarder pour convention / norme requête SQL
 
+#### Bonnes pratiques SQL
+Afin d'unifier mon code avec les bonnes pratiques, je me suis référé au [site](https://wiki.easyvista.com/xwiki/bin/view/Documentation/SQL+rules?language=fr) que m. Garcia m'as fait parvenir.

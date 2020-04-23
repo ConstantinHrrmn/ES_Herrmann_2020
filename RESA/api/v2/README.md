@@ -6,9 +6,10 @@ Ce fichier est la pour vous aider à utiliser l'API de RESA développée par Con
 ---
 
 ## User
-Lien : ```/api/v2/user/get/```
+Lien : ```/api/v2/user/```
 
 1. **Récupérer les informations d'un user avec ses permissions**
+   - Lien : ```/api/v2/user/get/```
    - Paramètres : 
      - ```id``` : l'id de l'utilisateur recherché
    - Lien avec paramètres : ```/api/v2/user/get/?id=[id de l'utilisateur]```
@@ -25,6 +26,7 @@ Lien : ```/api/v2/user/get/```
            - ```permission_name``` : le nom de la permission (ex: manager)
   
 2. **Récupérer les informations de base d'un user**
+   - Lien : ```/api/v2/user/get/```
    - Paramètres : 
      - ```user``` : (il n'y à pas besoin de valeur)
      - ```id``` : l'id de l'utilisateur recherché
@@ -39,6 +41,7 @@ Lien : ```/api/v2/user/get/```
        - ```username``` : le code à 4 chiffre d'identification de l'utilisateur
 
 3. **Récupérer tous les utilisateurs avec une certaine permission**
+   - Lien : ```/api/v2/user/get/```
    - Paramètres : 
      - ```byPermission``` : l'id de la permission recherchée
    - Lien avec paramètres : ```/api/v2/user/get/?byPermission=[id de la permission]```
@@ -51,6 +54,7 @@ Lien : ```/api/v2/user/get/```
        - ```username``` : le code à 4 chiffre d'identification de l'utilisateur
 
 4. **Récupérer toutes les permissions d'un utilisateur**
+   - Lien : ```/api/v2/user/get/```
    - Paramètres : 
      - ```permissions``` : (il n'y à pas besoin de valeur)
      - ```id``` : l'id de l'utilisateur recherché
@@ -61,6 +65,9 @@ Lien : ```/api/v2/user/get/```
        - ```permission_name``` : le nom de la permission (ex: manager)
 
 5. **Récupérer tous les utilisateurs**
+   - Lien : ```/api/v2/user/get/```
+   - Paramètres : 
+     - aucun
    - Lien avec paramètres : ```/api/v2/user/get/```
    - Retour : 
      - Un tableau de users, ou chaque user possède les champs :
@@ -72,6 +79,7 @@ Lien : ```/api/v2/user/get/```
        - ```username``` : le code à 4 chiffre d'identification de l'utilisateur
   
 6. **Login d'un utilisateur**
+   - Lien : ```/api/v2/user/get/```
    - Paramètres : 
      - ```login``` : (il n'y à pas besoin de valeur)
      - ```username``` : l'identifiant à 4 chiffres de l'utilisateur
@@ -84,3 +92,83 @@ Lien : ```/api/v2/user/get/```
        - ```last_name``` : le nom de famille de l'utilisateur
        - ```phone``` : le numéro de téléphone de l'utilisateur
        - ```email``` : l'email de l'utilisateur
+
+7. **Récupérer tous les employés d'un etablissement**
+   - Lien : ```/api/v2/user/employes/```
+   - Paramètres : 
+     - ```workingFor``` : l'id de l'etablissement
+   - Lien avec paramètres : ```/api/v2/user/employes/?workingFor=[id de l'etablissement]```
+   - Retour : 
+     - Un tableau de users, ou chaque user possède les champs :
+        - ```id``` : l'id de l'utilisateur
+        - ```user_firstname``` : le prénom de l'utilisateur
+        - ```user_lastname``` : le nom de famille de l'utilisateur
+        - ```permission_name``` : le nom de sa permission (ex: Manager)
+        - ```permission_level``` : le niveau de la permission (ex : 2)
+
+8. **Générer un identifiant numérique aléatoire**
+   - Lien : ```/api/v2/user/username/generate/```
+   - Paramètres : 
+     - Aucun
+   - Lien avec paramètres : ```/api/v2/user/username/generate/```
+   - Retour : 
+     - un numéro aléatoire
+
+---
+## Etablissement
+Lien : ```/api/v2/etablishment/```
+
+1. **Récupérer tous les étages, zones et horaires d'un etablissement**
+   - Lien : ```/api/v2/etablishment/floor/get/```
+   - Paramètres : 
+     - ```id``` : l'id de l'établissement
+   - Lien avec paramètres : ```/api/v2/etablishment/floor/get/?id=[id de l'établissement]```
+   - Retour : 
+       - Un tableau avec comme clés les id des étages:
+         - ```[id de l'étage]``` : l'id de l'étage comme index du tableau afin de facilement le retrouver
+           - ```name``` : le nom de l'étage
+           - ```zones``` : tableau des zones
+             - ```[nom de la zone]``` : le nom de la zone
+             - ```[xx:xx:xx]``` : l'heure de début (```begin```)
+             - ```[xx:xx:xx]``` : l'heure de fin (```end```)
+
+2. **Création d'un etablissement**
+   - Lien : ```/api/v2/etablishment/create/```
+   - Paramètres : 
+     - ```name``` : le nom du nouvel établissement
+     - ```address``` : l'adresse du nouvel établissement
+     - ```phone``` : le numéro de téléphone du nouvel établissement
+     - ```email``` : l'email du nouvel établissement
+   - Lien avec paramètres : ```/api/v2/etablishment/create/?name=[nom]&address=[address]&phone=[numéro de téléphone]&email=[adress email]```
+   - Retour : 
+       - ```True``` : Si l'ajout dans la base de données à fonctionné
+       - ```False``` : Si non
+
+3. **Récupérer tous les établissements de la base de données**
+   - Lien : ```/api/v2/etablishment/get/```
+   - Paramètres : 
+     - Aucun
+   - Lien avec paramètres : ```/api/v2/etablishment/get/```
+   - Retour : 
+       - Un tableau avec les établissement ou chaque établissement contient:
+         - ```id``` : l'id de l'établissement
+         - ```name``` : le nom
+         - ```address``` : l'addresse
+         - ```phone``` : le numéro de téléphone
+         - ```email``` : l'email
+         - ```menu_name``` : le nom du menu (si il y en as un, sinon null)
+         - ```menu_description``` : la description du menu (si il y en as une, sinon null)
+
+4. **Récupérer les informations d'un établissement**
+   - Lien : ```/api/v2/etablishment/get/```
+   - Paramètres : 
+     - ```id``` : l'id de l'établissement
+   - Lien avec paramètres : ```/api/v2/etablishment/get/?id=[l'id de l'établissement```
+   - Retour : 
+       - ```id``` : l'id de l'établissement
+       - ```name``` : le nom
+       - ```address``` : l'addresse
+       - ```phone``` : le numéro de téléphone
+       - ```email``` : l'email
+       - ```menu_name``` : le nom du menu (si il y en as un, sinon null)
+       - ```menu_description``` : la description du menu (si il y en as une, sinon null)

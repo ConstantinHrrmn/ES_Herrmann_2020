@@ -10,11 +10,14 @@ VERSION     : 1.0
 // On inclu le connecteur de la base de données
 include '../../pdo.php';
 
+/*
+* Récupère tous les établissements
+*/
 function GetAllEtablishements(){
     static $query = null;
 
     if ($query == null) {
-      $req = 'SELECT e.name, e.address, e.phone, e.email, m.name as menu_name, m.description as menu_descritpion FROM `establishment` as e INNER JOIN menu as m ON e.id = m.id';
+      $req = 'SELECT e.id, e.name, e.address, e.phone, e.email, m.name as menu_name, m.description as menu_descritpion FROM `establishment` as e LEFT JOIN menu as m ON e.id = m.id';
       $query = database()->prepare($req);
     }
   
@@ -30,11 +33,16 @@ function GetAllEtablishements(){
     return $res;
 }
 
+/*
+* Récupère un établissement d'après son id
+* Params:
+*     - idEtablishement : l'id de l'établissement dont on veut les infos
+*/
 function GetEtablishementById($idEtablishement){
     static $query = null;
 
     if ($query == null) {
-      $req = 'SELECT e.name, e.address, e.phone, e.email, m.name as menu_name, m.description as menu_descritpion FROM `establishment` as e INNER JOIN menu as m ON e.id = m.id WHERE e.id = '.$idEtablishement;
+      $req = 'SELECT e.id, e.name, e.address, e.phone, e.email, m.name as menu_name, m.description as menu_descritpion FROM `establishment` as e LEFT JOIN menu as m ON e.id = m.id WHERE e.id = '.$idEtablishement;
       $query = database()->prepare($req);
     }
   

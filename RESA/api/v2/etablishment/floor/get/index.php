@@ -11,6 +11,11 @@ VERSION     : 1.0
 // On inclu le connecteur de la base de données
 include '../../../pdo.php';
 
+/*
+*   Récupère tous les Etages d'un etablissement avec leurs zones et horaires
+*   Params:
+*     - idEtablishement : l'id de l'établissement dont on veut les infos
+*/
 function GetEtablishmentFloors($idEtablishement){
     static $query = null;
 
