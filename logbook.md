@@ -28,7 +28,7 @@ Pour le moment mon API est encore très basique. Je n'ai que accès au employés
 - username : resa_tech_es
 - password : WhutMerYmZeR6EHb
 
-### Login avec l'API
+### Login avec l'API (MAJ le 23.04.2020)
 Afin de stocker les mot de passe en hashé dans la base de données j'utilise un système de hashage.
 1. l'utilisateur entre son mot de passe
 2. Le mot de passe est ensuite hashé en sha256
@@ -319,4 +319,21 @@ Les deux outils sont puissants et vont certainement êtres utiles dans un futur 
 #### Le développement de l'API va me prendre beaucoup plus de temps que prévu... je vais devoir faire des choix sur les fonctionnalités à ajouter... A suivre
 
 ---
+
+---
+
+## 23.04.20
+### L'objectif du jour est de continuer un maximum l'API. Et de commencer 2 - 3 vues qui récupèrent les restaurants et leurs menus.
+La complexité de mon travail de diplôme est la gestion de réservation en fonction des horaires des zones. Pour le moment je ne me suis pas encore penché sur le problème, car l'API de base, me prend du temps. Je vais revoir mon planning.
+
+- Geré le Login d'un utilisateur
+  - J'utilise la même méthode que dans la V1 de l'API
+![Schema de connexion](./Documentation/Images/schema_connexion.JPG)
+
+- Création d'un cheat sheet pour l'API afin de rendre son utilisation plus facile par un externe
+  - Le but de ce cheat sheet est de faciliter l'utilisation de l'API aux personnes qui aurons besoin de l'utiliser afin de continuer l'application ou pour une autre utilisation.
+  - Ca me permet également de retrouver ou et comment récupérer un certain type de données que je cherche.
+
+### APPEL M. Garcia
+- Regarder pour convention / norme requête SQL
 

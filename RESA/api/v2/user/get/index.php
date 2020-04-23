@@ -11,6 +11,13 @@ VERSION     : 1.0
 // On inclu le connecteur de la base de données
 include '../../pdo.php';
 
+// On inclu le fichier que génère le mot de passe pour l'utilisateur
+include '../login/index.php';
+
+// Une clé qui sera hashée avec le mot de passe pour pouvoir le stocker de manière sécurisée dans la base de données
+// Cette clé sera certainement stockée autre part dans le futur
+$key = "u7csu5qH6Cp9xWkrIgtGvTsOosnKvH9RhQOXteJtNhknqrEHcjp8dCGYuv02SBoHGsBRoN0zGeGeToULmWUDTb2HAgnSGntNJHmg";
+
 // Get all users permet de récupérer tous les users de la base de données
 function GetAllUsers(){
   static $query = null;
@@ -107,6 +114,40 @@ function GetUser($id){
   return $res;
 }
 
+/*
+* Récupère les données d'un utilisateur d'après son id 
+* Params :
+*   - $username : le nom d'utilisateur
+*   - $password : le mot de passe déjà hashé en sha256
+*/
+function Login($username, $password){
+  global $key;
+  $pass = hash('sha256', hash('sha256', $key).$password);
+
+  static $query = null;
+
+  if ($query == null) {
+    $req = 'SELECT `id`, `first_name`, `last_name`, `phone`, `email` FROM `user` WHERE `username` = :u AND `password` = :p';
+    $query = database()->prepare($req);
+  }
+
+  try {
+    $query->bindParam(":u", $username, PDO::PARAM_STR);
+    $query->bindParam(":p", $pass, PDO::PARAM_STR);
+    $query->execute();
+    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+  }
+  catch (Exception $e) {
+    error_log($e->getMessage());
+    $res = false;
+  }
+
+  if(count($res) < 1 || $res == null || $res == false){
+    return false;
+  }else{
+    return $res;
+  }
+}
 
 if(isset($_GET['byPermission'])){
   $idPermission = $_GET['byPermission'];
@@ -133,6 +174,18 @@ else if(isset($_GET['user']) && isset($_GET['id'])){
     echo json_encode(GetUser($id));
   }else{
     echo json_encode("Valeur non integer");
+  }
+}
+else if(isset($_GET['login']) && isset($_GET['username']) && isset($_GET['password'])){
+  $username = $_GET['username'];
+  //$password = hash('sha256', $_GET['password']);
+  $password = $_GET['password'];
+
+  $user = Login($username, $password);
+  if($user != false){
+    echo json_encode($user);
+  }else{
+    echo json_encode("Utilisateur ou mot de passe incorrect");
   }
 }
 else if(isset($_GET['id'])){
