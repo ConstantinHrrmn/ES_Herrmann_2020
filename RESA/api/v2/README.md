@@ -205,7 +205,17 @@ Lien : ```/api/v2/images/```
        - Un tbaleau avec tous les chemins:
          - ```full_path``` : le lien complet dans l'API pour rejoindre l'image
 
-3. **Mise en ligne d'une photo**
+4. **Récupérer toutes les images d'un repas**
+   - Lien : ```/api/v2/images/get/```
+   - Paramètres : 
+     - ```dish``` : (il n'y à pas besoin de valeur)
+     - ```id``` : l'id du repas
+   - Lien avec paramètres : ```/api/v2/images/get/?dish&id=[l'id du repas]```
+   - Retour : 
+       - Un tbaleau avec tous les chemins:
+         - ```full_path``` : le lien complet dans l'API pour rejoindre l'image
+
+5. **Mise en ligne d'une photo**
      - Afin de mettre en ligne une photo il faut :
        1. Inclure le fichier ```/api/v2/images/upload/index.php```
        2. Dans ce fichier ce trouvent les 2 fonctions suivantes :
