@@ -340,3 +340,47 @@ La complexité de mon travail de diplôme est la gestion de réservation en fonc
 
 #### Bonnes pratiques SQL
 Afin d'unifier mon code avec les bonnes pratiques, je me suis référé au [site](https://wiki.easyvista.com/xwiki/bin/view/Documentation/SQL+rules?language=fr) que m. Garcia m'as fait parvenir.
+
+---
+## 24.04.20
+
+- Création du  diagramme d'activité pour la création d'un compte client dans l'application :
+![Diagramme activité création client](./Documention/../Documentation/Diagrammes_activites/PNGs/DA_Creation_utilisateur_client.vpd.png)
+
+- Création du  diagramme d'activité pour faire une réservation dans un restaurant :
+![Diagramme activité réservation dans un restaurant](./Documention/../Documentation/Diagrammes_activites/PNGs/DA_Reservation.png)
+
+- Objectif actuellement :
+  - Faire les vues et le script qui tourne derrière afin de déjà faire fonctionner les diagrammes ci-dessus
+  - Mettre à jour la documentation avec les demandes de m. Garcia
+  - Mettre en place le système des images afin d'avoir de belles vues
+
+### Evalutation intermédiaire (appel avec m. Garcia)
+#### Documentation 
+- Ajouter le numéro de version sur la page de garde
+- Titre de la table des matières
+- Mettre des numéros devant les titres
+- Ajouter le mot "page" devant le numéro de page + "/" et le numéro de pages totaux du document
+- Créer un diagramme d'activités (par qui ça passe)
+
+#### Github
+- Penser à supprimer les mot de passes
+
+#### Google Drive
+- (Ajout la syncronisation avec google Drive)
+- Faire des backups QUOTIDIEN et non tous les 2 jours
+- Règle de nommage : ```année_mois_jour(_heure_minute_secondes)_[nom fichier].extension```
+
+#### Serveur 
+- J'aurais du utiliser WSL au lieu de laragon
+
+#### Login
+- Au lieu d'utiliser des cartes RFID 
+
+#### Images
+- Utiliser la fonction unique ID de PHP pour renommer les images mises en ligne
+- https://www.php.net/manual/fr/function.uniqid.php
+
+#### Poster
+- Expert ont de la peine a ce retrouver -> faire un diagramme physique
+

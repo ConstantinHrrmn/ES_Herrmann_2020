@@ -17,4 +17,4 @@ function randomUsername($size) {
 }
 
 // Appel automatiquement la fonction quand on arrive sur la page
-echo json_encode(randomUsername());
+echo json_encode(randomUsername(4));
