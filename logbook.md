@@ -352,16 +352,30 @@ Afin d'unifier mon code avec les bonnes pratiques, je me suis référé au [site
 
 - Objectif actuellement :
   - Faire les vues et le script qui tourne derrière afin de déjà faire fonctionner les diagrammes ci-dessus
-  - Mettre à jour la documentation avec les demandes de m. Garcia
-  - Mettre en place le système des images afin d'avoir de belles vues
+  - Mettre à jour la documentation avec les demandes de m. Garcia : **OK** 
+  - Mettre en place le système des images afin d'avoir de belles vues : **OK [terminé le 24.04 à 23:53]**
+
+- Afin de pouvoir mettre les images dans la base de données avec un uniqID, je dois créer une page provisoire pour uploader les photos sur le serveur
+  - Je vais donc créer une page php avec une form simple qui me permet de selectionner un des plats de la base et la photo à mettre en ligne
+  - La page est accessible via : ```/api/v2/images/upload/debug/```
+  - J'ai vite du ajouter une fonction dans l'API, une fonction qui me permet de récupérer tous les plats de la base
+  - J'ai donc créer un formulaire qui permet de sélectionner le restaurant ou le repas auquel on souhaites ajouter une photo. 
+  - Il faut maintenant que je fasse la partie de l'API qui permet d'ajouter le lien entre la photo et le plat ou l'etablissement
+  - J'ai créer la partie de l'api qui me permet de mettre en ligne un photo avec un uniqid. (Ca m'as pris un temps fou)
+  - L'upload est totalement temriné ! ```/api/v2/images/upload/```
+    - Pour utiliser ce fichier, il faut l'include dans celui qui va envoyer l'image (Plus d'explication dans le Cheat sheet de l'API v2)
+  - Il est possible de récupérer les informations d'une image d'après son id et le paramètre "data". ```/api/v2/images/get/?path&id=[id de l'image]```
+  - Il est possible d'être directement rediriger sur la photo en indiquant uniquement son id : ```/api/v2/images/get/?id=[id de l'image]```
+  - Il est possible de récupérer toutes les images d'un établissement !
+  - Je suis en train d'ajouter la requête pour récupérer toutes les photos d'un plat mais je me dis que je devrais aussi faire en sorte que l'on puisse récupérer toutes les images d'un menu entier d'un restaurant. A retenir
 
 ### Evalutation intermédiaire (appel avec m. Garcia)
 #### Documentation 
-- Ajouter le numéro de version sur la page de garde
-- Titre de la table des matières
-- Mettre des numéros devant les titres
-- Ajouter le mot "page" devant le numéro de page + "/" et le numéro de pages totaux du document
-- Créer un diagramme d'activités (par qui ça passe)
+- Ajouter le numéro de version sur la page de garde : **OK**
+- Titre de la table des matières : **OK**
+- Mettre des numéros devant les titres : **OK**
+- Ajouter le mot "page" devant le numéro de page + "/" et le numéro de pages totaux du document : **OK**
+- Créer un diagramme d'activités (par qui ça passe) -> J'en ai fait 2, ce sont les deux avec lesquels je vais commencer les vues
 
 #### Github
 - Penser à supprimer les mot de passes

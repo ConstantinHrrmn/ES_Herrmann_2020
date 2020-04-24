@@ -85,11 +85,37 @@ function GetMenu($idEtablishement){
     return $res;
 }
 
+/*
+* Récupère tous les plats
+*/
+function GetAllDishes(){
+  static $query = null;
+
+  if ($query == null) {
+    $req = 'SELECT d.id, d.name as dish_name, d.price, dt.name as type_name FROM `dish` as d INNER JOIN `dish_type` as dt ON d.idType = dt.id';
+    $query = database()->prepare($req);
+  }
+
+  try {
+    $query->execute();
+    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+  }
+  catch (Exception $e) {
+    error_log($e->getMessage());
+    $res = false;
+  }
+
+  return $res;
+}
+
 if(isset($_GET['dishes']) && isset($_GET['id'])){
     $id = $_GET['id'];
     if(is_numeric($id)){
         echo json_encode(GetDishesForMenu($id));
     }
+}
+else if(isset($_GET['dishes'])){
+  echo json_encode(GetAllDishes());
 }
 else if(isset($_GET['meals']) && isset($_GET['id'])){
     $id = $_GET['id'];

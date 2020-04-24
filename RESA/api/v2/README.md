@@ -163,7 +163,7 @@ Lien : ```/api/v2/etablishment/```
    - Lien : ```/api/v2/etablishment/get/```
    - Paramètres : 
      - ```id``` : l'id de l'établissement
-   - Lien avec paramètres : ```/api/v2/etablishment/get/?id=[l'id de l'établissement```
+   - Lien avec paramètres : ```/api/v2/etablishment/get/?id=[l'id de l'établissement]```
    - Retour : 
        - ```id``` : l'id de l'établissement
        - ```name``` : le nom
@@ -172,3 +172,51 @@ Lien : ```/api/v2/etablishment/```
        - ```email``` : l'email
        - ```menu_name``` : le nom du menu (si il y en as un, sinon null)
        - ```menu_description``` : la description du menu (si il y en as une, sinon null)
+
+
+---
+## Images
+Lien : ```/api/v2/images/```
+
+1. **Récupérer les informations completes d'une image**
+   - Lien : ```/api/v2/images/get/```
+   - Paramètres : 
+     - ```data``` : (il n'y à pas besoin de valeur)
+     - ```id``` : l'id de l'image
+   - Lien avec paramètres : ```/api/v2/images/get/?data&id=[l'id de l'image]```
+   - Retour : 
+       - ```[le path complet]```
+
+2. **Etre rediriger sur l'image**
+   - Lien : ```/api/v2/images/get/```
+   - Paramètres : 
+     - ```id``` : l'id de l'image
+   - Lien avec paramètres : ```/api/v2/images/get/?id=[l'id de l'image]```
+   - Retour : 
+       - Redirection sur la page de l'image
+
+3. **Récupérer toutes les images d'un etablissement**
+   - Lien : ```/api/v2/images/get/```
+   - Paramètres : 
+     - ```etablishment``` : (il n'y à pas besoin de valeur)
+     - ```id``` : l'id de l'établissement
+   - Lien avec paramètres : ```/api/v2/images/get/?etablishment&id=[l'id de l'établissement]```
+   - Retour : 
+       - Un tbaleau avec tous les chemins:
+         - ```full_path``` : le lien complet dans l'API pour rejoindre l'image
+
+3. **Mise en ligne d'une photo**
+     - Afin de mettre en ligne une photo il faut :
+       1. Inclure le fichier ```/api/v2/images/upload/index.php```
+       2. Dans ce fichier ce trouvent les 2 fonctions suivantes :
+          1. ```SaveImageEtablishement($idEtbalishement, $idUploader, $file, $target_dir, $toMove)```
+          2. ```SaveImageDish($idDish, $idUploader, $file, $target_dir, $toMove)```
+
+          Les deux fonction prennent les paramètres suivants :
+          - ```idEtablissement``` ou  ```idDish``` en fonction de quelle fonction on appelle
+          - ```idUploader``` : l'id du user qui met en ligne la photo 
+          - ```file``` : le fichier (photo) provenant du ```$_FILES``` d'un formulaire
+          - ```target_dir``` : le dossier de destination (ce trouvant dans le dossier ```images```)
+          - ```toMove``` : le chemin a partir du fichier actuel pour rejoindre le dossier ```ìmages/```
+            - ex : ```toMove``` = ```"../../"``` | ```target_dir``` = ```"dish"``` | ```file_name``` = ```"image.jpg"```
+            - résultat : le chemin pour l'enregistrement sera : ```"../../images/dish/image.jpg"``` 
