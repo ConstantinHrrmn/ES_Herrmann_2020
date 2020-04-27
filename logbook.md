@@ -398,3 +398,14 @@ Afin d'unifier mon code avec les bonnes pratiques, je me suis référé au [site
 #### Poster
 - Expert ont de la peine a ce retrouver -> faire un diagramme physique
 
+---
+## 26.04.20
+- Suite de la documentation, commencement de la partie de la gestion des images.
+- J'ai commencer la structure de l'API dans la documentation, mais je ne vais pas la terminer car celle.ci risque de changer.
+
+### Page Login
+- Création de la page de login à partir du template
+  - Nettoyage de la page et des composants non-nécéssaires
+
+### Idées pour plus tard afin de encore plus me faciliter la vie
+- Ajout d'un nouveau fichier dans le dossier ```images``` de l'API. Ce fichier va permettre de directement envoyer le résultat d'un ```forms``` directement à ce fichier afin qu'il puisse ajouter la photo dans la base de données.
