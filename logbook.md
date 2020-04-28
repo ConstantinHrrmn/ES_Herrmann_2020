@@ -409,3 +409,11 @@ Afin d'unifier mon code avec les bonnes pratiques, je me suis référé au [site
 
 ### Idées pour plus tard afin de encore plus me faciliter la vie
 - Ajout d'un nouveau fichier dans le dossier ```images``` de l'API. Ce fichier va permettre de directement envoyer le résultat d'un ```forms``` directement à ce fichier afin qu'il puisse ajouter la photo dans la base de données.
+
+--- 
+## 27.04.20
+
+### Appel avec m. Garcia
+- Voir si Laraval et iyy peut être plus efficace
+
+- J'ai effectuer des recherches pour voir si Laravel ou iyy allaient pouvoir me faciliter la tâche pour mon travail.
