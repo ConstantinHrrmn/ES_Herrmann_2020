@@ -344,6 +344,7 @@ Afin d'unifier mon code avec les bonnes pratiques, je me suis référé au [site
 ---
 ## 24.04.20
 
+### CES DIAGRAMMES d'ACTIVITES NE SONT PLUS A JOUR ! VOIR PLUS BAS ...
 - Création du  diagramme d'activité pour la création d'un compte client dans l'application :
 ![Diagramme activité création client](./Documention/../Documentation/Diagrammes_activites/PNGs/DA_Creation_utilisateur_client.vpd.png)
 
@@ -416,4 +417,31 @@ Afin d'unifier mon code avec les bonnes pratiques, je me suis référé au [site
 ### Appel avec m. Garcia
 - Voir si Laraval et iyy peut être plus efficace
 
-- J'ai effectuer des recherches pour voir si Laravel ou iyy allaient pouvoir me faciliter la tâche pour mon travail.
+- J'ai effectuer des recherches pour voir si Laravel ou iyy allaient pouvoir me faciliter la tâche pour mon travail. Malheureusement rien ne correspond à ce dont j'ai réellement besoin, car mes requêtes sont tellement spécifiques que un générateur de code ne me sert à rien.
+
+---
+## 28.04.20
+
+- Création du [fichier](./Documentation/Gestion_taches_API.xlsx) 
+ des tâches à faire pour l'API 
+- Je vais reprendre mes diagrammes d'activités
+  - Il faut que je comprenne d'abord, comment réaliser correctement un diagramme d'activité.
+  - Je vais utiliser le lien ci-dessus comme model pour les normes que j'utilise.
+- J'ai un peu continuer la documentation
+
+- Création du diagramme d'activité pour la connexion et création de compte : ![Diagramme activité réservation connexion](./Documentation/Diagrammes_activites/PNGs/V2/Diagramme_Connexion.png) 
+
+Après avoir pris 2 jours de recul sur mon projet, j'ai pu me rendre compte de ce que j'avais réellement à faire. Je vais donc faire un nouveau tableau des tâches à faire (dans l'ordre) et des priorités. Comme c'est un projet qui demande beaucoup de temps et de tables, je dois faire la part des choses.
+
+- Croquis des choses à faire dans un premier temps : ![Croquis choses à faire](./Documention/../Documentation/Images/croquis_choses_a_faire_2804.jpg) 
+
+- Mise au propre des choses à faire : ![Mise au propore des choses à faire](./Documention/../Documentation/Images/Mise_au_propre_choses_a_faire.jpg) 
+
+### Appel avec m. Garcia 
+- Utilisation de DrawIO 
+  - Permet de sauver directement dans le Google Drive
+  - Produit directement les UML
+- Trouver des normes pour lés diagrammes d'activités : https://sourcemaking.com/uml/modeling-business-systems/external-view/activity-diagrams
+- Inconsistances dans les diagrammes
+  - S'inspirer des normes
+  - Revoir mes diagrammes
