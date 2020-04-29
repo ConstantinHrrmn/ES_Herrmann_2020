@@ -106,6 +106,52 @@ function SaveImageDish($idDish, $idUploader, $file, $target_dir, $toMove){
 }
 
 /*
+* Lie une image à un utilisateur
+* Params:
+*   - idUSer : l'id de l'utilisateur
+*   - idUploader : l'id de l'utilisateur qui met en ligne la photo
+*   - file : la photo à mettre en ligne
+*   - target_dir : le dossier dans lequel stocker la photo
+*   - Le nombre de répertoire en arrière ou en avant pour atteindre "images/..."
+*/
+function SaveImageUser($idUser, $idUploader, $file, $target_dir, $toMove){
+  // Création de l'id unique pour renommer la photo
+  $id =uniqid();
+
+  // On déplace l'image dans le dossier de destination
+  $target_file = UploadImage($toMove, $target_dir, $file, $id);
+
+  // Déclaration d'une variable avec le dossier initial du dossier image
+  $base_dir = "images/";
+
+  // On vérifie si le nom n'est pas égal à -1 (REF: UploadImage())
+  if($target_file != -1){
+
+      // On ajoute l'image dans la base de données
+      $finalePath = $base_dir.$target_file;
+      AddImageToDatabase($id, $finalePath, $idUploader);
+
+      // On ajoute le lien entre l'image et le plat dans la base de données
+      static $query2 = null;
+
+      if ($query2 == null) {
+        $req = 'INSERT INTO `user_has_image`(`idUser`, `idImage`) VALUES (:d, :i)';
+        $query2 = database()->prepare($req);
+      }
+    
+      try {
+          $query2->bindParam(':d', $idUser, PDO::PARAM_STR);
+          $query2->bindParam(':i', $id, PDO::PARAM_STR);
+
+          $query2->execute();
+      }
+      catch (Exception $e) {
+        error_log($e->getMessage());
+      }
+  } 
+}
+
+/*
 * Enregistre une images dans un dossier
 * Params:
 *   - ToMove : Le nombre de répertoire en arrière ou en avant pour atteindre "images/..."

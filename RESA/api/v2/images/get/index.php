@@ -102,6 +102,34 @@ function GetImagesForDish($id, $FullPathToAPI){
     }
 }
 
+/*
+* Récupère le path de l'image de profil d'un utilisateur
+* Params:
+*   - id : l'id de l'utilisateur
+*   - FullPathToAPI : le chemin complet vers l'API
+*/
+function GetImageForUser($id, $FullPathToAPI){
+  static $query = null;
+
+  if ($query == null) {
+    $req = 'SELECT CONCAT(:f, i.path) as full_path FROM `user_has_image` as uhi INNER JOIN `images` as i ON uhi.idImage = i.id WHERE uhi.idUser = :i';
+    $query = database()->prepare($req);
+  }
+
+  try {
+      $query->bindParam(':f', $FullPathToAPI, PDO::PARAM_STR);
+      $query->bindParam(':i', $id, PDO::PARAM_STR);
+
+      $query->execute();
+      $res = $query->fetch(PDO::FETCH_ASSOC);
+      return $res;
+  }
+  catch (Exception $e) {
+    error_log($e->getMessage());
+    return false;
+  }
+}
+
 if(isset($_GET['data']) && isset($_GET['id'])){
     echo json_encode(GetImageData($_GET['id']) );
 }
@@ -110,6 +138,9 @@ else if(isset($_GET['etablishment']) && isset($_GET['id'])){
 }
 else if(isset($_GET['dish']) && isset($_GET['id'])){
     echo json_encode(GetImagesForDish($_GET['id'], $FullPathToAPI));
+}
+else if(isset($_GET['user']) && isset($_GET['id'])){
+  echo json_encode(GetImageForUser($_GET['id'], $FullPathToAPI));
 }
 else if(isset($_GET['id'])){
     header("Location: ".$FullPathToAPI.GetImagePath($_GET['id']));

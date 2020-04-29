@@ -3135,10 +3135,10 @@ background-color: #d9534f;
 }
 
 .btn-outline-primary:not(:disabled):not(.disabled).active:focus, .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-outline-primary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.2rem #bc2634;
+    box-shadow: 0 0 0 0.2rem #8BDB00;
 }
 .btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.2rem #bc2634;
+    box-shadow: 0 0 0 0.2rem #8BDB00;
 }
 
 .wrapper-new1 {
@@ -3178,7 +3178,7 @@ background-color: #d9534f;
   color: #fff;
 }
 .btn-link{
-  color: #ff0018;
+  color: #8BDB00;
 }
 .btn.btn-square,
 .ms-btn-icon.btn-square,
@@ -3195,13 +3195,13 @@ background-color: #d9534f;
 }
 .btn-primary{
   color: #fff;
-  background-color: #ff0018;
-  border-color: #ff0018;
+  background-color: #8BDB00;
+  border-color: #8BDB00;
 }
 
 
 .ms-dark-theme .btn-primary{
-  color: #ff0018;
+  color: #8BDB00;
   background-color: #ffffff;
   border-color: #ffffff;
 }
@@ -3213,15 +3213,15 @@ background-color: #d9534f;
 .ms-dark-theme .btn-white{
   background-color: #fff;
   border-color: #fff;
-  color: #ff0018;
+  color: #8BDB00;
 }
 .btn-primary:hover,
 .btn-primary:focus,
 .ms-btn-icon-outline.btn-primary:focus,
 .btn-primary:not(:disabled):not(.disabled):active,
 .btn-outline-primary:hover{
-  background-color: #bc2634;
-  border-color: #bc2634;
+  background-color: #41B500;
+  border-color: #41B500;
   color: #fff
 }
 .btn-secondary{
@@ -5071,7 +5071,7 @@ table.dataTable thead .sorting_desc_disabled:after{
 .ms-auth-bg{
   position: relative;
   height: 100%;
-  background-image: url('../img/RESA_700x100.png');
+  background-image: url('http://localhost/Travail_diplome_ES_2020/RESA/api/v2/images/background/?background');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -5428,10 +5428,11 @@ a.ms-g-plus,
   position: relative;
   display: flex;
   align-items: flex-end;
-  background-image: url('https://via.placeholder.com/1920x400');
+  background-image: url('http://localhost/Travail_diplome_ES_2020/RESA/api/v2/images/background/?profil_background');
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
+  background-position: 50% 50%;
   height: 87%;
   width: 100%;
   padding: 1.5rem;

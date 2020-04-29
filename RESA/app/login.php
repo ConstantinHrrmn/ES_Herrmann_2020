@@ -1,7 +1,31 @@
 <?php
+  include "../api/v2/vars.php";
+
+  // On lance la session afin de récupérer les variables
+  session_start();
+
   if(isset($_POST['connexion'])){
-    var_dump($_POST);
+    $link = $FullPathToAPI."user/get/";
+    if(isset($_POST['password'])){
+      $password = hash('sha256', $_POST['password']);
+      if(isset($_POST['username'])){
+        $username = $_POST['username'];
+
+        $link = $link."?login&email=".$username."&password=".$password;
+        // Takes raw data from the request
+        $json = file_get_contents($link);
+        // Converts it into a PHP object
+        $data = json_decode($json);
+
+        $_SESSION['user'] = $data;
+        header("Location: ./profile.php");
+        exit();
+      }
+    }
+    
+    
   }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -437,6 +437,8 @@ Après avoir pris 2 jours de recul sur mon projet, j'ai pu me rendre compte de c
 
 - Mise au propre des choses à faire : ![Mise au propore des choses à faire](./Documention/../Documentation/Images/Mise_au_propre_choses_a_faire.jpg) 
 
+M. Garcia valide ma nouvelle approche.
+
 ### Appel avec m. Garcia 
 - Utilisation de DrawIO 
   - Permet de sauver directement dans le Google Drive
@@ -445,3 +447,42 @@ Après avoir pris 2 jours de recul sur mon projet, j'ai pu me rendre compte de c
 - Inconsistances dans les diagrammes
   - S'inspirer des normes
   - Revoir mes diagrammes
+
+---
+## 29.04.20
+- Je suis en train de faire le login d'un utilisateur, je me suis rendu compte que je devais faire la différencation de si il s'agissait d'un login client ou d'un login utilisateur local.
+  - Il faut que j'ajoute à l'API une fonctionnalité qui gère la différence
+    - Je vais donc créer cette fonctionnalité
+    - Afin de pouvoir ajouter cette fonctionnalité, j'ai un petit souci... Un utilisteur admin peut ce connecter dans tous les restaurants, il faut donc que ma requête gère si il s'agit de d'un admin
+    - ### Il ne faut pas que j'oublie de mettre à jour le cheat sheet !
+  - Il faut que j'ajoute une fonction de login avec l'email 
+  - (je ne sais pas si je dois aussi hasher le username et l'email ou non ... Pour le moment je ne vais pas le faire car les emails sont public...)
+- Ajout du fond d'écran de tous les profils utilisateurs
+  - Accessible à partir de l'API
+- Il faut que je fasse un table de liaison entre les utilisateurs et une photo de profil
+  - La table de liaison est terminée
+  - Ajout d'une image test grace au debug
+- Il faut mettre à jour l'API pour récupérer l'ime ge l'utilisateur
+  - C'est fait ! Pour accéder à la photo, il faut récupérer le chemin de l'image sur ce lien : ```http://localhost/Travail_diplome_ES_2020/RESA/api/v2/images/get/?user&id=[id de l'utilisateur]```
+
+Malheureusement aujourd'hui je n'ai pas fait tout ce que je voulais... Je n'ai fait que le login avec l'affichage de l'utilisateur connecté. Demain j'affiche tous les réstaurants !
+
+### Requête de login employé
+Vérifie uniquement si l'utilisateur travail bien pour l'établissement : ```SELECT u.id as idUser, u.first_name as firstnameUser, u.last_name as lastnameUser, u.phone as phoneUser, u.email as emailUser, p.name as namePermission, p.level as levelPermission, IFNULL(e.id, "-") as idEtablishment, IFNULL(e.name, "-") as nameEtablishment FROM `is_in_as` as iia INNER JOIN `permission` as p ON p.id = iia.idPermission LEFT JOIN `establishment` as e ON e.id = iia.idEtablishement INNER JOIN `user` as u ON u.id = iia.idUser WHERE iia.idUser IN (SELECT `id` FROM `user` WHERE `username` = '[numéro d'identification]' AND `password` = '[mot de passe hashé]') AND iia.idEtablishement = [id de l'établissement]```
+
+Retourne le nom de l'utilisateur si l'identifiant d'utilisateur et le mot de passe éxistent bien dans l'établissement ou est membre de l'administration :
+```SELECT u.id as idUser, u.first_name as firstnameUser, u.last_name as lastnameUser, u.phone as phoneUser, u.email as emailUser, p.name as namePermission, p.level as levelPermission, IFNULL(e.id, "-") as idEtablishment, IFNULL(e.name, "-") as nameEtablishment FROM `is_in_as` as iia INNER JOIN `permission` as p ON p.id = iia.idPermission LEFT JOIN `establishment` as e ON e.id = iia.idEtablishement INNER JOIN `user` as u ON u.id = iia.idUser WHERE iia.idUser IN (SELECT `id` FROM `user` WHERE `username` = '[numéro d'identification]' AND `password` = '[mot de passe hashé]') AND (iia.idEtablishement = [id de l'établissement] OR iia.idPermission = 1)```
+
+La requête ci-dessus ne me sert pas dans l'imédiat, mais au moins elle est prête !
+
+### Création de la page de profil
+- Reprise du template pour créer la page de profil de l'utilisateur 
+- Il faut maintenant que je récupère les données de la session afin de vérifier que l'utilisateur soit bien connécté et qu'il puisse bien avoir ces informations
+
+### Appel avec m. Garcia
+- Chercher un outil qui intègre des données dans la base 
+  - Il va contacter un ancien élève qui avait utilisé ça. En attendant de ses nouvelles, je vais continuer mon programme.
+
+- Liens potentiels pour le remplissage automatique de données :
+  - http://www.generatedata.com/?lang=fr#t1
+  - https://github.com/benkeen/generatedata

@@ -14,9 +14,7 @@ include '../../pdo.php';
 // On inclu le fichier que génère le mot de passe pour l'utilisateur
 include '../password/index.php';
 
-// Une clé qui sera hashée avec le mot de passe pour pouvoir le stocker de manière sécurisée dans la base de données
-// Cette clé sera certainement stockée autre part dans le futur
-$key = "u7csu5qH6Cp9xWkrIgtGvTsOosnKvH9RhQOXteJtNhknqrEHcjp8dCGYuv02SBoHGsBRoN0zGeGeToULmWUDTb2HAgnSGntNJHmg";
+include '../../vars.php';
 
 // Get all users permet de récupérer tous les users de la base de données
 function GetAllUsers(){
@@ -115,34 +113,71 @@ function GetUser($id){
 }
 
 /*
-* Récupère les données d'un utilisateur d'après son id 
+* Récupère les données d'un utilisateur si celui-ci travail bien dans l'établissement en question
 * Params :
 *   - $username : le nom d'utilisateur
 *   - $password : le mot de passe déjà hashé en sha256
+*   - $idEtablishment : l'id de son établissement
 */
-function Login($username, $password){
+function LoginEtablishment($username, $password, $idEtablishment){
   global $key;
   $pass = hash('sha256', hash('sha256', $key).$password);
 
   static $query = null;
 
   if ($query == null) {
-    $req = 'SELECT `id`, `first_name`, `last_name`, `phone`, `email` FROM `user` WHERE `username` = :u AND `password` = :p';
+    $req = 'SELECT u.id as idUser, u.first_name as firstnameUser, u.last_name as lastnameUser, u.phone as phoneUser, u.email as emailUser, p.name as namePermission, p.level as levelPermission, IFNULL(e.id, "-") as idEtablishment, IFNULL(e.name, "-") as nameEtablishment FROM `is_in_as` as iia INNER JOIN `permission` as p ON p.id = iia.idPermission LEFT JOIN `establishment` as e ON e.id = iia.idEtablishement INNER JOIN `user` as u ON u.id = iia.idUser WHERE iia.idUser IN (SELECT `id` FROM `user` WHERE `username` = :u AND `password` = :p) AND (iia.idEtablishement = :e OR iia.idPermission = 1)';
     $query = database()->prepare($req);
   }
 
   try {
     $query->bindParam(":u", $username, PDO::PARAM_STR);
     $query->bindParam(":p", $pass, PDO::PARAM_STR);
+    $query->bindParam(":e", $idEtablishment, PDO::PARAM_STR);
     $query->execute();
-    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+    $res = $query->fetch(PDO::FETCH_ASSOC);
   }
   catch (Exception $e) {
     error_log($e->getMessage());
     $res = false;
   }
 
-  if(count($res) < 1 || $res == null || $res == false){
+  if($res == null || $res == false){
+    return false;
+  }else{
+    return $res;
+  }
+}
+
+/*
+* Récupère les données d'un utilisateur d'après son id 
+* Params :
+*   - $email : l'email du client
+*   - $password : le mot de passe déjà hashé en sha256
+*/
+function Login($email, $password){
+  global $key;
+  $pass = hash('sha256', hash('sha256', $key).$password);
+
+  static $query = null;
+
+  if ($query == null) {
+    $req = 'SELECT `id`, `first_name`, `last_name`, `phone`, `email` FROM `user` WHERE `email` = :e AND `password` = :p';
+    $query = database()->prepare($req);
+  }
+
+  try {
+    $query->bindParam(":e", $email, PDO::PARAM_STR);
+    $query->bindParam(":p", $pass, PDO::PARAM_STR);
+    $query->execute();
+    $res = $query->fetch(PDO::FETCH_ASSOC);
+  }
+  catch (Exception $e) {
+    error_log($e->getMessage());
+    $res = false;
+  }
+
+  if($res == null || $res == false){
     return false;
   }else{
     return $res;
@@ -176,17 +211,25 @@ else if(isset($_GET['user']) && isset($_GET['id'])){
     echo json_encode("Valeur non integer");
   }
 }
-else if(isset($_GET['login']) && isset($_GET['username']) && isset($_GET['password'])){
+else if(isset($_GET['login_e']) && isset($_GET['username']) && isset($_GET['password'])){
   $username = $_GET['username'];
   //$password = hash('sha256', $_GET['password']);
   $password = $_GET['password'];
 
-  $user = Login($username, $password);
+  $user = LoginEtablishment($username, $password, 1);
   if($user != false){
     echo json_encode($user);
   }else{
     echo json_encode("Utilisateur ou mot de passe incorrect");
   }
+}
+else if(isset($_GET['login']) && isset($_GET['email']) && isset($_GET['password'])){
+  $email = $_GET['email'];
+  //$password = hash('sha256', $_GET['password']);
+  $password = $_GET['password'];
+
+  $user = Login($email, $password);
+  echo json_encode($user);
 }
 else if(isset($_GET['id'])){
   $id = $_GET['id'];

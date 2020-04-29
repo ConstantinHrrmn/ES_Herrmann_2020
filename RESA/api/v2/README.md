@@ -78,10 +78,10 @@ Lien : ```/api/v2/user/```
        - ```email``` : l'email de l'utilisateur
        - ```username``` : le code à 4 chiffre d'identification de l'utilisateur
   
-6. **Login d'un utilisateur**
+6. **Login d'un employé dans son restaurant**
    - Lien : ```/api/v2/user/get/```
    - Paramètres : 
-     - ```login``` : (il n'y à pas besoin de valeur)
+     - ```login_e``` : (il n'y à pas besoin de valeur)
      - ```username``` : l'identifiant à 4 chiffres de l'utilisateur
      - ```password``` : le mot de passe hashé en sha256
    - Lien avec paramètres : ```/api/v2/user/get/?login&username=[identifiant 4 chiffres]&password=[mot de passe hashé (sha256)]```
@@ -214,8 +214,18 @@ Lien : ```/api/v2/images/```
    - Retour : 
        - Un tbaleau avec tous les chemins:
          - ```full_path``` : le lien complet dans l'API pour rejoindre l'image
+  
+5. **Récupérer la photo de profil d'un utilisateur**
+   - Lien : ```/api/v2/images/get/```
+   - Paramètres : 
+     - ```user``` : (il n'y à pas besoin de valeur)
+     - ```id``` : l'id de l'établissement
+   - Lien avec paramètres : ```/api/v2/images/get/?user&id=[l'id de l'établissement]```
+   - Retour : 
+       - Un tbaleau avec tous les chemins:
+         - ```full_path``` : le lien complet dans l'API pour rejoindre l'image
 
-5. **Mise en ligne d'une photo**
+6. **Mise en ligne d'une photo**
      - Afin de mettre en ligne une photo il faut :
        1. Inclure le fichier ```/api/v2/images/upload/index.php```
        2. Dans ce fichier ce trouvent les 2 fonctions suivantes :
