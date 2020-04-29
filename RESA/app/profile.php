@@ -1,22 +1,24 @@
 <?php
+  include "./assets/php/vars.php";
+
   session_start();
 
   if(isset($_SESSION['user'])){
     $user = $_SESSION['user'];
 
-    $image_link = "http://localhost/Travail_diplome_ES_2020/RESA/api/v2/images/get/?user&id=".$user->id;
-    // Takes raw data from the request
+    $image_link = $path."images/get/?user&id=".$user->id;
+
     $json = file_get_contents($image_link);
-    // Converts it into a PHP object
-    $data = json_decode($json);
+    $img = json_decode($json);
+
   }
-  /*else{
+  else{
     header("Location : ./login.php");
     exit();
   }
-  */
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,7 +27,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Costic Dashboard</title>
+  <title><?php echo "Votre compte (".$user->first_name." ".$user->last_name.")" ?></title>
   <!-- Iconic Fonts -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="./vendors/iconic-fonts/flat-icons/flaticon.css">
@@ -69,100 +71,51 @@
 
       <div class="ms-profile-overview">
         <div class="ms-profile-cover">
-          <img class="ms-profile-img" src="<?php echo $data->full_path ?>" alt="people">
+          <img class="ms-profile-img" src="<?php echo $img->full_path ?>" alt="people">
           <div class="ms-profile-user-info">
             <h1 class="ms-profile-username"><?php echo $user->first_name ?> <?php echo $user->last_name ?></h1>
             <h2 class="ms-profile-role"></h2>
           </div>
         </div>
+
         <ul class="ms-profile-navigation nav nav-tabs tabs-bordered" role="tablist">
-          <li role="presentation"><a href="#tab1" aria-controls="tab1" class="active show" role="tab" data-toggle="tab"> Aperçu </a></li>
+          <li role="presentation"><a href="#tab1" aria-controls="tab1" class="active" role="tab" data-toggle="tab"> Aperçu </a></li>
           <li role="presentation"><a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab"> Réservations passées </a></li>
           <li role="presentation"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab"> Modifier </a></li>
         </ul>
 
       </div>
-
-      
+    
         <div class="tab-content">
-          <div class="tab-pane" id="tab1">
-
+          <div class="tab-pane active" id="tab1">
             <div class="row">
-
-              <div class="col-xl-7 col-md-12">
-                <div class="ms-panel ms-panel-fh">
-                  <div class="ms-panel-body">
-                    <h2 class="section-title">About Me</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non elit nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-                      Aenean luctus, justo id pellentesque imperdiet, augue metus ornare quam, in pulvinar massa erat nec dui. Nam at facilisis nulla.
-                    </p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non elit nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-                      Aenean luctus, justo id pellentesque imperdiet, augue metus ornare quam, in pulvinar massa erat nec dui. Nam at facilisis nulla.
-                    </p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non elit nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-                      Aenean luctus, justo id pellentesque imperdiet, augue metus ornare quam, in pulvinar massa erat nec dui. Nam at facilisis nulla.
-                    </p>
-                  </div>
-
-                </div>
-              </div>
-
               <div class="col-xl-5 col-md-12">
                 <div class="ms-panel ms-panel-fh">
                   <div class="ms-panel-body">
-                    <ul class="ms-profile-stats">
-                      <li>
-                        <h3 class="ms-count">5790</h3>
-                        <span>Followers</span>
-                      </li>
-                      <li>
-                        <h3 class="ms-count">4.8</h3>
-                        <span>User Rating</span>
-                      </li>
-                    </ul>
-                    <h2 class="section-title">Basic Information</h2>
+                    <h2 class="section-title">Toutes les informations</h2>
                     <table class="table ms-profile-information">
                       <tbody>
                         <tr>
-                          <th scope="row">Full Name</th>
-                          <td>Chihoo Hwang</td>
+                          <th scope="row">Nom complet</th>
+                          <td><?php echo $user->first_name." ".$user->last_name ?></td>
                         </tr>
                         <tr>
-                          <th scope="row">Birthday</th>
-                          <td>January 25th, 1996</td>
+                          <th scope="row">Téléphone</th>
+                          <td><?php echo $user->phone ?></td>
                         </tr>
                         <tr>
-                          <th scope="row">Language</th>
-                          <td>English (US)</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Website</th>
-                          <td>www.example.com</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Phone Number</th>
-                          <td>+123 456 789</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Email Address</th>
-                          <td>example@mail.com</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Location</th>
-                          <td>New York, USA</td>
+                          <th scope="row">Email</th>
+                          <td><?php echo $user->email?></td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
-
             </div>
-
           </div>
 
           <div class="tab-pane" id="tab2">
-
             <div class="col-md-12">
               <div class="ms-panel">
                 <div class="ms-panel-body">
@@ -244,11 +197,9 @@
                 </div>
               </div>
             </div>
-
           </div>
 
           <div class="tab-pane" id="tab3">
-
             <div class="col-xl-6 col-md-12">
               <div class="ms-panel ms-panel-fh">
                 <div class="ms-panel-body">
@@ -314,14 +265,10 @@
                 </div>
               </div>
             </div>
-
           </div>
       </div>
     </div>
   </main>
-
-
-
 
   <!-- SCRIPTS -->
   <!-- Global Required Scripts Start -->

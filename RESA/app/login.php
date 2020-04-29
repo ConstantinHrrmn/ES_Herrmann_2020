@@ -1,11 +1,11 @@
 <?php
-  include "../api/v2/vars.php";
+  include "./assets/php/vars.php";
 
   // On lance la session afin de récupérer les variables
   session_start();
 
   if(isset($_POST['connexion'])){
-    $link = $FullPathToAPI."user/get/";
+    $link = $path."user/get/";
     if(isset($_POST['password'])){
       $password = hash('sha256', $_POST['password']);
       if(isset($_POST['username'])){
@@ -18,6 +18,7 @@
         $data = json_decode($json);
 
         $_SESSION['user'] = $data;
+
         header("Location: ./profile.php");
         exit();
       }
@@ -133,14 +134,14 @@
           <div class="modal-body text-center">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <i class="flaticon-secure-shield d-block"></i>
-            <h1>Forgot Password?</h1>
-            <p> Enter your email to recover your password </p>
+            <h1>Mot de passe oublié ?</h1>
+            <p> Entrer votre adresse email </p>
             <form method="post">
               <div class="ms-form-group has-icon">
                 <input type="text" placeholder="Email Address" class="form-control" name="forgot-password" value="">
                 <i class="material-icons">email</i>
               </div>
-              <button type="submit" class="btn btn-primary shadow-none">Reset Password</button>
+              <button type="submit" class="btn btn-primary shadow-none">Réinitialiser le mot de passe</button>
             </form>
           </div>
 
