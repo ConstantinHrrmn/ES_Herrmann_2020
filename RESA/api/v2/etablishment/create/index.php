@@ -10,6 +10,8 @@ VERSION     : 1.0
 // On inclu le connecteur de la base de données
 include '../../pdo.php';
 
+include '../../vars.php';
+
 /* 
 * Création d'un établissement avec comme paramètres :
 *   - $n : le nom 
@@ -42,8 +44,23 @@ function CreateEtablishment($n, $a, $p, $m){
     }
 }
 
+function CreateIsInAs($idEtablishment, $idUser, $idPermission){
+
+}
+
+if(isset($_GET['name']) && isset($_GET['address']) && isset($_GET['phone']) && isset($_GET['email']) && isset($_GET['creatorID'])){
+    $name = $_GET['name'];
+    $address = $_GET['address'];
+    $phone = $_GET['phone'];
+    $email = $_GET['email'];
+    if(CreateEtablishment($name, $address, $phone, $email)){
+        $json = json_decode(file_get_contents($FullPathToAPI."etablishment/get/?last"));
+        $lastid = $json->last;
+        var_dump($lastid);
+    }
+}
 // Vérifie qu'il y aie bien le nom, l'adresse, le numéro de téléphone et l'email dans les paramètres
-if(isset($_GET['name']) && isset($_GET['address']) && isset($_GET['phone']) && isset($_GET['email'])){
+else if(isset($_GET['name']) && isset($_GET['address']) && isset($_GET['phone']) && isset($_GET['email'])){
     $name = $_GET['name'];
     $address = $_GET['address'];
     $phone = $_GET['phone'];
@@ -55,5 +72,5 @@ if(isset($_GET['name']) && isset($_GET['address']) && isset($_GET['phone']) && i
     }
 }
 else{
-    echo json_encode("Les informations sont incompletes");
+    echo json_encode(false);
 }

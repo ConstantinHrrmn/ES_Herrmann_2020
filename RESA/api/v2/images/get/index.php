@@ -146,5 +146,3 @@ else if(isset($_GET['id'])){
     header("Location: ".$FullPathToAPI.GetImagePath($_GET['id']));
     exit();
 }
-
-

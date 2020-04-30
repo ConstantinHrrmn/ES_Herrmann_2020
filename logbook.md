@@ -462,7 +462,7 @@ M. Garcia valide ma nouvelle approche.
 - Il faut que je fasse un table de liaison entre les utilisateurs et une photo de profil
   - La table de liaison est terminée
   - Ajout d'une image test grace au debug
-- Il faut mettre à jour l'API pour récupérer l'ime ge l'utilisateur
+- Il faut mettre à jour l'API pour récupérer l'image l'utilisateur
   - C'est fait ! Pour accéder à la photo, il faut récupérer le chemin de l'image sur ce lien : ```http://localhost/Travail_diplome_ES_2020/RESA/api/v2/images/get/?user&id=[id de l'utilisateur]```
 
 Malheureusement aujourd'hui je n'ai pas fait tout ce que je voulais... Je n'ai fait que le login avec l'affichage de l'utilisateur connecté. Demain j'affiche tous les réstaurants !
@@ -486,3 +486,56 @@ La requête ci-dessus ne me sert pas dans l'imédiat, mais au moins elle est pr�
 - Liens potentiels pour le remplissage automatique de données :
   - http://www.generatedata.com/?lang=fr#t1
   - https://github.com/benkeen/generatedata
+
+---
+## 30.04.20
+- Finitions de la page des établissements
+- Ajout d'établissements dans la base afin de tester la mise en page
+  - J'ai fait exprès de ne pas mettre de photo pour un réstaurant afin que celui-ci affiche l'image par défaut
+- Je vais faire la page qui affiche le réstaurant afin de pouvoir commencer à faire la logique des réstaurants
+- J'ai créer dans la page de l'utilisateur un panel qui contient 3 tabs
+  - Le premier permettra de voir les dernieres ou futures réservations
+  - Le deuxieme permettre de changer la photo de profil (C'est peut-être la que je vais utiliser le Dropzone.js [REF : ci-dessous])
+  - Le dernier permet de créer facilement un établissement
+    - J'ai du mettre en place le formulaire avec les tests pour vérifier que les champs étaient bien valides
+    - J'ai du ajouter une partie à l'API 
+
+### Création d'un nouvel établissement 
+Voici comment je créer la query que j'envoie ensuite pour la création d'un nouvel établissement
+```
+$queryData = array(
+    'name' => $data['name'],
+    'address' => $data['adress'],
+    'phone' => $data['phone'],
+    'email' => $data['email'],
+    'creatorID' => $creatorID
+);
+
+$link1 = $path."etablishment/create/?".http_build_query($queryData);
+
+file_get_contents($link1);
+```
+
+- J'ai du faire beaucoup de changements du côté de l'API dans les images
+  - ```SaveImageDish``` ainsi que ````SaveImageUser``` ne fonctionnent plus actuellement, mais ce ne sont pas des priorités pour le moment
+
+La deuxième étape, est de faire un upload des images sur le serveur... un peu plus compliqué.
+- ~~Je viens de voir un problème que j'avais dans ma logique d'enregistrer mes images... malheureusement je les enregistrait dans mon API, hors je dois les enregistrer sur le site web et uniquement envoyer le lien à l'API~~
+
+### MAJ API
+- Ajout de la fonctionnalité "is in as" qui permet de directement mettre le créateur de l'établissement en temps que manager 
+- Cette fonction peut être utilisée pour tout type d'ajout (pas seulement manager)
+- Afin que je puisse directement assigné le créateur en temps que manager, je dois récupérer le dernier ID introduis dans la base de données.
+
+~~### Dropzone.js~~
+- ~~Afin de pouvoir autoriser le ```drag & drop``` de photos dans mes formulaires, j'ai utilisé un librairie standalone. Cette librairie s'appelle [dropzone.js]("https://www.dropzonejs.com/")~~
+- Malheureusement ça ne fonctionnais pas comme je le pensais et ça n'est pas compatible avec mon utilisation... Je ne vais pas m'attarder plus sur ça aujourd'hui.
+Si jamais j'ai à nouveau besoin, voici les 2 includes :
+  - ```<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />```
+  - ```<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>```
+
+### Appel avec m. Garcia
+- Les utilisateur doivent êtres archivés
+  - Afin de garder l'historique
+- Trouver un outil qui fait toute l'arboration de l'API
+  - La commande ```tree``` dans le cmd

@@ -4368,7 +4368,7 @@ border: 0;
 }
 .nav-tabs li a.active{
   color: #fff;
-  background-color: #ff0018;
+  background-color: #41B500;
 }
 .nav-tabs.tabs-bordered li a{
   -webkit-transition: 0s;
@@ -6338,8 +6338,8 @@ a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-prima
 }
 .ms-crypto-orders .nav-tabs li a{
   background-color: transparent;
-  color: #ff0018;
-  border: 1px solid #ff0018;
+  color: #41B500;
+  border: 1px solid #41B500;
   padding: 0.825rem 1rem;
   border-radius: .2rem;
   margin-top: 0;
@@ -6353,7 +6353,7 @@ a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-prima
   border-bottom-left-radius: 0;
 }
 .ms-crypto-orders .nav-tabs li a.active{
-  background-color: #ff0018;
+  background-color: #41B500;
   color: #fff;
 }
 .ms-quick-stats{

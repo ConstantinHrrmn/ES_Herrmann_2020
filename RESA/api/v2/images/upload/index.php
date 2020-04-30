@@ -22,21 +22,18 @@ if(file_exists($pdo_path)){
 *   - target_dir : le dossier dans lequel stocker la photo
 *   - Le nombre de répertoire en arrière ou en avant pour atteindre "images/..."
 */
-function SaveImageEtablishment($idEtbalishement, $idUploader, $file, $target_dir, $toMove){
+function SaveImageEtablishment($idEtbalishement, $idUploader, $file_name, $tmp){
 
     // Création de l'id unique pour renommer la photo
-    $id =uniqid();
+    $id = uniqid();
 
     // On déplace l'image dans le dossier de destination
-    $target_file = UploadImage($toMove, $target_dir, $file, $id);
-
-    // Déclaration d'une variable avec le dossier initial du dossier image
-    $base_dir = "images/";
+    $target_file = UploadImage("images/restaurant/", $file_name, $tmp, $id, "../../../");
 
     if($target_file != -1){
 
         // On ajoute l'image dans la base de données
-        $finalePath = $base_dir.$target_file;
+        $finalePath = $target_file;
         AddImageToDatabase($id, $finalePath, $idUploader);
 
         static $query2 = null;
@@ -55,7 +52,7 @@ function SaveImageEtablishment($idEtbalishement, $idUploader, $file, $target_dir
         catch (Exception $e) {
           error_log($e->getMessage());
         }
-    } 
+    }
 }
 
 /*
@@ -159,19 +156,19 @@ function SaveImageUser($idUser, $idUploader, $file, $target_dir, $toMove){
 *   - file : la photo à ajouter
 *   - file_name : le nom que l'on souhaite donner à l'image
 */
-function UploadImage($ToMove, $target_dir, $file, $file_name){
+function UploadImage($target_dir, $file_name, $tmp, $new_file_name, $toMove){
 
     // On récupère le type de la photo (JPG, PNG, ETC.)
-    $file_type = strtolower(pathinfo($file['name'],PATHINFO_EXTENSION));
+    $file_type = strtolower(pathinfo($file_name,PATHINFO_EXTENSION));
 
     // On fusionne le nouveau nom du fichier avec l'extension (mon_nouveau_nom.l'extension)
-    $myFile = $file_name.".".$file_type;
+    $myFile = $new_file_name.".".$file_type;
 
     // On ajoute le dossier de destination
     $target_file = $target_dir.$myFile;
 
     // On essaie de déplacer la photo dans le dossier désiré
-    if (move_uploaded_file($file["tmp_name"], $ToMove.$target_file)) {
+    if (move_uploaded_file($tmp, $toMove.$target_file)) {
         // Retourne le nom du fichier si OK 
         return $target_file;
     } else {
@@ -207,3 +204,4 @@ function AddImageToDatabase($id, $finalePath, $idUploader){
       error_log($e->getMessage());
     }
 }
+

@@ -17,3 +17,7 @@ else if(isset($_GET['profil_background'])){
     header("Location: ".$FullPathToAPI."images/background/images/profile_background.png");
     exit();
 }
+else if(isset($_GET['no_image'])){
+    header("Location: ".$FullPathToAPI."images/background/images/no_image.png");
+    exit();
+}

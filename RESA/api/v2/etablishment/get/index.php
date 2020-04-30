@@ -58,6 +58,29 @@ function GetEtablishementById($idEtablishement){
     return $res;
 }
 
+/*
+* Récupère l'id du dernier établissement ajouté
+*/
+function GetLastInsertedEtablishement(){
+  static $query = null;
+
+  if ($query == null) {
+    $req = 'SELECT MAX(id) as last FROM `establishment`';
+    $query = database()->prepare($req);
+  }
+
+  try {
+    $query->execute();
+    $res = $query->fetch(PDO::FETCH_ASSOC);
+  }
+  catch (Exception $e) {
+    error_log($e->getMessage());
+    $res = false;
+  }
+
+  return $res;
+}
+
 if(isset($_GET['id'])){
     $id = $_GET['id'];
     if(is_numeric($id)){
@@ -65,6 +88,9 @@ if(isset($_GET['id'])){
     }else{  
         echo json_encode('Non-numeric input');
     }
+}
+else if(isset($_GET['last'])){
+  echo json_encode(GetLastInsertedEtablishement());
 }
 else{
     echo json_encode(GetAllEtablishements());
