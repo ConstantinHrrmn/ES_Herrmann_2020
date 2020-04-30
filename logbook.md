@@ -526,6 +526,13 @@ La deuxième étape, est de faire un upload des images sur le serveur... un peu 
 - Ajout de la fonctionnalité "is in as" qui permet de directement mettre le créateur de l'établissement en temps que manager 
 - Cette fonction peut être utilisée pour tout type d'ajout (pas seulement manager)
 - Afin que je puisse directement assigné le créateur en temps que manager, je dois récupérer le dernier ID introduis dans la base de données.
+- Il faut que je finisse la méthode ```is in as``` car je l'ai oubliée ...
+  - C'est fait ! J'ai perdu énormément de temps car j'avais inversé 2 champs (tristesse)
+- Il faut que j'ajoute aussi un fonction qui me permet de récupérer tous les restaurants d'un manager
+  - D'abord je récupère tous les établissements ou travaille le manager (à garder, elle pourra me servir plus tard)
+    - SQL : ```SELECT e.id, e.name FROM `is_in_as` as iia INNER JOIN `establishment` as e ON e.id = iia.idEtablishement WHERE iia.idUser = [id du manager]```
+  - J'ajoute juste le ```AND``` à la fin avec l'id des manager (2)
+    - SQL : ```SELECT e.id, e.name FROM `is_in_as` as iia INNER JOIN `establishment` as e ON e.id = iia.idEtablishement WHERE iia.idUser = [id du manager] AND iia.idPermission = 2```
 
 ~~### Dropzone.js~~
 - ~~Afin de pouvoir autoriser le ```drag & drop``` de photos dans mes formulaires, j'ai utilisé un librairie standalone. Cette librairie s'appelle [dropzone.js]("https://www.dropzonejs.com/")~~
@@ -539,3 +546,10 @@ Si jamais j'ai à nouveau besoin, voici les 2 includes :
   - Afin de garder l'historique
 - Trouver un outil qui fait toute l'arboration de l'API
   - La commande ```tree``` dans le cmd
+
+### Programme pour demain (avant que j'oublie)
+- Afficher la liste de tous les établissements appartenant à un utilisateur
+- Afficher la liste de tous les établissements ou travaille l'utilisateur 
+- Mettre à jour le Cheat Sheet pour l'API 
+- Mettre à jour les commentaires de l'API
+- Continuer A FOND la documentation

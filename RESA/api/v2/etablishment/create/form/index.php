@@ -69,6 +69,6 @@ function SendData($data, $images, $path){
     $images_amount = count($images['photos']['name']);
 
     for($i = 0; $i < $images_amount; $i++){
-        SaveImageEtablishment($lastid->last, $data['user'], $images['photos']['name'][$i], $images['photos']['tmp_name'][$i]);
+        SaveImageEtablishment($lastid->last, $_SESSION['user']->id, $images['photos']['name'][$i], $images['photos']['tmp_name'][$i]);
     }
 }

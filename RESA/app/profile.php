@@ -143,8 +143,10 @@
                                         </div>
                                         <div role="tabpanel" class="tab-pane fade" id="creationEtablissement">
                                             <div class="col-md-12 col-sm-12">
-                                                <h6 class="section-title">Vous êtes sur le point de créer un nouvel établissement dans le groupe de RESA</h6>
-                                                <button class="btn btn-primary" data-toggle="modal" data-target="#createEtablishment"> Créer </button>   
+                                                <h6 class="section-title">Vous êtes sur le point de créer un nouvel
+                                                    établissement dans le groupe de RESA</h6>
+                                                <button class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#createEtablishment"> Créer </button>
                                             </div>
 
                                             <div class="modal fade" id="createEtablishment" tabindex="-1" role="dialog"
@@ -157,30 +159,46 @@
                                                                 aria-label="Close"><span
                                                                     aria-hidden="true">&times;</span></button>
                                                             <h1>Création d'un établissement RESA</h1>
-                                                            <form action="<?php echo $path."etablishment/create/form/"; ?>" method="post" enctype="multipart/form-data" id="creationEtablissement">
+                                                            <form
+                                                                action="<?php echo $path."etablishment/create/form/"; ?>"
+                                                                method="post" enctype="multipart/form-data"
+                                                                id="creationEtablissement">
 
                                                                 <div class="ms-form-group">
-                                                                    <input type="text" placeholder="Nom de l'établissement" class="form-control" name="name" value="" required>
+                                                                    <input type="text"
+                                                                        placeholder="Nom de l'établissement"
+                                                                        class="form-control" name="name" value=""
+                                                                        required>
                                                                 </div>
 
                                                                 <div class="ms-form-group">
-                                                                    <input type="text" placeholder="Adresse complète (Chemin de l'exemple 12, 1200 Genève)" class="form-control" name="adress" value="" required> 
+                                                                    <input type="text"
+                                                                        placeholder="Adresse complète (Chemin de l'exemple 12, 1200 Genève)"
+                                                                        class="form-control" name="adress" value=""
+                                                                        required>
                                                                 </div>
 
                                                                 <div class="ms-form-group">
-                                                                    <input type="text" placeholder="Numéro de téléphone" class="form-control" name="phone" value="" required>
+                                                                    <input type="text" placeholder="Numéro de téléphone"
+                                                                        class="form-control" name="phone" value=""
+                                                                        required>
                                                                 </div>
 
                                                                 <div class="ms-form-group">
-                                                                    <input type="email" placeholder="Email" class="form-control" name="email" value="" required>
+                                                                    <input type="email" placeholder="Email"
+                                                                        class="form-control" name="email" value=""
+                                                                        required>
                                                                 </div>
 
                                                                 <div class="ms-form-group">
-                                                                  <input type="file" name="photos[]" id="photos" multiple required>
+                                                                    <input type="file" name="photos[]" id="photos"
+                                                                        multiple required>
                                                                 </div>
 
-                                                                <input type="text" name="user" id="user" value="<?php echo $user->id ?>" hidden>
-                                                                <input type="submit" class="btn btn-primary shadow-none" value="Créer" name="submitNewEtablishement">
+                                                                <input type="text" name="user" id="user"
+                                                                    value="<?php echo $user->id ?>" hidden>
+                                                                <input type="submit" class="btn btn-primary shadow-none"
+                                                                    value="Créer" name="submitNewEtablishement">
                                                             </form>
                                                         </div>
 
@@ -366,6 +384,8 @@
                     </div>
 
                 </div>
+
+
             </div>
         </div>
     </main>
