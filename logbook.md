@@ -553,3 +553,24 @@ Si jamais j'ai à nouveau besoin, voici les 2 includes :
 - Mettre à jour le Cheat Sheet pour l'API 
 - Mettre à jour les commentaires de l'API
 - Continuer A FOND la documentation
+
+---
+## 03.05.20
+
+Finalement ce n'était pas le lendemain mais dimanche...
+- Afin de pouvoir afficher tous les établissement dont un utilisateur est le manager, il faut d'abord que j'ajoute des fonctionnalités à l'API :
+  1. Récupérer tous les etablissements dont il est le manager 
+    - Afin de pouvoir faire ça, je dois faire une requête qui récupère tous les établissement ou l'utilisateur est mambre du staff et qu'il à l'id du manager
+    - SQL : ```SELECT e.id, e.name FROM `is_in_as` as iia INNER JOIN `establishment` as e ON e.id = iia.idEtablishement WHERE iia.idUser = [id de l'utilisateur] AND iia.idPermission = [id de la permission]```
+    - OK, je récupère tous les établissements dont l'utilisateur est le manager
+  2. Créer la page d'administration de l'établissement
+    - Il faut que je créer a partir des composants du template une page qui affiche tous les menus importants pour la gestion du restaurant
+
+Voici les objectifs de la semaine du 04.05 au 08.05 
+![Nouveaux objectifs de la semaine](./Documentation/Images/Nouveaux_objectifs.jpg) 
+
+En détails les objectifs de la documentation, elle dois être prête pour l'évaluation intermédiaire pour vendredi
+![objectifs pour la doc](./Documentation/Images/Objectifs_doc.jpg) 
+
+Les objectifs pour le poster
+![objectifs pour le poster](./Documentation/Images/Objectifs_poster.jpg) 

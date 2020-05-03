@@ -7,9 +7,11 @@
   if(isset($_SESSION['user'])){
     $user = $_SESSION['user'];
     $img = GetImage($path."images/get/?user&id=".$user->id);
+
+    $managedEtablishements = json_decode(file_get_contents($path."etablishment/get/?manager&iduser=".$user->id));
   }
   else{
-    header("Location: ./login-.php");
+    header("Location: ./login.php");
     exit();
   }
 
@@ -78,18 +80,18 @@
                 </div>
 
                 <ul class="ms-profile-navigation nav nav-tabs tabs-bordered" role="tablist">
-                    <li role="presentation"><a href="#tab1" aria-controls="tab1" class="active" role="tab"
-                            data-toggle="tab"> Aperçu </a></li>
-                    <li role="presentation"><a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">
-                            Réservations passées </a></li>
-                    <li role="presentation"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab"> Modifier
-                        </a></li>
+                    <li role="presentation"><a href="#informations" aria-controls="informations" class="active" role="tab" data-toggle="tab"> Aperçu </a></li>
+                    <li role="presentation"><a href="#reservationspassees" aria-controls="reservationspassees" role="tab" data-toggle="tab"> Réservations passées </a></li>
+                    <li role="presentation"><a href="#modifer" aria-controls="modifer" role="tab" data-toggle="tab"> Modifier </a></li>
+                    <?php if(count($managedEtablishements) > 0): ?>
+                        <li role="presentation"><a href="#managedEtablishements" aria-controls="managedEtablishements" role="tab" data-toggle="tab"> Mes etablissements </a></li>
+                    <?php endif; ?>
                 </ul>
 
             </div>
 
             <div class="tab-content">
-                <div class="tab-pane active" id="tab1">
+                <div class="tab-pane active" id="informations">
                     <div class="row">
 
                         <div class="col-xl-6 col-md-12">
@@ -214,178 +216,59 @@
                     </div>
                 </div>
 
-                <div class="tab-pane" id="tab2">
+                <div class="tab-pane" id="reservationspassees">
                     <div class="col-md-12">
                         <div class="ms-panel">
                             <div class="ms-panel-body">
-                                <h2 class="section-title">Cheffs on Dutty</h2>
-                                <div class="row">
-                                    <div class="col-xl-4 col-md-6 col-sm-12">
-                                        <div class="media ms-profile-experience">
-                                            <div class="mr-2 align-self-center">
-                                                <img src="https://via.placeholder.com/270x270"
-                                                    class="ms-img-round ms-img-small" alt="people">
-                                            </div>
-                                            <div class="media-body">
-                                                <h4>Mike Labinstine</h4>
-                                                <p>January 2019 to Present</p>
-                                                <p>Veg Cook</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-md-6 col-sm-12">
-                                        <div class="media ms-profile-experience">
-                                            <div class="mr-2 align-self-center">
-                                                <img src="https://via.placeholder.com/270x270"
-                                                    class="ms-img-round ms-img-small" alt="people">
-                                            </div>
-                                            <div class="media-body">
-                                                <h4>George Labinstin</h4>
-                                                <p>January 2019 to Present</p>
-                                                <p>Meat Cook</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-md-6 col-sm-12">
-                                        <div class="media ms-profile-experience">
-                                            <div class="mr-2 align-self-center">
-                                                <img src="https://via.placeholder.com/270x270"
-                                                    class="ms-img-round ms-img-small" alt="people">
-                                            </div>
-                                            <div class="media-body">
-                                                <h4>Manti Jhoe</h4>
-                                                <p>January 2019 to Present</p>
-                                                <p>Quality Control</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-md-6 col-sm-12">
-                                        <div class="media ms-profile-experience">
-                                            <div class="mr-2 align-self-center">
-                                                <img src="https://via.placeholder.com/270x270"
-                                                    class="ms-img-round ms-img-small" alt="people">
-                                            </div>
-                                            <div class="media-body">
-                                                <h4>Jessy Doe</h4>
-                                                <p>January 2019 to Present</p>
-                                                <p>Top Cheff</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-md-6 col-sm-12">
-                                        <div class="media ms-profile-experience">
-                                            <div class="mr-2 align-self-center">
-                                                <img src="https://via.placeholder.com/270x270"
-                                                    class="ms-img-round ms-img-small" alt="people">
-                                            </div>
-                                            <div class="media-body">
-                                                <h4>Jessica Doe</h4>
-                                                <p>January 2019 to Present</p>
-                                                <p>Night Cheff</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-md-6 col-sm-12">
-                                        <div class="media ms-profile-experience">
-                                            <div class="mr-2 align-self-center">
-                                                <img src="https://via.placeholder.com/270x270"
-                                                    class="ms-img-round ms-img-small" alt="people">
-                                            </div>
-                                            <div class="media-body">
-                                                <h4>Jhone Doe</h4>
-                                                <p>January 2019 to Present</p>
-                                                <p>The Cheff</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <h1>Les réservations passées</h1>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="tab-pane" id="tab3">
-
-                    <div class="col-xl-6 col-md-12">
-                        <div class="ms-panel ms-panel-fh">
-                            <div class="ms-panel-body">
-                                <h2 class="section-title">Skill level</h2>
-                                <span class="progress-label">Web Design</span><span class="progress-status">83%</span>
-                                <div class="progress progress-tiny">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 83%"
-                                        aria-valuenow="83" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span class="progress-label">Development</span><span class="progress-status">50%</span>
-                                <div class="progress progress-tiny">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 50%"
-                                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span class="progress-label">Interface Design</span><span
-                                    class="progress-status">75%</span>
-                                <div class="progress progress-tiny">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 75%"
-                                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span class="progress-label">Illustration</span><span class="progress-status">92%</span>
-                                <div class="progress progress-tiny">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 92%"
-                                        aria-valuenow="92" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span class="progress-label">Brand Design</span><span class="progress-status">97%</span>
-                                <div class="progress progress-tiny">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 97%"
-                                        aria-valuenow="97" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span class="progress-label">Adobe</span><span class="progress-status">90%</span>
-                                <div class="progress progress-tiny">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 90%"
-                                        aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-6 col-md-12">
+                <div class="tab-pane" id="modifer">
+                <div class="col-md-12">
                         <div class="ms-panel">
                             <div class="ms-panel-body">
-                                <h2 class="section-title">My Timeline</h2>
-                                <ul class="ms-activity-log">
-                                    <li>
-                                        <div class="ms-btn-icon btn-pill icon btn-success">
-                                            <i class="flaticon-tick-inside-circle"></i>
-                                        </div>
-                                        <h6>Computer Science Degree</h6>
-                                        <span> <i class="material-icons">event</i>1 January, 2018</span>
-                                        <p class="fs-14">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Quisque scelerisque diam non nisi semper, ula in sodales vehicula....</p>
-                                    </li>
-                                    <li>
-                                        <div class="ms-btn-icon btn-pill icon btn-info">
-                                            <i class="flaticon-information"></i>
-                                        </div>
-                                        <h6>Landed first Job</h6>
-                                        <span> <i class="material-icons">event</i>4 March, 2018</span>
-                                        <p class="fs-14">Curabitur purus sem, malesuada eu luctus eget, suscipit sed
-                                            turpis. Nam pellentesque felis vitae justo accumsan, sed semper nisi
-                                            sollicitudin...</p>
-                                    </li>
-                                    <li>
-                                        <div class="ms-btn-icon btn-pill icon btn-success">
-                                            <i class="flaticon-tick-inside-circle"></i>
-                                        </div>
-                                        <h6>Started my own Company</h6>
-                                        <span> <i class="material-icons">event</i>1 March, 2020</span>
-                                        <p class="fs-14">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Quisque scelerisque diam non nisi semper, ula in sodales vehicula....</p>
-                                    </li>
-                                </ul>
+                                <h1>Modifier le compte</h1>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
-
+                <?php if(count($managedEtablishements) > 0): ?>
+                    <div class="tab-pane" id="managedEtablishements">
+                        <div class="col-md-12">
+                            <div class="ms-panel">
+                                <div class="ms-panel-body">
+                                    <h2 class="section-title">Mes etablissements (mes droits de manager)</h2>
+                                    <div class="row">
+                                        <?php 
+                                            foreach($managedEtablishements as $managed): 
+                                            $img = GetImage($path."images/get/?etablishment&id=".$managed->id);
+                                        ?>
+                                            
+                                            <div class="col-xl-4 col-md-6 col-sm-12">
+                                                <a href="#">
+                                                    <div class="media ms-profile-experience">
+                                                        <div class="mr-2 align-self-center">
+                                                            <img src="<?php echo $img[0]->full_path ?>" class="ms-img-round ms-img-small" alt="people">
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <h4><?php echo $managed->name ?></h4>
+                                                            <p><?php echo $managed->address ?></p>
+                                                            <p><?php echo $managed->phone ?></p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>            
             </div>
         </div>
     </main>

@@ -81,6 +81,32 @@ function GetLastInsertedEtablishement(){
   return $res;
 }
 
+/*
+* Récupère tous les établissement dont l'utilisateur passé en paramètre est le manager
+* Params:
+*     - idUser : l'id de l'utilisateur
+*/
+function GetAllEtablishementsForManager($idUser){
+  static $query = null;
+
+    if ($query == null) {
+      $req = 'SELECT e.id, e.name, e.address, e.phone FROM `is_in_as` as iia INNER JOIN `establishment` as e ON e.id = iia.idEtablishement WHERE iia.idUser = :u AND iia.idPermission = 2';
+      $query = database()->prepare($req);
+    }
+  
+    try {
+        $query->bindParam(':u', $idUser, PDO::PARAM_INT);
+
+        $query->execute();
+        $res = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $res;
+    }
+    catch (Exception $e) {
+      error_log($e->getMessage());
+    }
+}
+
+// exemple : etablishment/get/?id=XX
 if(isset($_GET['id'])){
     $id = $_GET['id'];
     if(is_numeric($id)){
@@ -89,8 +115,18 @@ if(isset($_GET['id'])){
         echo json_encode('Non-numeric input');
     }
 }
+// exemple : etablishment/get/?last
 else if(isset($_GET['last'])){
   echo json_encode(GetLastInsertedEtablishement());
+}
+// exemple : etablishment/get/?manager&iduser=XX
+else if(isset($_GET['manager']) && isset($_GET['iduser'])){
+  $id = $_GET['iduser'];
+  if(is_numeric($id)){
+      echo json_encode(GetAllEtablishementsForManager($id));
+  }else{  
+      echo json_encode('Non-numeric input');
+  }
 }
 else{
     echo json_encode(GetAllEtablishements());

@@ -63,7 +63,6 @@ function CreateIsInAs($idEtablishment, $idUser, $idPermission){
     catch (Exception $e) {
       error_log($e->getMessage());
     }
-    
 }
 
 if(isset($_GET['name']) && isset($_GET['address']) && isset($_GET['phone']) && isset($_GET['email']) && isset($_GET['creatorID'])){
