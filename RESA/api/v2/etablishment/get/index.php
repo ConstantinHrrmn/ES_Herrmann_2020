@@ -48,7 +48,7 @@ function GetEtablishementById($idEtablishement){
   
     try {
       $query->execute();
-      $res = $query->fetchAll(PDO::FETCH_ASSOC);
+      $res = $query->fetch(PDO::FETCH_ASSOC);
     }
     catch (Exception $e) {
       error_log($e->getMessage());

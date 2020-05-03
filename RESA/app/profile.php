@@ -7,8 +7,9 @@
   if(isset($_SESSION['user'])){
     $user = $_SESSION['user'];
     $img = GetImage($path."images/get/?user&id=".$user->id);
-
+   
     $managedEtablishements = json_decode(file_get_contents($path."etablishment/get/?manager&iduser=".$user->id));
+    $_SESSION['managed'] = $managedEtablishements;
   }
   else{
     header("Location: ./login.php");
@@ -249,7 +250,7 @@
                                         ?>
                                             
                                             <div class="col-xl-4 col-md-6 col-sm-12">
-                                                <a href="#">
+                                                <a href="<?php echo "./etablishment-manager.php?id=".$managed->id;?>">
                                                     <div class="media ms-profile-experience">
                                                         <div class="mr-2 align-self-center">
                                                             <img src="<?php echo $img[0]->full_path ?>" class="ms-img-round ms-img-small" alt="people">

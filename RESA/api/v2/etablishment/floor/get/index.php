@@ -59,6 +59,7 @@ function IsFloorInArray($array, $value){
   }
 }
 
+// exemple : etablishment/floor/get/?id=XX
 if(isset($_GET['id'])){
     $id = $_GET['id'];
     if(is_numeric($id)){
