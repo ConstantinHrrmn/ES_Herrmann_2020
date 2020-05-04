@@ -20,7 +20,7 @@ function GetEtablishmentFloors($idEtablishement){
     static $query = null;
 
     if ($query == null) {
-      $req = 'SELECT f.id as floor_id, f.name as floor_name, z.name as zone_name, s.begin, s.end FROM `floor` as f JOIN `has_zone` as hz ON hz.idFloor = f.id JOIN `zone` as z ON z.id = hz.idZone JOIN `zone_has_schudle` as zhs ON zhs.idZone = z.id JOIN `schudle` as s ON s.id = zhs.idSchudle WHERE f.idEtablishment = '.$idEtablishement;
+      $req = 'SELECT f.id as floor_id, f.name as floor_name, z.name as zone_name, z.id as zone_id, s.begin, s.end FROM `floor` as f JOIN `has_zone` as hz ON hz.idFloor = f.id JOIN `zone` as z ON z.id = hz.idZone LEFT JOIN `zone_has_schudle` as zhs ON zhs.idZone = z.id LEFT JOIN `schudle` as s ON s.id = zhs.idSchudle WHERE f.idEtablishment = '.$idEtablishement;
       $query = database()->prepare($req);
     }
   
@@ -36,10 +36,10 @@ function GetEtablishmentFloors($idEtablishement){
         // On vérifie si le tableau est à 0 ou si la clé (l'id de l'étage) n'est pas déjà utilisé comme clé dans le tableau provisoire
         if(count($floors)<0 || !IsFloorInArray($floors, $value['floor_id'])){
           // On créer un enregistrement dans le tableau avec comme clé l'id de l'étage et comme valeurs le nom de l'étages et les zones
-          $floors[$value['floor_id']] = array("name" => $value['floor_name'], "zones" => array());
+          $floors[$value['floor_id']] = array("id" => $value['floor_id'], "name" => $value['floor_name'], "zones" => array());
         }
         // On ajoute la zone et ses horaires dans le tableau
-        array_push($floors[$value['floor_id']]["zones"], array($value['zone_name'], $value['begin'], $value['end']));
+        array_push($floors[$value['floor_id']]["zones"], array($value['zone_name'], $value['zone_id'], $value['begin'], $value['end']));
       }
       return $floors;
     }

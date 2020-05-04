@@ -64,8 +64,14 @@
         </div>
     </div>
 
+    <!-- navbar -->
+    <div class="ms-aside-overlay ms-overlay-left ms-toggler" data-target="#ms-side-nav" data-toggle="slideLeft"></div>
+    <?php include './assets/php/navbar.php'; ?>
+
     <!-- Main Content -->
     <main class="body-content">
+        <!-- Navigation Bar -->
+        <?php include './assets/php/topbar.php'; ?>
 
         <!-- Body Content Wrapper -->
         <div class="ms-content-wrapper">
@@ -148,8 +154,7 @@
                                             <div class="col-md-12 col-sm-12">
                                                 <h6 class="section-title">Vous êtes sur le point de créer un nouvel
                                                     établissement dans le groupe de RESA</h6>
-                                                <button class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#createEtablishment"> Créer </button>
+                                                <button class="btn btn-primary" data-toggle="modal" data-target="#createEtablishment"> Créer </button>
                                             </div>
 
                                             <div class="modal fade" id="createEtablishment" tabindex="-1" role="dialog"

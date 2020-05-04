@@ -574,3 +574,20 @@ En détails les objectifs de la documentation, elle dois être prête pour l'év
 
 Les objectifs pour le poster
 ![objectifs pour le poster](./Documentation/Images/Objectifs_poster.jpg) 
+
+---
+## 04.05.20
+- J'ai continuer la page de gestion de l'établissement 
+  - J'ai un problème avec les liens dans la navbar
+  - Quand je met un lien générer en php, ça change le CSS du lien
+  - Je laisse ça de côté
+- Affichage des boutons pour ajouter des zones à un étage
+  - Création du formulaire
+  - il faut que je fasse la partie de l'APi maintenant
+    - SQL (assez basique): ```INSERT INTO `zone`(`name`) VALUES ('[nom de la zone]')``` 
+    - Il faut maintenant faire la logique dans l'API
+      - Il faut faire le lien entre l'étage et la zone que je veut lier 
+      - Je créer donc une fonction qui va ajouter la nouvelle zone à l'étage
+
+### Appel avec m. Garcia
+- Il faut absolument continuer la documentation pour jeudi 17h

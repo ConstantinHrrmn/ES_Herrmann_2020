@@ -1,10 +1,21 @@
 <?php
+/*******************************************************************************
+AUTEUR      : Constantin Herrmann
+LIEU        : CFPT Informatique Genève
+DATE        : Avril 2020
+TITRE PROJET: RESA
+DESCRIPTION : Ce script contient toutes les fonctions pour effectuer des READ sur la table 'user'
+VERSION     : 1.0
+*******************************************************************************/
+
 session_start();
 
+// On fait tous les includes dont nous avons besoin
 include '../../../pdo.php';
 include '../../../images/upload/index.php';
 include '../../../vars.php';
 
+// On vérifie que les données soient bien existantes
 if(isset($_POST) && isset($_FILES)){
     if(count($_POST) > 0 && count($_FILES) > 0){
         if(CheckData($_POST)){
