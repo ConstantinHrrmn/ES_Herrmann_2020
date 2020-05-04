@@ -1,3 +1,14 @@
+<?php 
+
+    if(isset($_SESSION['user'])){
+        $user = $_SESSION['user'];
+        $img = GetImage($path."images/get/?user&id=".$user->id);
+    }
+    else{
+        $user = null;
+        $img = null;
+    }
+?>
 <!-- Navigation Bar -->
 <nav class="navbar ms-navbar">
             <div class="ms-aside-toggler ms-toggler pl-0" data-target="#ms-side-nav" data-toggle="slideLeft"> <span

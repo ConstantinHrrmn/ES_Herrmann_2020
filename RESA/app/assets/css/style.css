@@ -1015,7 +1015,7 @@ body:not(.ms-aside-left-open) .ms-aside-toggler .ms-toggler-bar{
   left: 0;
   width: 3px;
   height: 100%;
-  background-color: #8BDB00;
+  
 }
 .side-nav .menu-item ul li a.active::before{
   left: auto;
@@ -1025,9 +1025,9 @@ body:not(.ms-aside-left-open) .ms-aside-toggler .ms-toggler-bar{
 }
 .side-nav li.menu-item a:hover,
 .side-nav li.menu-item a:hover span,
-.side-nav li.menu-item a.active,
-.side-nav li.menu-item a.active span,
-.side-nav li.menu-item ul li a.active{
+.side-nav li.menu-item,
+.side-nav li.menu-item span a.active,
+.side-nav li.menu-item ul li {
   color: #8BDB00;
 }
 .side-nav .menu-item ul {

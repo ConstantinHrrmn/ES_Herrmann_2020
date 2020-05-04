@@ -20,7 +20,7 @@ function GetEtablishmentFloors($idEtablishement){
     static $query = null;
 
     if ($query == null) {
-      $req = 'SELECT f.id as floor_id, f.name as floor_name, z.name as zone_name, z.id as zone_id, s.begin, s.end FROM `floor` as f JOIN `has_zone` as hz ON hz.idFloor = f.id JOIN `zone` as z ON z.id = hz.idZone LEFT JOIN `zone_has_schudle` as zhs ON zhs.idZone = z.id LEFT JOIN `schudle` as s ON s.id = zhs.idSchudle WHERE f.idEtablishment = '.$idEtablishement;
+      $req = 'SELECT f.id as floor_id, f.name as floor_name, z.name as zone_name, z.id as zone_id, s.begin, s.end FROM `floor` as f LEFT JOIN `has_zone` as hz ON hz.idFloor = f.id LEFT JOIN `zone` as z ON z.id = hz.idZone LEFT JOIN `zone_has_schudle` as zhs ON zhs.idZone = z.id LEFT JOIN `schudle` as s ON s.id = zhs.idSchudle WHERE f.idEtablishment = '.$idEtablishement;
       $query = database()->prepare($req);
     }
   

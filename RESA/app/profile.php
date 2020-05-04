@@ -255,7 +255,7 @@
                                         ?>
                                             
                                             <div class="col-xl-4 col-md-6 col-sm-12">
-                                                <a href="<?php echo "./etablishment-manager.php?id=".$managed->id;?>">
+                                                <a href="<?php echo "./etablishment-admin.php?id=".$managed->id;?>">
                                                     <div class="media ms-profile-experience">
                                                         <div class="mr-2 align-self-center">
                                                             <img src="<?php echo $img[0]->full_path ?>" class="ms-img-round ms-img-small" alt="people">

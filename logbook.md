@@ -588,6 +588,29 @@ Les objectifs pour le poster
     - Il faut maintenant faire la logique dans l'API
       - Il faut faire le lien entre l'étage et la zone que je veut lier 
       - Je créer donc une fonction qui va ajouter la nouvelle zone à l'étage
+    - Il est possible de créer une zone pour un étage !
+    - Il faut maintenant faire le formulaire de création de l'étage
+      - Comme pour la zone, je vais faire un bouton qui permet de faire apparaitre le formulaire de la création de l'étage
+
+- Il est possible de créer des étage et de créer des zones qui vont dans ces étages. Maintenant il faut que je créer les formulaires qui permettent de mettre à jour ces zones en y insérant des horaires et des fournitures
+- Pour les horaires et les fournitures je vais devoir créer les vues et les API 
+
+- Il faut que je récupère tous les horaires pour une zone
+  - SQL : ```SELECT s.id as schedule_id, s.begin as begin, s.end as end FROM `zone_has_schudle` as zhs INNER JOIN `schudle` as s ON s.id = zhs.idSchudle WHERE zhs.idZone = [id de la zone]```
+  - Il est possible d'afficher les horaires d'une zone en cliquant sur le bouton "horaires"
+- Il faut ajouter une table qui affiche les fournitures de la zone, je vais donc utiliser l'application que m. Garcia m'avais envoyé pour générer des fournitures
+  - J'ai générer 100 meubles 
+    - Ils ont tous un nom aléatoire (d'unn être humain haha)
+    - ils sont tous bleus
+    - Ils ont tous une forme et un type différent
+
+- Pour récuipérer tous les fournitures d'une zone :
+  - SQL : ```SELECT f.id as furniture_id, f.name as furniture_name, f.color as furniture_color, f.places as furniture_places, ft.id as type_id, ft.type as type_name, fs.shape as shape_name FROM `has_furniture` as hf INNER JOIN `furniture` as f ON f.id = hf.idFurniture INNER JOIN `furniture_type` as ft ON ft.id = f.idType INNER JOIN `furniture_shape` as fs ON fs.id = f.idShape WHERE hf.idZone = [id de la zone]```
+
+- Compter le nombre de places totales dans une zone :
+  - SQL : ```SELECT SUM(f.places) as places_totales FROM `has_furniture` as hf INNER JOIN `furniture` as f ON f.id = hf.idFurniture WHERE hf.idZone = [id de la zone]```
+
+ 
 
 ### Appel avec m. Garcia
 - Il faut absolument continuer la documentation pour jeudi 17h

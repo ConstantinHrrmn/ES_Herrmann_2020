@@ -35,15 +35,12 @@
             <a href="#" class="has-chevron" data-toggle="collapse" data-target="#dashboard" aria-expanded="false" aria-controls="dashboard"> <span><i class="material-icons fs-16">house</i>Vos établissements</span></a>
             <ul id="dashboard" class="collapse" aria-labelledby="dashboard" data-parent="#side-nav-accordion">
                 <?php foreach($managednav as $managedvalue): ?>
-                    <?php $link = "./etablishment-manager.php?id=".$managedvalue->id; ?>
-                    <li><a href=""><?php echo $managedvalue->name; ?></a></li>
+                    <?php $link = "etablishment-admin.php?id=".$managedvalue->id; ?>
+                    <li><a href="<?php echo $link ?>"><?php echo $managedvalue->name; ?></a></li>
                 <?php endforeach; ?>
             </ul>
         </li>
     <?php endif; ?>
-
-    
-
       <li class="menu-item">
         <a href="pages/animation.html"> <span><i class="material-icons fs-16">format_paint</i>Animations</span>
         </a>

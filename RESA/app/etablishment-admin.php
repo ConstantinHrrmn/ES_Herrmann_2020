@@ -108,7 +108,7 @@
                 </div>
 
                 <!-- Zones du restaurant-->
-                <?php if($floors != null): ?>
+
                 <div class="col-xl-6 col-md-12">
                     <div class="ms-panel">
                         <div class="ms-panel-header">
@@ -119,43 +119,51 @@
                             </div>
                         </div>
 
+                        <?php if($floors != null): ?>
+
                         <?php foreach($floors as $floor):?>
+
                         <div class="ms-panel-body">
-                            <h4><?php echo $floor->name ?> </h4>
+                            <h4><?php echo $floor->name; ?> </h4>
                             <div class="table-responsive">
+                                <?php if($floor->zones[0][0] != null): ?>
                                 <table class="table table-hover">
                                     <tbody>
                                         <?php foreach($floor->zones as $zone):?>
                                         <tr>
                                             <td class="ms-table-f-w"><?php echo $zone[0] ?></td>
                                             <td>[nombre de places]</td>
-                                            <td>[Horaires]</td>
-                                            <td><a href="<?php echo $zone[1] ?>">Editer</a></td>
+                                            <td><button class="btn-primary" data-toggle="modal"
+                                                    data-target="#showZone<?php echo $zone[1] ?>"
+                                                    style="height:50%">Horaires</button></td>
+                                            <td>[Editer]</td>
                                         </tr>
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
+                                <?php endif; ?>
                                 <button class="btn btn-primary" data-toggle="modal"
                                     data-target="#createEtablishment<?php echo $floor->id?>" style="height:50%">Ajouter
                                     une zone à <?php echo $floor->name;?></button>
+
                             </div>
                         </div>
 
                         <!-- Formulaire pour la création d'une zone sur un étage -->
-                        <div class="modal fade" id="createEtablishment<?php echo $floor->id?>" tabindex="-1" role="dialog"
-                            aria-labelledby="createEtablishment">
+                        <div class="modal fade" id="createEtablishment<?php echo $floor->id?>" tabindex="-1"
+                            role="dialog" aria-labelledby="createEtablishment">
                             <div class="modal-dialog modal-dialog-centered modal-min" role="document">
                                 <div class="modal-content">
                                     <div class="modal-body text-center">
                                         <button type="button" class="close" data-dismiss="modal"
                                             aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         <h1>Création zone pour <?php echo $floor->name;?></h1>
-                                        <form action="<?php echo $path."etablishment/floor/zone/create/form/"; ?>" method="post"
-                                            enctype="multipart/form-data" id="creationEtablissement">
+                                        <form action="<?php echo $path."etablishment/floor/zone/create/form/"; ?>"
+                                            method="post" enctype="multipart/form-data" id="creationEtablissement">
 
                                             <div class="ms-form-group">
-                                                <input type="text" placeholder="Nom de la zone"
-                                                    class="form-control" name="name" value="" required>
+                                                <input type="text" placeholder="Nom de la zone" class="form-control"
+                                                    name="name" value="" required>
                                             </div>
 
                                             <input type="text" name="floor" id="floor" value="<?php echo $floor->id ?>"
@@ -171,18 +179,77 @@
                             </div>
                         </div>
 
+                        <?php 
+                        foreach($floor->zones as $zone):
+                            $url = $path."etablishment/floor/zone/schedule/get?all&id=".$zone[1];
+                            $schedules = json_decode(file_get_contents($url));
+                        ?>
+                        <div class="modal fade" id="showZone<?php echo $zone[1] ?>" tabindex="-1" role="dialog"
+                            aria-labelledby="createFloor">
+                            <div class="modal-dialog modal-dialog-centered modal-min" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body text-center">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h1><?php echo $zone[0] ?></h1>
+                                        <?php foreach($schedules as $s): ?>
+                                            <p><?php echo $s->begin." - ".$s->end ?></p>
+                                        <?php endforeach;?>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                         <?php endforeach; ?>
+                        <?php endforeach; ?>
+                        <?php endif;?>
+
+
+
+
+                        <div class="ms-panel-body">
+                            <button class="btn btn-primary" data-toggle="modal"
+                                data-target="#createFloor<?php echo $etablishement->id?>" style="height:50%">Créer un
+                                étage</button>
+
+                            <!-- Formulaire pour la création d'une zone sur un étage -->
+                            <div class="modal fade" id="createFloor<?php echo $etablishement->id?>" tabindex="-1"
+                                role="dialog" aria-labelledby="createFloor">
+                                <div class="modal-dialog modal-dialog-centered modal-min" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-center">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h1>Création d'un étage</h1>
+                                            <form action="<?php echo $path."etablishment/floor/create/form/"; ?>"
+                                                method="post" enctype="multipart/form-data" id="creationEtablissement">
+
+                                                <div class="ms-form-group">
+                                                    <input type="text" placeholder="Nom de l'étage'"
+                                                        class="form-control" name="name" value="" required>
+                                                </div>
+
+                                                <input type="text" name="etablishment" id="etablishment"
+                                                    value="<?php echo $etablishement->id ?>" hidden>
+                                                <input type="text" name="user" id="user" value="<?php echo $user->id ?>"
+                                                    hidden>
+                                                <input type="submit" class="btn btn-primary shadow-none" value="Créer"
+                                                    name="submitNewEtablishement">
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
 
                     </div>
                 </div>
 
-                <?php endif;?>
 
-
-
-
-                <!-- Réservations de la semaine -->
                 <div class="col-xl-5 col-md-12">
+                    <!-- Réservations de la semaine -->
                     <div class="ms-panel ms-widget ms-crypto-widget">
                         <div class="ms-panel-header">
                             <h6>Réservations de la semaine</h6>
@@ -275,9 +342,6 @@
 
                         </div>
                     </div>
-
-
-
                 </div>
 
                 <!-- Food Orders -->

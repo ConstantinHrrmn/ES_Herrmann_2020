@@ -54,9 +54,15 @@
         </div>
     </div>
 
+    <!-- navbar -->
+    <div class="ms-aside-overlay ms-overlay-left ms-toggler" data-target="#ms-side-nav" data-toggle="slideLeft"></div>
+    <?php include './assets/php/navbar.php'; ?>
+
+
     <!-- Main Content -->
     <main class="body-content">
-
+        <!-- Navigation Bar -->
+        <?php include './assets/php/topbar.php'; ?>
         <!-- Body Content Wrapper -->
         <div class="ms-content-wrapper">
             <div class="row">
@@ -72,17 +78,18 @@
 
                                 <?php foreach($etablishments as $etab=>$val):?>
 
-                                  <?php 
+                                <?php 
                                     $img = GetImage($path."images/get/?etablishment&id=".$val->id);
                                   ?>
-                                  
-                                  <a class="card ms-portfolio-item" href="#">
-                                      <img class="" style="width: 100%; background-size: cover;" src="<?php echo count($img) < 1 ? $path."images/background/?no_image" : $img[0]->full_path ?>"
-                                          alt="photo du restaurant : <?php echo $val->name ?>">
-                                      <div class="ms-portfolio-item-content">
-                                          <h4><?php echo $val->name ?></h4>
-                                      </div>
-                                  </a>
+
+                                <a class="card ms-portfolio-item" href="#">
+                                    <img class="" style="width: 100%; background-size: cover;"
+                                        src="<?php echo count($img) < 1 ? $path."images/background/?no_image" : $img[0]->full_path ?>"
+                                        alt="photo du restaurant : <?php echo $val->name ?>">
+                                    <div class="ms-portfolio-item-content">
+                                        <h4><?php echo $val->name ?></h4>
+                                    </div>
+                                </a>
 
                                 <?php endforeach; ?>
 

@@ -7,7 +7,7 @@ TITRE PROJET: RESA
 VERSION     : 1.0
 *******************************************************************************/
 
-include '../../../../../vars.php';
+include '../../../../vars.php';
 
 // etablishment/floor/zone/create/form/
 
@@ -15,22 +15,17 @@ if(isset($_POST)){
     if(count($_POST) > 0){
         $data = $_POST['name'];
         if(CheckData($data)){
-            SendDataZone($data, $_POST['user'], $_POST['floor'], $FullPathToAPI);
+            SendDataFloor($data, $_POST['etablishment'], $FullPathToAPI);
         }
     }
     
 }
 
-function SendDataZone($name, $idUser, $idFloor, $path){
+function SendDataFloor($name, $idEtablishment, $path){
     $name = str_replace(' ', '%20', $name);
 
-    $linkCreateZone = $path."etablishment/floor/zone/create/?create&name=".$name;
-    file_get_contents($linkCreateZone);
-
-    $lastid = json_decode(file_get_contents($path."etablishment/floor/zone/get?last"));
-
-    $linkLinkZoneToFloor = $path."etablishment/floor/zone/create/?link&floor=".$idFloor."&zone=".$lastid->last;
-    file_get_contents($linkLinkZoneToFloor);
+    $linkCreateFloor = $path."etablishment/floor/create/?create&name=".$name."&etablishment=".$idEtablishment;
+    file_get_contents($linkCreateFloor);
 
     header("Location: {$_SERVER['HTTP_REFERER']}");
     exit();
