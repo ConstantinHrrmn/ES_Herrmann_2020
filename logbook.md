@@ -619,7 +619,10 @@ Les objectifs pour le poster
 ## 05.05.20
 - Téléchargement de Photoshop pour le poster
   - Création des maquettes du poster 
+  - Esquisse 1 : ![Première esquisse de mon poster](./Documentation/Images/Esquisse_1.PNG) 
+  - Esquisse 2 : ![Deuxième esquisse de mon poster](./Documentation/Images/Esquisse_2.PNG) 
 - Avancement de la documentation
+  - Ajout de pleins de chapitres et de sections
 
 ### Appel avec m. Garcia
 - Ajouter un point d'ancrage X et Y pour les zones et fournitures
