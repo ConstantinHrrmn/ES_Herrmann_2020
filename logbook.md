@@ -614,3 +614,16 @@ Les objectifs pour le poster
 
 ### Appel avec m. Garcia
 - Il faut absolument continuer la documentation pour jeudi 17h
+
+---
+## 05.05.20
+- Téléchargement de Photoshop pour le poster
+  - Création des maquettes du poster 
+- Avancement de la documentation
+
+### Appel avec m. Garcia
+- Ajouter un point d'ancrage X et Y pour les zones et fournitures
+  - limiter la taille du restaurant
+  - taille maximale par zone
+- Révision de la documentation demain matin
+  - Ajouter un paragraphe pour expliquer la zone
