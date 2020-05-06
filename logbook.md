@@ -633,9 +633,10 @@ Les objectifs pour le poster
 
 ---
 ## 06.05.20
-
+- Finalisation du poster avec les commentaires de m. Garcia
+- Créations de divers schémas de fonctionnement afin de mieux comprendre l'application.
 ### Création poster 
-![Poster final](./Documentation/Images/RESA_poster.JPG) 
+![Poster final](./Documentation/Images/RESA_poster.PNG) 
 
 ### Appel avec m. Garcia
 - Mettre le texte en justifier
