@@ -630,3 +630,20 @@ Les objectifs pour le poster
   - taille maximale par zone
 - Révision de la documentation demain matin
   - Ajouter un paragraphe pour expliquer la zone
+
+---
+## 06.05.20
+
+### Création poster 
+![Poster final](./Documentation/Images/RESA_poster.JPG) 
+
+### Appel avec m. Garcia
+- Mettre le texte en justifier
+- Chose essentiel qui manque :
+  - Ajouter des shémas de fonctionnement
+    - Ou est l'application ?
+    - Qu'est-ce qu'elle fait ?
+  - Logiciel utilisés
+
+- Comment détecter que c'est image qui est envoyée
+- Pouvoir envoyer un rollback pour comfirmer que tout à bien été fait
