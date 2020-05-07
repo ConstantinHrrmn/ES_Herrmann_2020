@@ -23,9 +23,8 @@
     <!-- Logo -->
     <div class="logo-sn ms-d-block-lg">
       <a class="pl-0 ml-0 text-center" href="index.html">
-        <img src="https://via.placeholder.com/216x62" alt="logo">
+        <img src="./assets/img/logo.png" alt="logo">
       </a>
-      <p>Bonjour<?php echo $usernav == null ? "" : ", ".$usernav->first_name." !"; ?></p>
     </div>
     <!-- Navigation -->
     <ul class="accordion ms-main-aside fs-14" id="side-nav-accordion">
@@ -42,8 +41,7 @@
         </li>
     <?php endif; ?>
       <li class="menu-item">
-        <a href="pages/animation.html"> <span><i class="material-icons fs-16">format_paint</i>Animations</span>
-        </a>
+        <a href="pages/animation.html"></a>
       </li>
 
     </ul>

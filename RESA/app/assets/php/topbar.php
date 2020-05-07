@@ -18,14 +18,14 @@
             </div>
             <div class="logo-sn logo-sm ms-d-block-sm">
                 <a class="pl-0 ml-0 text-center navbar-brand mr-0" href="./index.php">
-                    <img src="" alt="logo">
+                    <img src="./assets/img/logo.png" alt="logo">
                 </a>
             </div>
             <ul class="ms-nav-list ms-inline mb-0" id="ms-nav-options">
                 <li class="ms-nav-item ms-nav-user dropdown">
                     <a href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="ms-user-img ms-img-round float-right"
-                            src="<?php echo $img == null ? "" : $img->full_path; ?>" alt="people">
+                            src="<?php echo $img == null ? "./assets/img/account_icon.png" : $img->full_path; ?>" alt="people">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right user-dropdown" aria-labelledby="userDropdown">
                         <li class="dropdown-menu-header">
@@ -34,22 +34,37 @@
                             </h6>
                         </li>
                         <li class="dropdown-divider"></li>
+
                         <li class="ms-dropdown-list">
+                            <?php if($user != null): ?>
                             <a class="media fs-14 p-2" href="./profile.php"> <span><i class="flaticon-user mr-2"></i>
                                     Profile</span>
                             </a>
+                            <?php else: ?>
+                                <a class="media fs-14 p-2" href="./login.php"> <span><i class="flaticon-user mr-2"></i>
+                                    Connexion</span>
+                            </a>
+                            <a class="media fs-14 p-2" href="./login.php"> <span><i class="flaticon-user mr-2"></i>
+                                    Création compte</span>
+                            </a>
+                            <?php endif; ?>
                         </li>
+                        
+                        <!---
                         <li class="dropdown-divider"></li>
                         <li class="dropdown-menu-footer">
                             <a class="media fs-14 p-2" href="pages/prebuilt-pages/lock-screen.html"> <span><i
                                         class="flaticon-security mr-2"></i> Lock</span>
                             </a>
                         </li>
+                            -->
+                        <?php if($user != null): ?>
                         <li class="dropdown-menu-footer">
                             <a class="media fs-14 p-2" href="./assets/php/logout.php"> <span><i
                                         class="flaticon-shut-down mr-2"></i> Logout</span>
                             </a>
                         </li>
+                        <?php endif; ?>
                     </ul>
                 </li>
             </ul>

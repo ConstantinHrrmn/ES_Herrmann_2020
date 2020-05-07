@@ -11,7 +11,12 @@
       if(isset($_POST['username'])){
         $username = $_POST['username'];
 
-        $link = $link."?login&email=".$username."&password=".$password;
+        $queryData = array(
+          'email' => $username,
+          'password' => $password
+        );
+
+        $link = $link."?login&".http_build_query($queryData);
         // Takes raw data from the request
         $json = file_get_contents($link);
         // Converts it into a PHP object

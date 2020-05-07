@@ -648,3 +648,14 @@ Les objectifs pour le poster
 
 - Comment détecter que c'est image qui est envoyée
 - Pouvoir envoyer un rollback pour comfirmer que tout à bien été fait
+
+---
+## 07.05.20
+### Appel avec m. Garcia
+- Faire aussi une analyse sur le lien que m. Garcia
+- Ajhouter des legendes aux codes 
+- Documentation à la programmation manquante
+  - Parler de ce que je recois en JSON
+  - Zoomer sur le fond du code 
+
+- Pour le MCD , entouré les parties user, reservations, etc.
