@@ -651,11 +651,12 @@ Les objectifs pour le poster
 
 ---
 ## 07.05.20
+- Finalisation de la documentation pour l'évaluation intermédiaire
+
 ### Appel avec m. Garcia
 - Faire aussi une analyse sur le lien que m. Garcia
-- Ajhouter des legendes aux codes 
+- Ajouter des legendes aux codes 
 - Documentation à la programmation manquante
   - Parler de ce que je recois en JSON
   - Zoomer sur le fond du code 
-
 - Pour le MCD , entouré les parties user, reservations, etc.
