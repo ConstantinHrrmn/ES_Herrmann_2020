@@ -660,3 +660,50 @@ Les objectifs pour le poster
   - Parler de ce que je recois en JSON
   - Zoomer sur le fond du code 
 - Pour le MCD , entouré les parties user, reservations, etc.
+
+---
+## 08.05.20
+
+### Appel avec m. Garcia
+- Créer des renvoi pour le schéma du login
+- Mettre un schéma pour le json 
+
+- Renvoie vers les paragraphes pour les utilisateurs
+- Ajouter le hashage dans la documentation
+
+- Parler des versions de l'API (faire évoluer)
+- Ce renseigner sur l'uniqid (13 digits)
+- Archiver les utilisateurs et les établissements au lieu de les supprimer
+
+#### Application 
+- Ajouter les dates sur le widget des reservations
+- Ajouter un calendrier des réservations
+
+---
+## 12.05.20
+Objectifs de la semaine:
+- Ajouter des horaires dans les zones
+- Créer des fournitures
+- Ajouter des horaires au fournitures
+- Récupérer les réservations pour le restaurant
+- Récupérer les réservations pour le client
+- Créer une réservation dans un établissement
+  - Il faut prendre en compte les horaires des zones et de l'établissement
+  - Il faut prendre en compte les crénaux qui ne sont pas encore réservés afin de proposer une réservation au client
+- Créer d'autres schéma de fonctionnement
+- Créer d'autres diagrammes d'activités
+![Liste des choses à faire pour la semaine du 11.05](./Documentation/Images/liste_des_choses_a_faire_1205.jpg) 
+
+### Les horaires
+Comme on peut le voir sur la liste de tâches, la première chose à faire est de créer une page d'administration ou l'on peut créer des horaires ou récupérer ces proposés par les autres établissements. 
+- Une fois un horaire créer, il est impossible pour un utilisateur standard de le supprimer, car l'horaire peut être utilisé par un autre restaurant
+
+Il faut d'abord que je définisse ce qu'est réellement une réservation :
+![Une réservation c'est quoi](./Documentation/Images/une_reservation_cest_quoi.jpg) 
+
+Création de la page d'administration générale :
+- Enfaite, je vais mettre des widgets sur la page de l'établissement du manager, ça serais mieus pour l'UI
+
+Création d'un horaire :
+- SQL : ```INSERT INTO `schudle`(`begin`, `end`) VALUES ('[heure de début]', '[heure de fin]')```
+
