@@ -694,16 +694,29 @@ Objectifs de la semaine:
 - Créer d'autres diagrammes d'activités
 ![Liste des choses à faire pour la semaine du 11.05](./Documentation/Images/liste_des_choses_a_faire_1205.jpg) 
 
+Il faut d'abord que je définisse ce qu'est réellement une réservation :
+![Une réservation c'est quoi](./Documentation/images/une_reservation_cest_quoi.jpg) 
+
 ### Les horaires
 Comme on peut le voir sur la liste de tâches, la première chose à faire est de créer une page d'administration ou l'on peut créer des horaires ou récupérer ces proposés par les autres établissements. 
 - Une fois un horaire créer, il est impossible pour un utilisateur standard de le supprimer, car l'horaire peut être utilisé par un autre restaurant
+Création d'un horaire :
+- SQL : ```INSERT INTO `schudle`(`begin`, `end`) VALUES ('[heure de début]', '[heure de fin]')```
 
-Il faut d'abord que je définisse ce qu'est réellement une réservation :
-![Une réservation c'est quoi](./Documentation/Images/une_reservation_cest_quoi.jpg) 
-
+### Page admin
 Création de la page d'administration générale :
 - Enfaite, je vais mettre des widgets sur la page de l'établissement du manager, ça serais mieus pour l'UI
 
-Création d'un horaire :
-- SQL : ```INSERT INTO `schudle`(`begin`, `end`) VALUES ('[heure de début]', '[heure de fin]')```
+### Zones et fournitures
+- Il faut que je récupère toutes les places dans une zone
+- SQL ```SELECT IFNULL(SUM(f.places), 0) as "places_total" FROM `has_furniture` as hf INNER JOIN furniture as f ON f.id = hf.idFurniture WHERE hf.idZone = [id de la zone]```
+- La page d'administration affiche le nombre de places totales dans une zone
+
+- Il faut ajouter une page de gestion des fournitures pour les zones, c'est à fire une page ou l'on peut voir, modifier ou supprimer les fournitures de la zone. On doit également pouvoir changer les horaires de ceux-ci
+  - Je vais ajouter sur la page d'administration un bouton pour chaque zone qui affiche les fournitures de cette dernière
+  - Le bouton ce créer et j'arrive a ouvrir un modal
+  - Il faut maintenant que je récupère les fournitures de la zone
+    - SQL : ```SELECT f.id as fid, f.name as fname, f.color as fcolor, f.places as fplaces, fs.id as fsid, fs.shape as fsname, ft.id as ftid, ft.type as ftname FROM `has_furniture` as hf LEFT JOIN `furniture` as f ON f.id = hf.idFurniture LEFT JOIN `furniture_type` as ft ON ft.id = f.idType LEFT JOIN `furniture_shape` as fs ON fs.id = f.idShape WHERE hf.idZone = [id de la zone]```
+    - J'arrive à afficher toutes les fournitures dez zones dans un modal
+- Il faut aussi ajouter la possibilité de modifier ou de créer une excpetion sur une zone (plus tard)
 

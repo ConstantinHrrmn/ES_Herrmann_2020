@@ -34,12 +34,14 @@ function GetEtablishmentFloors($idEtablishement){
       // On parcours toutes les données envoyées par la base de données
       foreach ($res as $value){
         // On vérifie si le tableau est à 0 ou si la clé (l'id de l'étage) n'est pas déjà utilisé comme clé dans le tableau provisoire
-        if(count($floors)<0 || !IsFloorInArray($floors, $value['floor_id'])){
+        if(count($floors)<0 || !IsFloorInArray($floors, $value['floor_id'])){  
           // On créer un enregistrement dans le tableau avec comme clé l'id de l'étage et comme valeurs le nom de l'étages et les zones
-          $floors[$value['floor_id']] = array("id" => $value['floor_id'], "name" => $value['floor_name'], "zones" => array());
+          $floors[$value['floor_id']] = array("id" => $value['floor_id'], "name" => $value['floor_name'],"zones" => array());
         }
+
+        $places = GetPlaces($value['zone_id']);
         // On ajoute la zone et ses horaires dans le tableau
-        array_push($floors[$value['floor_id']]["zones"], array($value['zone_name'], $value['zone_id'], $value['begin'], $value['end']));
+        array_push($floors[$value['floor_id']]["zones"], array($value['zone_name'], $value['zone_id'], $value['begin'], $value['end'], $places));
       }
       return $floors;
     }
@@ -48,6 +50,29 @@ function GetEtablishmentFloors($idEtablishement){
       $res = false;
       return $res;
     }
+}
+
+/*
+* Récupère le nombre de places totales pour la zone recherchée
+*/
+function GetPlaces($id){
+  static $query = null;
+
+  if ($query == null) {
+    $req = 'SELECT IFNULL(SUM(f.places), 0) as "places_total" FROM `has_furniture` as hf INNER JOIN furniture as f ON f.id = hf.idFurniture WHERE hf.idZone = :i';
+    $query = database()->prepare($req);
+  }
+
+  try {
+      $query->bindParam(':i', $id, PDO::PARAM_INT);
+
+      $query->execute();
+      $res = $query->fetch(PDO::FETCH_ASSOC);
+      return $res;
+  }
+  catch (Exception $e) {
+    error_log($e->getMessage());
+  }
 }
 
 // Retourne true si la valeur est utilisée comme clé dans le tableau donné

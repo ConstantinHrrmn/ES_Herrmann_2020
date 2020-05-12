@@ -30,7 +30,7 @@
           $floors = get_object_vars(json_decode($floorsJson));
         else
           $floors = null;
-        
+    
       }else{
         header("Location: ./profile.php");
         exit(); 
@@ -132,10 +132,13 @@
                                         <?php foreach($floor->zones as $zone):?>
                                         <tr>
                                             <td class="ms-table-f-w"><?php echo $zone[0] ?></td>
-                                            <td>[nombre de places]</td>
+                                            <td><?php echo $zone[4]->places_total ?></td>
                                             <td><button class="btn-primary" data-toggle="modal"
                                                     data-target="#showZone<?php echo $zone[1] ?>"
                                                     style="height:50%">Horaires</button></td>
+                                            <td><button class="btn-primary" data-toggle="modal"
+                                                    data-target="#showFurnitures<?php echo $zone[1] ?>"
+                                                    style="height:50%">Fournitures</button></td>
                                             <td>[Editer]</td>
                                         </tr>
                                         <?php endforeach; ?>
@@ -183,7 +186,12 @@
                         foreach($floor->zones as $zone):
                             $url = $path."etablishment/floor/zone/schedule/get?all&id=".$zone[1];
                             $schedules = json_decode(file_get_contents($url));
+
+                            $url2 = $path."etablishment/floor/zone/furniture/get?id=".$zone[1];
+                            $furnitures = json_decode(file_get_contents($url2));
                         ?>
+
+                        <!--Modal pour les horaires de la zones-->
                         <div class="modal fade" id="showZone<?php echo $zone[1] ?>" tabindex="-1" role="dialog"
                             aria-labelledby="createFloor">
                             <div class="modal-dialog modal-dialog-centered modal-min" role="document">
@@ -193,15 +201,61 @@
                                             aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         <h1><?php echo $zone[0] ?></h1>
                                         <?php foreach($schedules as $s): ?>
-                                            <p><?php echo $s->begin." - ".$s->end ?></p>
+                                        <p><?php echo $s->begin." - ".$s->end ?></p>
                                         <?php endforeach;?>
                                     </div>
 
                                 </div>
                             </div>
                         </div>
+
+                        <!--Modal pour les fournitures de la zones-->
+                        <div class="modal fade" id="showFurnitures<?php echo $zone[1] ?>" tabindex="-1" role="dialog"
+                            aria-labelledby="createFloor">
+                            <div class="modal-dialog modal-dialog-centered modal-min" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body text-center">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <?php if(count($furnitures) > 1):?>
+                                        <table class="table table-hover thead-primary">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Nom</th>
+                                                    <th scope="col">Couleur</th>
+                                                    <th scope="col">Places</th>
+                                                    <th scope="col">Forme</th>
+                                                    <th scope="col">Type</th>
+                                                    <th scope="col">Modifier</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach($furnitures as $f):?>
+                                                <tr>
+                                                    <th scope="row"><?php echo $f->fname ?></th>
+                                                    <td><?php echo $f->fcolor ?></td>
+                                                    <td><?php echo $f->fplaces ?></td>
+                                                    <td><?php echo $f->fsname ?></td>
+                                                    <td><?php echo $f->ftname ?></td>
+                                                    <th><button class="btn-primary">EDIT</button></th>
+                                                </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                        <?php else: ?>
+                                        <h1>Aucune fourniture</h1>
+                                        <button class="btn-primary">Créer</button>
+                                        <?php endif; ?>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                         <?php endforeach; ?>
+
+
                         <?php endforeach; ?>
+
                         <?php endif;?>
 
 
