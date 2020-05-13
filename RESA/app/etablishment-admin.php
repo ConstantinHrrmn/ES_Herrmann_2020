@@ -24,6 +24,8 @@
 
         $etablishement = json_decode(file_get_contents($path."etablishment/get/?id=".$id));
 
+        $schudle = json_decode(file_get_contents($path."etablishment/schudle/get?id=".$id));
+
         $floorsJson = file_get_contents($path."etablishment/floor/get/?id=".$id);
 
         if($floorsJson != "[]")
@@ -187,7 +189,7 @@
                             $url = $path."etablishment/floor/zone/schedule/get?all&id=".$zone[1];
                             $schedules = json_decode(file_get_contents($url));
 
-                            $url2 = $path."etablishment/floor/zone/furniture/get?id=".$zone[1];
+                            $url2 = $path."etablishment/floor/zone/furniture/get?zone&id=".$zone[1];
                             $furnitures = json_decode(file_get_contents($url2));
                         ?>
 
@@ -237,14 +239,14 @@
                                                     <td><?php echo $f->fplaces ?></td>
                                                     <td><?php echo $f->fsname ?></td>
                                                     <td><?php echo $f->ftname ?></td>
-                                                    <th><button class="btn-primary">EDIT</button></th>
+                                                    <th><button class="btn-primary shadow-none">EDIT</button></th>
                                                 </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                         <?php else: ?>
                                         <h1>Aucune fourniture</h1>
-                                        <button class="btn-primary">Créer</button>
+                                        <button class="btn-primary shadow-none">Créer</button>
                                         <?php endif; ?>
                                     </div>
 
@@ -260,7 +262,7 @@
 
 
 
-
+                        <!-- Création d'un étage-->
                         <div class="ms-panel-body">
                             <button class="btn btn-primary" data-toggle="modal"
                                 data-target="#createFloor<?php echo $etablishement->id?>" style="height:50%">Créer un
@@ -303,6 +305,43 @@
 
 
                 <div class="col-xl-5 col-md-12">
+                    <!-- Horaires de la semaine -->
+                    <div class="ms-panel ms-widget ms-crypto-widget">
+                        <div class="ms-panel-header">
+                            <h6>Horaires de la semaine</h6>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover thead-light">
+                                <thead>
+
+                                    <tr>
+                                        <?php foreach($schudle as $s): ?>
+                                        <th scope="col"><?php echo $s->dname?></th>
+                                        <?php endforeach; ?>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <?php 
+                                        foreach($schudle as $s): 
+                                        ?>
+                                        <td><?php echo isset($s->closed) ? "FERMER" : $s->sbegin." - ".$s->send; ?></td>
+                                        <?php endforeach; ?>
+                                    </tr>
+                                    <tr>
+                                        <?php foreach($schudle as $s): ?>
+                                        <td><button class="btn-primary" data-toggle="modal" data-target="" style="height:50%">Modifier</button></td>
+                                        <?php endforeach; ?>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
                     <!-- Réservations de la semaine -->
                     <div class="ms-panel ms-widget ms-crypto-widget">
                         <div class="ms-panel-header">
@@ -398,95 +437,87 @@
                     </div>
                 </div>
 
-                <!-- Food Orders -->
-                <div class="col-md-12">
-                    <div class="ms-panel">
+                <!-- Les fournitures du restaurant-->
+                <div class="col-xl-8 col-md-12">
+                    <div class="ms-panel ms-panel-fh">
                         <div class="ms-panel-header">
-                            <h6>Trending Orders</h6>
+                            <h6>Fournitures</h6>
                         </div>
+                        <?php 
+                            $url3 = $path."etablishment/floor/zone/furniture/get?etablishment&id=".$id;
+                            $fournitures = json_decode(file_get_contents($url3));
+                            if(count($fournitures) > 0):
+                        ?>
                         <div class="ms-panel-body">
-                            <div class="row">
-
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="ms-card no-margin">
-                                        <div class="ms-card-img">
-                                            <img src="https://via.placeholder.com/530x240" alt="card_img">
-                                        </div>
-                                        <div class="ms-card-body">
-                                            <div class="ms-card-heading-title">
-                                                <h6>Meat Stew</h6>
-                                                <span class="green-text"><strong>$25.00</strong></span>
-                                            </div>
-
-                                            <div class="ms-card-heading-title">
-                                                <p>Orders <span class="red-text">15</span></p>
-                                                <p>Income <span class="red-text">$175</span></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="ms-card no-margin">
-                                        <div class="ms-card-img">
-                                            <img src="https://via.placeholder.com/530x240" alt="card_img">
-                                        </div>
-                                        <div class="ms-card-body">
-                                            <div class="ms-card-heading-title">
-                                                <h6>Pancake</h6>
-                                                <span class="green-text"><strong>$50.00</strong></span>
-                                            </div>
-
-                                            <div class="ms-card-heading-title">
-                                                <p>Orders <span class="red-text">75</span></p>
-                                                <p>Income <span class="red-text">$275</span></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="ms-card no-margin">
-                                        <div class="ms-card-img">
-                                            <img src="https://via.placeholder.com/530x240" alt="card_img">
-                                        </div>
-                                        <div class="ms-card-body">
-                                            <div class="ms-card-heading-title">
-                                                <h6>Burger</h6>
-                                                <span class="green-text"><strong>$45.00</strong></span>
-                                            </div>
-
-                                            <div class="ms-card-heading-title">
-                                                <p>Orders <span class="red-text">85</span></p>
-                                                <p>Income <span class="red-text">$575</span></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="ms-card no-margin">
-                                        <div class="ms-card-img">
-                                            <img src="https://via.placeholder.com/530x240" alt="card_img">
-                                        </div>
-                                        <div class="ms-card-body">
-                                            <div class="ms-card-heading-title">
-                                                <h6>Saled</h6>
-                                                <span class="green-text"><strong>$85.00</strong></span>
-                                            </div>
-                                            <div class="ms-card-heading-title">
-                                                <p>Orders <span class="red-text">175</span></p>
-                                                <p>Income <span class="red-text">$775</span></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
+                            <div class="table-responsive">
+                                <table class="table thead-primary">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nom</th>
+                                            <th scope="col">Couleur</th>
+                                            <th scope="col">Forme</th>
+                                            <th scope="col">Type</th>
+                                            <th scope="col">Places</th>
+                                            <th scope="col">Zone attribuée</th>
+                                            <th scope="col">Modifier</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach($fournitures as $f): ?>
+                                        <tr>
+                                            <th scope="row"><?php echo $f->fname; ?></th>
+                                            <td><?php echo $f->fcolor; ?></td>
+                                            <td><?php echo $f->fsname; ?></td>
+                                            <td><?php echo $f->ftname; ?></td>
+                                            <td><?php echo $f->fplaces; ?></td>
+                                            <td><?php echo $f->zname == null ? "<button class=\"btn-primary shadow-none\">Attribuer</button>" : $f->zname; ?>
+                                            </td>
+                                            <td><button class="btn-primary">modifier</button></td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
                             </div>
+                            <button class="btn btn-primary shadow-none" data-toggle="modal"
+                                data-target="#createFurniture" style="height:50%">Ajouter</button>
+                        </div>
+                        <?php else: ?>
+                        <div class="ms-panel-body">
+                            <button class="btn btn-primary shadow-none" data-toggle="modal"
+                                data-target="#createFurniture" style="height:50%">Créer une fourniture</button>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <!-- Formulaire pour la création d'une zone sur un étage -->
+                <div class="modal fade" id="createFurniture" tabindex="-1" role="dialog" aria-labelledby="createFloor">
+                    <div class="modal-dialog modal-dialog-centered modal-min" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body text-center">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                                <h1>Création d'une fourniture</h1>
+                                <form action="<?php echo $path."etablishment/floor/create/form/"; ?>" method="post"
+                                    enctype="multipart/form-data" id="creationEtablissement">
+
+                                    <div class="ms-form-group">
+                                        <input type="text" placeholder="Nom de la fourniture" class="form-control"
+                                            name="name" value="" required>
+                                    </div>
+
+                                    <input type="text" name="user" id="user" value="<?php echo $user->id ?>" hidden>
+                                    <input type="submit" class="btn btn-primary shadow-none" value="Créer"
+                                        name="submitnewfurniture">
+                                </form>
+                            </div>
+
                         </div>
                     </div>
                 </div>
-                <!-- END/Food Orders -->
 
                 <!-- Recent Orders Requested -->
-                <div class="col-xl-7 col-md-12">
+                <div class="col-xl-4 col-md-12">
                     <div class="ms-panel ms-panel-fh">
                         <div class="ms-panel-header">
                             <div class="d-flex justify-content-between">
@@ -518,95 +549,6 @@
                                 </ul>
                             </div>
                             <canvas id="youtube-subscribers"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="col-12">
-                    <div class="ms-panel">
-                        <div class="ms-panel-header">
-                            <h6>Recent Orders</h6>
-                        </div>
-                        <div class="ms-panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover thead-primary">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Order ID</th>
-                                            <th scope="col">Order Name</th>
-                                            <th scope="col">Customer Name</th>
-                                            <th scope="col">Location</th>
-                                            <th scope="col">Order Status</th>
-                                            <th scope="col">Delivered Time</th>
-                                            <th scope="col">Price</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>French Fries</td>
-                                            <td>Jhon Leo</td>
-                                            <td>New Town</td>
-                                            <td><span class="badge badge-primary">Pending</span>
-                                            </td>
-                                            <td>10:05</td>
-                                            <td>$10</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Mango Pie</td>
-                                            <td>Kristien</td>
-                                            <td>Old Town</td>
-                                            <td><span class="badge badge-dark">Cancelled</span>
-                                            </td>
-                                            <td>14:05</td>
-                                            <td>$9</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>FrieD Egg Sandwich</td>
-                                            <td>Jack Suit</td>
-                                            <td>Oxford Street</td>
-                                            <td><span class="badge badge-success">Delivered</span>
-                                            </td>
-                                            <td>12:05</td>
-                                            <td>$19</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">4</th>
-                                            <td>Lemon Yogurt Parfait</td>
-                                            <td>Alesdro Guitto</td>
-                                            <td>Church hill</td>
-                                            <td><span class="badge badge-success">Delivered</span>
-                                            </td>
-                                            <td>12:05</td>
-                                            <td>$18</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">5</th>
-                                            <td>Spicy Grill Sandwich</td>
-                                            <td>Jacob Sahwny</td>
-                                            <td>palace Road</td>
-                                            <td><span class="badge badge-success">Delivered</span>
-                                            </td>
-                                            <td>12:05</td>
-                                            <td>$21</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">6</th>
-                                            <td>Chicken Sandwich</td>
-                                            <td>Peter Gill</td>
-                                            <td>Street 21</td>
-                                            <td><span class="badge badge-primary">Pending</span>
-                                            </td>
-                                            <td>12:05</td>
-                                            <td>$15</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
                         </div>
                     </div>
                 </div>

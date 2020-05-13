@@ -720,3 +720,51 @@ Création de la page d'administration générale :
     - J'arrive à afficher toutes les fournitures dez zones dans un modal
 - Il faut aussi ajouter la possibilité de modifier ou de créer une excpetion sur une zone (plus tard)
 
+### Appel avec m. Garcia
+- Discussion de retour de Nadège sur la documentation
+  - Plus faire la différence entre le client et le restaurateur
+
+---
+## 13.05.20
+Il faut créer un petit formulaire pour créer un nouveau meuble
+- Je me suis dis qu'il devait être possible de créer un meuble, mais que celle-ci soit ensuite déplacée dans le restaurant. 
+  - C'est à dire, ajouter un champ dans la table des fournitures afin d'ajouter l'id de l'établissement
+  - Donc, je vais commencer par créer un widget, afin de voir toutes les fournitures du restaurant
+  - Depuis ce widget, il sera possible de voir dans quelle zone ce trouve la fourntiure et il sera aussi possible de modifier cette zone ainsi que directement le meuble
+  - Il faut ajouter à l'API le fait de récupérer toutes les fournitures d'un établissement
+    - ~~SQL : ```SELECT zone.id as zoneid, zone.name as zonename, f.id as fid, f.name as fname, f.color as fcolor, f.places as fplaces, ft.id as ftid, ft.type as ftname, fs.id as fsid, fs.shape as fsshape FROM `floor` as floor LEFT JOIN `has_zone` as hz ON hz.idFloor = floor.id LEFT JOIN `zone` as zone ON zone.id = hz.idZone LEFT JOIN has_furniture as hf ON hf.idZone = zone.id LEFT JOIN furniture as f ON f.id = hf.idFurniture LEFT JOIN furniture_type as ft on ft.id = f.idType LEFT JOIN furniture_shape as fs ON fs.id = f.idShape WHERE floor.idEtablishment = [id de l'établissement recherché] ORDER BY zone.id```~~
+    - Je me suis rendu compte que ça ne retournais pas exactement ce que je voulais... en effet j'ai besoin de récupérer TOUTES les fournitures d'un restaurant et pas seulement celles qui sont dans des zones.
+    - Nouveau SQL : ```SELECT f.id as fid, f.name as fname, f.color as fcolor, f.places as fplaces, ft.id as ftid, ft.type as ftname, fs.id as fsid, fs.shape as fsname, z.id as zid, z.name as zname FROM furniture as f LEFT JOIN furniture_type as ft ON ft.id = f.idType LEFT JOIN furniture_shape as fs ON fs.id = f.idShape LEFT JOIN has_furniture as hf ON hf.idFurniture = f.id LEFT JOIN zone as z ON z.id = hf.idZone WHERE f.idEtablishement = [id de l'établissement recherché] ORDER BY fid ASC```
+    - l'api fonctionne et on peut récupérer les données avec ce lien : ```etablishment/floor/zone/furniture/get?etablishment&id=XX```
+
+Choses qu'il me reste a faire avant de pouvoir gérer les réservations 
+- Ajouter une table de liaison entre établissement et horaire
+  - Par exemple une table qui gère les horaires (10:00-23:00) de l'étbalissement et une qui gère le jour (lundi, mardi, mercredi, etc.)
+  - Comme ça, si une zone n'as pas d'horaires particuliers, elle prendra par défaut les horaires du restaurant
+- Ajouter la modification d'une fourniture et d'une zone ainsi que la suppression
+- Créer et attribuer des horaires pour un restaurant
+  - Il faut que j'ajoute un widget qui affiche les horaires du restaurant ainsi qu'un petit bouton pour modifier les horaires
+  - Il faut d'abord récupérer tous les horaires de la base de données
+    - SQL : ```SELECT d.id as did, d.name as dname,  s.id as sid, s.begin as sbegin, s.end as send FROM opening as o LEFT JOIN schudle as s ON s.id = o.idSchudle LEFT JOIN days as d ON d.id = o.idDay WHERE o.idEtablishement = [id de l'établissement]```
+    - La requête ci-dessus me retourne tous les horaires du restaurant, mais moi je veux tous les jours de la semaine.
+      - Je vais faire ça dans l'API, car il y ades choses à prendre en compte
+      - Requête pour récupérer tous les jours : ```SELECT * FROM days``` (plutôt simple)
+      - J'arric à récupérer les horaires d'un restaurant
+        - Pour chaque jour : 
+          - Si le restaurant est ouvert : ```did => id du jour, dname => nom du jour, sid => id de l'heure, sbegin => heure de début, send => heure de fin```
+          - Si le restaurant est fermé : ````did => id du jour, dname => nom du jour, closed => closed```
+          - L'application ce chargera de tester si la variable ````closed``` existe dans le tableau ou non
+      - Je vais donc créer le widget pour la lecture des horaires de l'établissement
+        - Les horaires s'affichent correctement
+        - Il faut maintenant pouvoir les modifier
+          - Pour ce faire, je dois créer un formulaire que regroupe tous les horaires du restaurant ainsi qu'un champ de création si l'on souhaites ajouter un autre horaire que ceux déjà enregistrés
+
+
+### Appel avec m. Garcia
+- Bonne (et mauvaise) nouvelle : Rendez-vous avec Nadège demain soir 17h.
+
+### MEMO
+A faire demain pour la présentation :
+- Créer un schéma logique sur l'API et les deux applications 
+  - Expliquer la différence entre l'application web et l'application du restaurant
+  - Expliquer les avantage de l'API
