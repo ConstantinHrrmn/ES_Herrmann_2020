@@ -52,6 +52,15 @@ function ForEtablishement($id){
 }
 
 /*
+* Récupère les horaires du restaurant pour chaque zone
+* Params:
+*     - id : l'id du restaurant
+*/
+function ForAllHisZones($id){
+    
+}
+
+/*
 * Récupère tous les jours stockés dans la base de données
 */
 function GetWeekDays(){
@@ -72,8 +81,12 @@ function GetWeekDays(){
     }
 }
 
-// etablishment/schudle/get?id=XX
-if(isset($_GET['id'])){
+// etablishment/schudle/get?zones&id=XX
+if(isset($_GET['zones']) && isset($_GET['id'])){
+    $id = $_GET['id'];
+    echo json_encode(ForAllHisZones($id));
+}
+else if(isset($_GET['id'])){
     $id = $_GET['id'];
     echo json_encode(ForEtablishement($id));
 }

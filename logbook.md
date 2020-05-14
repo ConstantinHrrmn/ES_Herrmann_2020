@@ -762,9 +762,68 @@ Choses qu'il me reste a faire avant de pouvoir gérer les réservations
 
 ### Appel avec m. Garcia
 - Bonne (et mauvaise) nouvelle : Rendez-vous avec Nadège demain soir 17h.
+- Appel demain à 16:45
 
 ### MEMO
 A faire demain pour la présentation :
 - Créer un schéma logique sur l'API et les deux applications 
   - Expliquer la différence entre l'application web et l'application du restaurant
   - Expliquer les avantage de l'API
+
+---
+## 14.05.20
+Pour créer une nouvelle réservation, je dois pouvoir récupérer les disponibilités d'un restaurant pour un horaire 
+- Récupérer tous les horaires du restaurant
+- Récupérer les réservation
+  - Attribuer des réservation avec des tables
+
+### Technique 
+1. Pour commencer, je récupère l'heure d'arrivée, la durée et l'heure estimée de départ de chaque réservation pour un établissement :
+    - ~~SQL : ```SELECT r.time as arrival, CAST(r.duration as time) as estimated_duration, CAST(r.time + r.duration as time) as estimated_end FROM reservation as r WHERE r.idEtablishement = 1```~~
+2. Je dois récupérer tous les horaires de l'établissement pour une journée
+3. Récupérer les places disponbiles par heure de recherchée
+   1. Récipérer toutes les places du restaurant existantes à l'heure recherchée
+      1. Ce n'est pas la version finale, il faut que je regarde si celle-ci fonctionne correctement : ```SELECT SUM(src.places) as places FROM ( SELECT f.places FROM `zone_has_schudle` as zhs INNER JOIN schudle as s ON s.id = zhs.idSchudle INNER JOIN zone as z ON z.id = zhs.idZone LEFT JOIN has_furniture as hf ON hf.idZone = z.id LEFT JOIN furniture as f ON f.id = hf.idFurniture WHERE CAST(s.begin as time) <= '11:00:00' AND CAST(s.end as time) >= '12:00:00' AND hf.idZone IS NOT NULL AND f.idEtablishement = 1) src```
+      2. Donc avec cette requête, j'arrive à récupérer toutes les places qu'il y a à une heure donnée de disponible dans un restaurant
+   2. Il faut maintenant récupérer le nombres de places prises une certaine date avec une certaine heure 
+   3. #### Problème 
+      1. J'ai 2 enregistrements 
+         1. 12:30
+         2. 12:45
+      2. Quand j'ajoute 1h15 aux deux à l'aide de la requête SQL, le premier me renvoi ```13:45``` mais le second me renvoi ```null```. Je pense que c'est du au fait que au lieu d'ajouter 1h je dois d'abord arrondir puis ajouter une heure... je ne trouve pas comment faire sur internet. je vais essayer de trouver des solutions, sinon je vais contacter m. Garcia
+         1. Il faut passer par le UNIX_TIMESTAMP pour avoir l'heure final
+         2. SQL : ```SELECT arrival, FROM_UNIXTIME(UNIX_TIMESTAMP(arrival)+duration) as estimated_end FROM reservation WHERE idEtablishement = [id de l'établissement]```
+    4. Je récupère toutes les places disponbiles dans l'établissement pour une date et une heure donnée
+       1. ```
+            SET @arrival = '12:30:00'; // Heure d'arrivée de la personne
+            SET @duration = 3600; // Durée estimée du repas en secondes
+            SET @date = '2020-05-14'; // Date du repas
+            SET @etab = 1;  // id de l'établissement
+
+            SELECT SUM(src.places) - 
+            (
+              SELECT SUM(f.places) not_avaible 
+              FROM reservation as r 
+              INNER JOIN furniture as f ON r.idFurniture = f.id 
+              WHERE r.idEtablishement = @etab 
+              AND CAST(r.arrival as DATE) = @date 
+              AND CAST(r.arrival as TIME) <= @arrival 
+              AND CAST(FROM_UNIXTIME(UNIX_TIMESTAMP(r.arrival)+r.duration) as TIME) >= @arrival
+            ) total
+            FROM ( 
+                SELECT f.places 
+                FROM `zone_has_schudle` as zhs 
+                INNER JOIN schudle as s ON s.id = zhs.idSchudle 
+                INNER JOIN zone as z ON z.id = zhs.idZone 
+                LEFT JOIN has_furniture as hf ON hf.idZone = z.id 
+                LEFT JOIN furniture as f ON f.id = hf.idFurniture 
+                WHERE CAST(s.begin as time) <= @arrival
+                AND CAST(s.end as time) >= CAST(FROM_UNIXTIME(UNIX_TIMESTAMP(@arrival)+@duration) as TIME)
+                AND hf.idZone IS NOT NULL 
+                AND f.idEtablishement = @etab
+            ) src
+            ```
+        1. En version copiable : ```SET @arrival = '12:30:00'; SET @duration = 3600; SET @date = '2020-05-14'; SET @etab = 1; SELECT SUM(src.places) - (SELECT SUM(f.places) not_avaible FROM reservation as r INNER JOIN furniture as f ON r.idFurniture = f.id WHERE r.idEtablishement = @etab AND CAST(r.arrival as DATE) = @date AND CAST(r.arrival as TIME) <= @arrival AND CAST(FROM_UNIXTIME(UNIX_TIMESTAMP(r.arrival)+r.duration) as TIME) >= @arrival) total FROM ( SELECT f.places FROM `zone_has_schudle` as zhs INNER JOIN schudle as s ON s.id = zhs.idSchudle INNER JOIN zone as z ON z.id = zhs.idZone LEFT JOIN has_furniture as hf ON hf.idZone = z.id LEFT JOIN furniture as f ON f.id = hf.idFurniture WHERE CAST(s.begin as time) <= @arrival AND CAST(s.end as time) >= CAST(FROM_UNIXTIME(UNIX_TIMESTAMP(@arrival)+@duration) as TIME) AND hf.idZone IS NOT NULL AND f.idEtablishement = @etab) src```
+    5. Je suis en train de me dire que je devrais peut-être ajouter la table dans la réservation, comme ça je pourrais juste récupérer les tables disponibles pour une certaine tranche horaire
+       1. J'ai donc ajouter une colonne avec l'id de la fourniture réservée.
+       2. J'ai donc modifier la requête SQL ci-dessus afin qu'elle reprenne le nombre de place des tablea réservées et non pa sle nombre de personnes
