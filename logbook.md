@@ -777,6 +777,8 @@ Pour créer une nouvelle réservation, je dois pouvoir récupérer les disponibi
 - Récupérer les réservation
   - Attribuer des réservation avec des tables
 
+Afin de m'aider dans ma reflection: 
+![Schema fonctionnement réservation](./Documentation/images/schema_fonctionnement_reservation.jpg) 
 ### Technique 
 1. Pour commencer, je récupère l'heure d'arrivée, la durée et l'heure estimée de départ de chaque réservation pour un établissement :
     - ~~SQL : ```SELECT r.time as arrival, CAST(r.duration as time) as estimated_duration, CAST(r.time + r.duration as time) as estimated_end FROM reservation as r WHERE r.idEtablishement = 1```~~
@@ -826,4 +828,57 @@ Pour créer une nouvelle réservation, je dois pouvoir récupérer les disponibi
         1. En version copiable : ```SET @arrival = '12:30:00'; SET @duration = 3600; SET @date = '2020-05-14'; SET @etab = 1; SELECT SUM(src.places) - (SELECT SUM(f.places) not_avaible FROM reservation as r INNER JOIN furniture as f ON r.idFurniture = f.id WHERE r.idEtablishement = @etab AND CAST(r.arrival as DATE) = @date AND CAST(r.arrival as TIME) <= @arrival AND CAST(FROM_UNIXTIME(UNIX_TIMESTAMP(r.arrival)+r.duration) as TIME) >= @arrival) total FROM ( SELECT f.places FROM `zone_has_schudle` as zhs INNER JOIN schudle as s ON s.id = zhs.idSchudle INNER JOIN zone as z ON z.id = zhs.idZone LEFT JOIN has_furniture as hf ON hf.idZone = z.id LEFT JOIN furniture as f ON f.id = hf.idFurniture WHERE CAST(s.begin as time) <= @arrival AND CAST(s.end as time) >= CAST(FROM_UNIXTIME(UNIX_TIMESTAMP(@arrival)+@duration) as TIME) AND hf.idZone IS NOT NULL AND f.idEtablishement = @etab) src```
     5. Je suis en train de me dire que je devrais peut-être ajouter la table dans la réservation, comme ça je pourrais juste récupérer les tables disponibles pour une certaine tranche horaire
        1. J'ai donc ajouter une colonne avec l'id de la fourniture réservée.
-       2. J'ai donc modifier la requête SQL ci-dessus afin qu'elle reprenne le nombre de place des tablea réservées et non pa sle nombre de personnes
+       2. J'ai donc modifier la requête SQL ci-dessus afin qu'elle reprenne le nombre de place des tablea réservées et non pa sle nombre de personnes 
+
+  4. Afin d'afficher les bonnes réservations sur les bons jours, il faut que je récupères toutes les dates de la semaine
+     1. Trouver toutes les réservations d'une date A à une date B
+        1. ```
+            SELECT 
+                r.id AS rid, 
+                r.arrival AS arrival, 
+                r.amount AS amount,
+                f.id as fid, 
+                f.name as fname, 
+                f.places as fplaces, 
+                u.id AS uid, 
+                u.first_name AS ufirstname, 
+                u.last_name AS ulastname, 
+                u.phone AS uphone, 
+                u.email AS umail 
+              FROM 
+                reservation AS r 
+                INNER JOIN user AS u ON u.id = r.idUser 
+                LEFT JOIN furniture AS f ON f.id = r.idFurniture 
+              WHERE 
+                CAST(r.arrival AS DATE) >= '2020-05-11' // Date de début
+                AND CAST(r.arrival AS DATE) <= '2020-05-17' // Date de fin
+                AND r.idEtablishement = 1 // L'id de l'étbalissement
+              ORDER BY r.arrival
+            ```
+          2. En version copiable : ```SELECT r.id AS rid, r.arrival AS arrival, r.amount AS amount,f.id as fid, f.name as fname, f.places as fplaces, u.id AS uid, u.first_name AS ufirstname, u.last_name AS ulastname, u.phone AS uphone, u.email AS umail FROM reservation AS r INNER JOIN user AS u ON u.id = r.idUser LEFT JOIN furniture AS f ON f.id = r.idFurniture WHERE CAST(r.arrival AS DATE) >= '[date de début]' AND CAST(r.arrival AS DATE) <= '[date de fin]' AND r.idEtablishement = [id de l'établissement] ORDER BY r.arrival```
+
+    
+
+Afin de pouvoir mieux expliquer à Nadège le fonctionnement de mon application, j'ai réaliser le schéma suivant :
+![Schema de fonctionnement de RESA](./Documentation/images/schema_explication_waview.jpg) 
+
+### Appel avec M. Garcia
+- Déplacer la page d'administration dans RESA Restaurant
+
+#### Application RESA Client
+- Voir tous les restaurant inscrits
+- Voir le bouton réserver si restaurant pro
+
+#### Application RESA Restaurant
+- Accéder aux données pro de l'application 
+  - Création d'étages, de zones et de fournitures
+
+### Reunion avec Nadège
+- Niveau de droits
+  - 1. Avoir accès aux réservations
+  - 2. Avoir accès à tous le reste
+
+- Option bloquer que les réservations de resa ou toutes les réservations
+  - Par périodes
+
+- Temps moyens midi : 1h / Temps moyens le soir : 2h
