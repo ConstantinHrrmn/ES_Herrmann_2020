@@ -106,6 +106,25 @@ function GetLastInsertedEtablishement(){
   return $res;
 }
 
+function GetSubscriptionLevel($id){
+  static $query = null;
+
+    if ($query == null) {
+      $req = 'SELECT `level` FROM `establishment` WHERE `id` = :id';
+      $query = database()->prepare($req);
+    }
+  
+    try {
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+
+        $query->execute();
+        $res = $query->fetch(PDO::FETCH_ASSOC);
+        return $res;
+    }
+    catch (Exception $e) {
+      error_log($e->getMessage());
+    }
+}
 
 // exemple : etablishment/get/?id=XX
 if(isset($_GET['id'])){
@@ -128,6 +147,11 @@ else if(isset($_GET['manager']) && isset($_GET['iduser'])){
   }else{  
       echo json_encode('Non-numeric input');
   }
+}
+// exemple : etablishment/get/?level&i=XX
+if(isset($_GET['level']) && isset($_GET['i'])){
+  $id = $_GET['i'];
+  echo json_encode(GetSubscriptionLevel($id));
 }
 else{
     echo json_encode(GetAllEtablishements());

@@ -27,7 +27,7 @@ function GetWeekDates(){
 
 function GetReservationsForCurrentWeek(){
     $week = GetWeekDates();
-    var_dump($week);
+    var_dump($week); 
 }
 
 function GetReservationsForRange($begin, $end){

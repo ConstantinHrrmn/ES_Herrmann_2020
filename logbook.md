@@ -882,3 +882,72 @@ Afin de pouvoir mieux expliquer à Nadège le fonctionnement de mon application,
   - Par périodes
 
 - Temps moyens midi : 1h / Temps moyens le soir : 2h
+
+---
+## 17.05.20
+Création des différentes applications de RESA:
+
+### RESA
+L'application que les utilisateurs téléchargent
+- Afficher la liste des restaurants
+- Afficher les menus, les images, les horaires et les informations de contact
+- Reserver une table si le restaurant à le compte pro ou full
+
+### RESA BLOG 
+L'application gratuite pour les restaurateurs
+- Création d'un restaurant
+- Création / modifications des photos, menus, horaires et informations de contact
+- Possibilité de passer à la version PRO ou full
+
+### RESA PRO
+L'application qui permet de gérer les réservations de l'établissement
+- Tout ce qui est dans RESA BLOG
+- Ajout des fournitures du restaurant
+- Gestion des réservations 
+
+### RESA FULL              
+L'application qui permet le contrôle total sur le restaurant
+- Tout ce qui est dans RESA PRO
+- Gestion du plan de la salle en direct 
+- Gestion des zones et des horaires des zones
+- Gestion du personnel et de leurs accès
+
+![Nouveau schéma de RESA](./Documentation/images/schema_resa_new.jpg)
+
+Je vais commencer par faire la version gratuite. Celle qui concerne à créer un établissement et d'y ajouter les photos, les horaires et les menus
+- Suppression de la gestion "admin" de l'application RESA de base.
+  - Il s'agit bien d'une application à part entière. C'est pourquoi, même un manager peut ce connecter pour réserver une table dans un restaurant.
+
+Afin de pouvoir faire correctement la redirection vers le bon service du restaurant, je vais donc créer un script qui va automatiquement rediriger le manager sur la bonne page de gestion de l'établissement
+  - Création du champ dans la base de données
+    - 1 = BLOG
+    - 2 = PRO
+    - 3 = FULL
+  - Il faut ajouter dans l'API la gestion du niveau d'abonnement
+    - Je peut récupérer le niveau de l'établissement grâce à son id 
+      - Lien API : ```etablishment/get/?level&i=XX```
+  - Il faut aussi que je fasse le login utilisateur pour un manager. C'est à dire que le manager dois entrer les informations suivantes :
+    - Le nom du restaurant
+    - Son identifiant (adresse mail)
+    - Son mot de passe
+    - SQL : ```SELECT e.id FROM establishment as e INNER JOIN is_in_as as iia ON iia.idEtablishement = e.id WHERE e.name = "[nom du restaurant]" AND iia.idUser IN (SELECT u.id FROM user AS u WHERE email = "[email]" AND password = "`[mot de passe hashé]`") AND iia.idPermission = 2```
+  - Créeation du script de redirection sur la page correspondante au niveau de sécurité du bâtiment
+
+#### Nouveau planning des choses importantes à faire
+##### RESA Client
+- Finaliser la page d'acceuil de RESA client
+  - Mettre un filtre pour les restaurants
+  - Afficher la page du restaurant avec les données de ce dernier
+
+##### RESA Blog
+- Afficher un menu simple pour Ajouter/modifier/supprimer les photos, les menus, les horaires, etc.
+- Afficher les boutons pour découvrir les options payantes
+
+##### RESA Pro
+- Mettre en place la page admin que j'avais déjà créer afin de controller les fournitures ainsi que les réservations
+- Gestion des login des employés
+
+##### RESA Full
+- Utilisation du plan de la salle
+- Gestion des zones, des fournitures et des horaires
+- Gestion des employés du restaurant et de leurs accès

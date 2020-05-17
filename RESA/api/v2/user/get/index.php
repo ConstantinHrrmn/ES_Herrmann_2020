@@ -184,6 +184,36 @@ function Login($email, $password){
   }
 }
 
+function LoginEtablishementManager($n, $e, $p){
+  global $key;
+  $pass = hash('sha256', hash('sha256', $key).$p);
+
+  static $query = null;
+
+  if ($query == null) {
+    $req = 'SELECT e.id FROM establishment as e INNER JOIN is_in_as as iia ON iia.idEtablishement = e.id WHERE e.name = :n AND iia.idUser IN (SELECT u.id FROM user AS u WHERE email = :e AND password = :p) AND iia.idPermission = 2';
+    $query = database()->prepare($req);
+  }
+
+  try {
+    $query->bindParam(":e", $e, PDO::PARAM_STR);
+    $query->bindParam(":p", $pass, PDO::PARAM_STR);
+    $query->bindParam(":n", $n, PDO::PARAM_STR);
+    $query->execute();
+    $res = $query->fetch(PDO::FETCH_ASSOC);
+  }
+  catch (Exception $e) {
+    error_log($e->getMessage());
+    $res = false;
+  }
+
+  if($res == null || $res == false){
+    return false;
+  }else{
+    return $res;
+  }
+}
+
 if(isset($_GET['byPermission'])){
   $idPermission = $_GET['byPermission'];
   // Vérification qu'il s'agit bien d'un int
@@ -230,6 +260,9 @@ else if(isset($_GET['login']) && isset($_GET['email']) && isset($_GET['password'
 
   $user = Login($email, $password);
   echo json_encode($user);
+}
+else if(isset($_GET['n']) && isset($_GET['e']) && isset($_GET['p'])){
+  echo json_encode(LoginEtablishementManager($_GET['n'], $_GET['e'], $_GET['p']));
 }
 else if(isset($_GET['id'])){
   $id = $_GET['id'];
