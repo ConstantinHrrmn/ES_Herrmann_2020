@@ -14,10 +14,12 @@ include '../../pdo.php';
 * Récupère tous les établissements
 */
 function GetAllEtablishements(){
+  $date = getdate();
+  $idDay = $date['wday'];
     static $query = null;
 
     if ($query == null) {
-      $req = 'SELECT e.id, e.name, e.address, e.phone, e.email, m.name as menu_name, m.description as menu_descritpion FROM `establishment` as e LEFT JOIN menu as m ON e.id = m.id';
+      $req = 'SELECT e.id, e.name, e.address, e.phone, e.email, m.name as menu_name, m.description as menu_descritpion, (SELECT s.id FROM opening as o INNER JOIN schudle as s ON s.id = o.idSchudle WHERE o.idDay = '.$idDay.' AND o.idEtablishement = e.id AND UNIX_TIMESTAMP(s.begin) < UNIX_TIMESTAMP(NOW()) AND UNIX_TIMESTAMP(s.end) > UNIX_TIMESTAMP(NOW())) as open FROM `establishment` as e LEFT JOIN menu as m ON e.id = m.id';
       $query = database()->prepare($req);
     }
   
@@ -64,10 +66,12 @@ function GetAllEtablishementsForManager($idUser){
 *     - idEtablishement : l'id de l'établissement dont on veut les infos
 */
 function GetEtablishementById($idEtablishement){
+  $date = getdate();
+  $day = $date['wday'];
     static $query = null;
 
     if ($query == null) {
-      $req = 'SELECT e.id, e.name, e.address, e.phone, e.email, m.name as menu_name, m.description as menu_descritpion FROM `establishment` as e LEFT JOIN menu as m ON e.id = m.id WHERE e.id = '.$idEtablishement;
+      $req = 'SELECT e.id, e.name, e.address, e.phone, e.email, m.name as menu_name, m.description as menu_descritpion, (SELECT s.id FROM opening as o INNER JOIN schudle as s ON s.id = o.idSchudle WHERE o.idDay = '.$day.' AND o.idEtablishement = e.id AND UNIX_TIMESTAMP(s.begin) < UNIX_TIMESTAMP(NOW()) AND UNIX_TIMESTAMP(s.end) > UNIX_TIMESTAMP(NOW())) as open FROM `establishment` as e LEFT JOIN menu as m ON e.id = m.id WHERE e.id = '.$idEtablishement;
       $query = database()->prepare($req);
     }
   
@@ -149,7 +153,7 @@ else if(isset($_GET['manager']) && isset($_GET['iduser'])){
   }
 }
 // exemple : etablishment/get/?level&i=XX
-if(isset($_GET['level']) && isset($_GET['i'])){
+else if(isset($_GET['level']) && isset($_GET['i'])){
   $id = $_GET['i'];
   echo json_encode(GetSubscriptionLevel($id));
 }

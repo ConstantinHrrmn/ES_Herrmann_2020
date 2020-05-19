@@ -31,7 +31,7 @@ Version: 1.0.0
       - Breadcrumbs
       - Cards
       - Progress Bars
-      - Buttons
+      - ons
       - Badges
       - Pagination
       - Prelaoders
@@ -5417,7 +5417,7 @@ a.ms-g-plus,
 
 .ms-profile-overview{
   position: relative;
-  height: 500px;
+  height: auto;
   background-color: #fff;
   margin-bottom: 30px;
   -webkit-box-shadow: 0 1px 6px 1px rgba(69,65,78, 0.1);
@@ -5517,9 +5517,9 @@ li .ms-count{
   font-weight: 700;
 }
 .ms-profile-navigation{
-  position: absolute;
+  position: relative;
   bottom: 0;
-  left: 250px;
+  left: 0;
 }
 .ms-profile-navigation li{
   flex: 0 0 auto;
@@ -7388,6 +7388,7 @@ body:not(.ms-settings-open) .ms-settings-toggle:hover{
   justify-content: space-between;
 }
 
+
 /* Responsive */
 
 @media(max-width:1300px){
@@ -7469,3 +7470,4 @@ body:not(.ms-settings-open) .ms-settings-toggle:hover{
     left: 75%;
   }
 }
+

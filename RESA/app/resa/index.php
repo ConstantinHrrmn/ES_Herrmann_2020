@@ -25,6 +25,7 @@
     <link href="./vendors/iconic-fonts/font-awesome/css/all.min.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/css/custom.css" rel="stylesheet">
     <!-- jQuery UI -->
     <link href="./assets/css/jquery-ui.min.css" rel="stylesheet">
     <!-- Costic styles -->
@@ -74,6 +75,10 @@
                             <h6>Tous les réstaurants</h6>
                         </div>
                         <div class="ms-panel-body">
+                            <input class="form-control" id="filter" type="text" placeholder="Rechercher un restaurant">
+                        </div>
+                        <div class="ms-panel-body" id="parent">
+
                             <div class="ms-portfolio card-columns">
 
                                 <?php foreach($etablishments as $etab=>$val):?>
@@ -81,15 +86,28 @@
                                 <?php 
                                     $img = GetImage($path."images/get/?etablishment&id=".$val->id);
                                   ?>
+                                <?php if($val->open != null):?>
 
-                                <a class="card ms-portfolio-item" href="#">
+                                <a class="card ms-portfolio-item open" style="display: inline-block"  href="<?php echo "./etablissement.php?id=".$val->id;?>">
                                     <img class="" style="width: 100%; background-size: cover;"
                                         src="<?php echo count($img) < 1 ? $path."images/background/?no_image" : $img[0]->full_path ?>"
                                         alt="photo du restaurant : <?php echo $val->name ?>">
                                     <div class="ms-portfolio-item-content">
-                                        <h4><?php echo $val->name ?></h4>
+                                        <h3 style="color:white" class="name">
+                                            <?php echo $val->name ?></h3>
                                     </div>
                                 </a>
+                                <?php else:?>
+                                <div class="card ms-portfolio-item closed" style="display: inline-block">
+                                    <img class="" style="width: 100%; background-size: cover;"
+                                        src="<?php echo count($img) < 1 ? $path."images/background/?no_image" : $img[0]->full_path ?>"
+                                        alt="photo du restaurant : <?php echo $val->name ?>">
+                                    <div class="ms-portfolio-item-content">
+                                        <h1 style="color:red">FERME</h1>
+                                        <h3 style="color:white" class="name"><?php echo $val->name ?></h3>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
 
                                 <?php endforeach; ?>
 
@@ -115,7 +133,14 @@
 
     <!-- Costic core JavaScript -->
     <script src="./assets/js/framework.js"></script>
-
+    <script>
+    var $search = $("#filter").on('input', function() {
+        var matcher = new RegExp($(this).val(), 'gi');
+        $('.card').show().not(function() {
+            return matcher.test($(this).find('.name').text())
+        }).hide();
+    })
+    </script>
 </body>
 
 </html>

@@ -60,6 +60,50 @@ function ForAllHisZones($id){
     
 }
 
+function GetWeekDay($day){
+    $id = $day['wday'];
+
+    static $query = null;
+
+    if ($query == null) {
+      $req = 'SELECT * FROM days WHERE id = '.$id;
+      $query = database()->prepare($req);
+    }
+  
+    try {
+        $query->execute();
+        $res = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $res;
+    }
+    catch (Exception $e) {
+      error_log($e->getMessage());
+    }
+}
+
+function GetActualOpeningStatus($idEtab){
+    $date = getdate();
+    $idDay = $date['wday'];
+
+    static $query = null;
+
+    if ($query == null) {
+      $req = 'SELECT s.id FROM opening as o INNER JOIN schudle as s ON s.id = o.idSchudle WHERE o.idDay = :d AND o.idEtablishement = :e AND UNIX_TIMESTAMP(s.begin) < UNIX_TIMESTAMP(NOW()) AND UNIX_TIMESTAMP(s.end) > UNIX_TIMESTAMP(NOW())';
+      $query = database()->prepare($req);
+    }
+  
+    try {
+        $query->bindParam(':d', $idDay, PDO::PARAM_INT);
+        $query->bindParam(':e', $idEtab, PDO::PARAM_INT);
+
+        $query->execute();
+        $res = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $res;
+    }
+    catch (Exception $e) {
+      error_log($e->getMessage());
+    }
+}
+
 /*
 * Récupère tous les jours stockés dans la base de données
 */
@@ -85,6 +129,14 @@ function GetWeekDays(){
 if(isset($_GET['zones']) && isset($_GET['id'])){
     $id = $_GET['id'];
     echo json_encode(ForAllHisZones($id));
+}
+else if(isset($_GET['today'])){
+    $date = getdate();
+    echo json_encode(GetWeekDay($date));
+}
+else if(isset($_GET['open']) && isset($_GET['idEtab'])){
+    $id = $_GET['idEtab'];
+    echo json_encode(GetActualOpeningStatus($id));
 }
 else if(isset($_GET['id'])){
     $id = $_GET['id'];

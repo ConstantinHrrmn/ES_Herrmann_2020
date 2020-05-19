@@ -826,11 +826,11 @@ Afin de m'aider dans ma reflection:
             ) src
             ```
         1. En version copiable : ```SET @arrival = '12:30:00'; SET @duration = 3600; SET @date = '2020-05-14'; SET @etab = 1; SELECT SUM(src.places) - (SELECT SUM(f.places) not_avaible FROM reservation as r INNER JOIN furniture as f ON r.idFurniture = f.id WHERE r.idEtablishement = @etab AND CAST(r.arrival as DATE) = @date AND CAST(r.arrival as TIME) <= @arrival AND CAST(FROM_UNIXTIME(UNIX_TIMESTAMP(r.arrival)+r.duration) as TIME) >= @arrival) total FROM ( SELECT f.places FROM `zone_has_schudle` as zhs INNER JOIN schudle as s ON s.id = zhs.idSchudle INNER JOIN zone as z ON z.id = zhs.idZone LEFT JOIN has_furniture as hf ON hf.idZone = z.id LEFT JOIN furniture as f ON f.id = hf.idFurniture WHERE CAST(s.begin as time) <= @arrival AND CAST(s.end as time) >= CAST(FROM_UNIXTIME(UNIX_TIMESTAMP(@arrival)+@duration) as TIME) AND hf.idZone IS NOT NULL AND f.idEtablishement = @etab) src```
-    5. Je suis en train de me dire que je devrais peut-être ajouter la table dans la réservation, comme ça je pourrais juste récupérer les tables disponibles pour une certaine tranche horaire
+    1. Je suis en train de me dire que je devrais peut-être ajouter la table dans la réservation, comme ça je pourrais juste récupérer les tables disponibles pour une certaine tranche horaire
        1. J'ai donc ajouter une colonne avec l'id de la fourniture réservée.
        2. J'ai donc modifier la requête SQL ci-dessus afin qu'elle reprenne le nombre de place des tablea réservées et non pa sle nombre de personnes 
 
-  4. Afin d'afficher les bonnes réservations sur les bons jours, il faut que je récupères toutes les dates de la semaine
+  1. Afin d'afficher les bonnes réservations sur les bons jours, il faut que je récupères toutes les dates de la semaine
      1. Trouver toutes les réservations d'une date A à une date B
         1. ```
             SELECT 
@@ -855,7 +855,7 @@ Afin de m'aider dans ma reflection:
                 AND r.idEtablishement = 1 // L'id de l'étbalissement
               ORDER BY r.arrival
             ```
-          2. En version copiable : ```SELECT r.id AS rid, r.arrival AS arrival, r.amount AS amount,f.id as fid, f.name as fname, f.places as fplaces, u.id AS uid, u.first_name AS ufirstname, u.last_name AS ulastname, u.phone AS uphone, u.email AS umail FROM reservation AS r INNER JOIN user AS u ON u.id = r.idUser LEFT JOIN furniture AS f ON f.id = r.idFurniture WHERE CAST(r.arrival AS DATE) >= '[date de début]' AND CAST(r.arrival AS DATE) <= '[date de fin]' AND r.idEtablishement = [id de l'établissement] ORDER BY r.arrival```
+          1. En version copiable : ```SELECT r.id AS rid, r.arrival AS arrival, r.amount AS amount,f.id as fid, f.name as fname, f.places as fplaces, u.id AS uid, u.first_name AS ufirstname, u.last_name AS ulastname, u.phone AS uphone, u.email AS umail FROM reservation AS r INNER JOIN user AS u ON u.id = r.idUser LEFT JOIN furniture AS f ON f.id = r.idFurniture WHERE CAST(r.arrival AS DATE) >= '[date de début]' AND CAST(r.arrival AS DATE) <= '[date de fin]' AND r.idEtablishement = [id de l'établissement] ORDER BY r.arrival```
 
     
 
@@ -939,7 +939,7 @@ Afin de pouvoir faire correctement la redirection vers le bon service du restaur
   - Mettre un filtre pour les restaurants
   - Afficher la page du restaurant avec les données de ce dernier
 
-##### RESA Blog
+##### RESA Blog 
 - Afficher un menu simple pour Ajouter/modifier/supprimer les photos, les menus, les horaires, etc.
 - Afficher les boutons pour découvrir les options payantes
 
@@ -951,3 +951,59 @@ Afin de pouvoir faire correctement la redirection vers le bon service du restaur
 - Utilisation du plan de la salle
 - Gestion des zones, des fournitures et des horaires
 - Gestion des employés du restaurant et de leurs accès
+
+---
+## 18.05.20
+Il faut que je mette à jour l'API avec mes recherches. C'est-à-dire compléter en ajoutant la recherches de places disponibles et les réservations de la semaine en cours (date de début et date de fin) Ce qui permet de rechercher par semaine les 
+- La longue requête que j'avais faite ci-dessus pour récupérer le nombre de place disponible à une certaine heure ne fonctionne pas avec PHP PDO car il ne gère pas le multi-requête
+
+- je vais donc commencer par la page de RESA Client
+  - Afficher le nombres de places disponibles pour l'heure à venir
+  - Afficher la page du restaurant quand on clique sur la wignette.
+
+### Appel avec M. Garcia
+- Parler du Coronavirus dans le bilan
+- Faire un tableau de ce que peut faire chaque utilisateur dans l'application   
+
+---
+## 19.05.20
+Il faut que je modifie la requête
+  - ```SELECT SUM(src.places) - (SELECT SUM(f.places) not_avaible FROM reservation as r INNER JOIN furniture as f ON r.idFurniture = f.id WHERE r.idEtablishement = :etab AND CAST(r.arrival as DATE) = :d AND CAST(r.arrival as TIME) <= :arrival AND CAST(FROM_UNIXTIME(UNIX_TIMESTAMP(r.arrival)+r.duration) as TIME) >= :arrival) total FROM ( SELECT f.places FROM `zone_has_schudle` as zhs INNER JOIN schudle as s ON s.id = zhs.idSchudle INNER JOIN zone as z ON z.id = zhs.idZone LEFT JOIN has_furniture as hf ON hf.idZone = z.id LEFT JOIN furniture as f ON f.id = hf.idFurniture WHERE CAST(s.begin as time) <= :arrival AND CAST(s.end as time) >= CAST(FROM_UNIXTIME(UNIX_TIMESTAMP(:arrival)+:duration) as TIME) AND hf.idZone IS NOT NULL AND f.idEtablishement = :etab) src```
+  - Mais du coup elle ne fonctionne pas... 
+
+Voilà comment je vais faire à partir de maintenant sur la page principale de RESA:
+1. Finir la page principale de RESA avec un filtre. Il permet de filtrer les restaurants ouverts et fermés ainsi que ceux qui ont encore de la place
+2. Mettre un place une recherche
+3. Mettre en place la page qui affiche les informations du restaurant (photos, menus, informations de réservation)
+
+- Afin de faire le filtre pour les restaurants ouverts ou non, je dois vérifier leur état au chargement
+  - Je récupère donc d'abord le jour actuel dans la base de données d'après le jour actuel ```getdate``` de PHP
+    - ```etablishment/schudle/get?today```
+  - Avec cette fonction, je devrais pouvoir créer une autre fonction qui me retourne le statut actuel d'un restaurant au moment donnée
+    - Voici la requête qui me permet de récupérer le statut actuel du restaurant
+    - ```SELECT s.id FROM opening as o INNER JOIN schudle as s ON s.id = o.idSchudle WHERE o.idDay = 2 AND o.idEtablishement = 1 AND UNIX_TIMESTAMP(s.begin) < UNIX_TIMESTAMP(NOW()) AND UNIX_TIMESTAMP(s.end) > UNIX_TIMESTAMP(NOW())```
+      - Elle retourne l'id de l'horaire si c'est ouvert et NULL si le restaurant n'est pas ouvert
+  - J'ai fusionné cette requête avec la requête qui récupère tous les restaurants afin de pouvoir directement avoir le status quand je les récupères tous
+    - SQL final : ```SELECT e.id, e.name, e.address, e.phone, e.email, m.name as menu_name, m.description as menu_descritpion, (SELECT s.id FROM opening as o INNER JOIN schudle as s ON s.id = o.idSchudle WHERE o.idDay = [id du jour (Générer par le php directement)] AND o.idEtablishement = e.id AND UNIX_TIMESTAMP(s.begin) < UNIX_TIMESTAMP(NOW()) AND UNIX_TIMESTAMP(s.end) > UNIX_TIMESTAMP(NOW())) as open FROM `establishment` as e LEFT JOIN menu as m ON e.id = m.id```
+
+- Pour créer le filtrage j'ai eu des petits soucis à cause des divs que j'avais créer avec bootstrap
+  - Je peut effectuer des recherches par nom maintenant
+
+- Création de la page du restaurant
+  - Affichage des photos du restaurant sous forme de slider ou de gallery
+    - Il faut que je regarde sur bootstrap comment faire un slider
+    - Il faut aussi que je mregarde si c'est plus beau de faire un slider ou un gallery des photos du restaurant
+  - Afin de valider l'accès à la page, je dois juste mettre à jour la requête qui récupère les infos du restaurant
+    - il faut que la requête retour aussi si le restaurant est ouvert ou non
+
+- LEs restaurant ont tous des images mais certains non, il faut donc que je fasse une requête qui me retourne toutes les images si elles existent, ou alors le lien apr défaut si il y en a pas
+  - Je perd trop de temps sur ça, on va faire plus simple.
+  - C'est l'api qui va vérifier et si elle trouve null, elle envera le lien par défaut
+
+- Affichage des photos du restaurant 
+- Affichage d'un calendrier trouver sur ce site  : ```https://www.startutorial.com/articles/view/how-to-build-a-web-calendar-in-php```
+  - Je vais devoir le modifier pour qu'il corressponde à mes besoins
+
+### Appel avec m. Garcia
+- Ne pas mettre du style dans l'html 
+  - Favoriser le nom de classe

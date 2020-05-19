@@ -23,7 +23,7 @@
     <!-- Logo -->
     <div class="logo-sn ms-d-block-lg">
       <a class="pl-0 ml-0 text-center" href="index.html">
-        <img src="./assets/img/logo.png" alt="logo">
+        <img src="../style/assets/img/logo.png" alt="logo">
       </a>
     </div>
     <!-- Navigation -->

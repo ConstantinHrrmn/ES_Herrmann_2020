@@ -134,7 +134,14 @@ if(isset($_GET['data']) && isset($_GET['id'])){
     echo json_encode(GetImageData($_GET['id']) );
 }
 else if(isset($_GET['etablishment']) && isset($_GET['id'])){
-    echo json_encode(GetImagesForEtablishment($_GET['id'], $FullPathToAPI));
+  $images = GetImagesForEtablishment($_GET['id'], $FullPathToAPI);
+  if($images != null){
+    echo json_encode($images);
+  }else{
+    $image = array(array("full_path" => $FullPathToAPI."images/background/images/no_image.png"));
+    echo json_encode($image);
+  }
+  
 }
 else if(isset($_GET['dish']) && isset($_GET['id'])){
     echo json_encode(GetImagesForDish($_GET['id'], $FullPathToAPI));

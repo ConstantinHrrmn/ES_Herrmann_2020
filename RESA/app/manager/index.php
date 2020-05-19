@@ -5,7 +5,6 @@
   session_start();
 
   if(isset($_POST['connexion'])){
-    $link = $path."user/get/";
     if(isset($_POST['password'])){
       $password = hash('sha256', $_POST['password']);
       if(isset($_POST['username'])){
@@ -19,13 +18,26 @@
             'n' => $nom
           );
   
-          $link = $link."?".http_build_query($queryData);
+          $link = $path."user/get/"."?".http_build_query($queryData);
           // Takes raw data from the request
           $json = file_get_contents($link);
           // Converts it into a PHP object
           $data = json_decode($json);
 
           $_SESSION['sender'] = $data->id;
+
+          $queryData = array(
+            'email' => $username,
+            'password' => $password
+          );
+  
+          $link = $path."user/get/"."?login&".http_build_query($queryData);
+          // Takes raw data from the request
+          $json = file_get_contents($link);
+          // Converts it into a PHP object
+          $data = json_decode($json);
+  
+          $_SESSION['user'] = $data;
 
           header("Location: ./sender.php");
           exit();
