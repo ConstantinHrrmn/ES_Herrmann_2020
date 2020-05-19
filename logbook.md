@@ -1007,3 +1007,7 @@ Voilà comment je vais faire à partir de maintenant sur la page principale de R
 ### Appel avec m. Garcia
 - Ne pas mettre du style dans l'html 
   - Favoriser le nom de classe
+
+ATTENTION : Il faut pas que j'oublie que le calendrier dois seulement s'afficher pour les restaurants qui ont l'option ! 
+Il faut également qui je fasse des diagrammes de fonctionnement en plus que celui que j'avais fait.
+-> Jeudi + Vendredi = documentation à fond pou mettre à jour
