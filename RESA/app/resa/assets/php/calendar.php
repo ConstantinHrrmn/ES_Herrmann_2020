@@ -121,8 +121,9 @@ class Calendar {
             $cellContent=null;
         }
              
-         
-        return '<a href="www.google.com"><li id="li-'.$this->currentDate.'" class="'.($cellNumber%7==1?' start ':($cellNumber%7==0?' end ':' ')).
+        $day = $this->currentDay-1;
+         $link = "reservation.php?id=".$this->idetab."&day=".$day."&month=".$this->currentMonth."&year=".$this->currentYear;
+        return '<a href="'.$link.'"><li id="li-'.$this->currentDate.'" class="'.($cellNumber%7==1?' start ':($cellNumber%7==0?' end ':' ')).
                 ($cellContent==null?'mask':'').'">'.$cellContent.'</li></a>';
     }
      

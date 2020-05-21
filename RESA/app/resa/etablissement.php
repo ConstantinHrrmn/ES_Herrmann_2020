@@ -7,13 +7,16 @@
   if(isset($_GET['id'])){
       $link = $path."etablishment/get/?id=".$_GET['id'];
       $data = json_decode(file_get_contents($link));
-      if($data->open == null){
+      if($data == null){
           header("Location: ./index.php");
           exit();
+      }else{
+        $link_images = $path."images/get/?etablishment&id=".$data->id;
+        $images = json_decode(file_get_contents($link_images));
+
+        $_SESSION['selectedEtablissement'] = $data;
       }
 
-      $link_images = $path."images/get/?etablishment&id=".$data->id;
-      $images = json_decode(file_get_contents($link_images));
   }
 ?>
 
@@ -71,14 +74,23 @@
 
     <!-- Main Content -->
     <main class="body-content">
-
         <!-- Navigation Bar -->
         <?php include './assets/php/topbar.php'; ?>
 
         <!-- Body Content Wrapper -->
         <div class="ms-content-wrapper">
 
+            <div class="row">
+                <div class="col-xl-12 col-md-12">
+                    <div class="ms-panel ms-panel-fh">
+                        <div class="ms-panel-body">
+                            <a href="index.php" class="btn btn-primary" style="margin: 0">Retour</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="ms-profile-overview restaurant-banner-main">
+
                 <div class="restaurant-banner" style="background-image: url(<?php echo $images[0]->full_path; ?>);">
                 </div>
             </div>
@@ -90,8 +102,17 @@
                             <div class="ms-panel ms-panel-fh">
 
                                 <div class="ms-panel-body">
-                                    <!-- Grid row -->
                                     <h1><?php echo $data->name; ?></h1>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 col-md-12">
+                            <div class="ms-panel ms-panel-fh">
+                                <div class="ms-panel-body">
+                                    <h3>Phone : <?php echo $data->phone?></h3>
+
+                                    <h3>Email : <?php echo $data->email?></h3>
                                 </div>
                             </div>
                         </div>
@@ -121,8 +142,9 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-xl-6 col-md-12">
                             <div class="ms-panel ms-panel-fh">
+                                <?php if($data->subscription > 1):?>
                                 <div class="ms-panel-body">
                                     <?php
                                     include './assets/php/calendar.php';
@@ -132,26 +154,13 @@
                                     echo $calendar->show();
                                     ?>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-pane" id="reservationspassees">
-                    <div class="col-md-12">
-                        <div class="ms-panel">
-                            <div class="ms-panel-body">
-                                <h1>Les réservations passées</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-pane" id="modifer">
-                    <div class="col-md-12">
-                        <div class="ms-panel">
-                            <div class="ms-panel-body">
-                                <h1>Modifier le compte</h1>
+                                <?php else : ?>
+                                <div class="ms-panel-body">
+                                    <h5>Réservations par téléphone ou mail</h5>
+                                    <a href="tel:<?php echo $data->phone; ?>" class="btn btn-primary">Appeler</a>
+                                    <a href="mailto:<?php echo $data->email; ?>" class="btn btn-primary">Mail</a>
+                                </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

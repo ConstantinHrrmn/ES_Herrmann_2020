@@ -8,7 +8,10 @@ VERSION     : 1.0
 *******************************************************************************/
 
 // On inclu le connecteur de la base de données
-include '../../pdo.php';
+if(file_exists('../../pdo.php')){
+    require_once '../../pdo.php';
+}
+
 
 function GetWeekDates(){
     $date = getdate();
@@ -56,7 +59,7 @@ function GetReservationForDateAndTime($arrival, $duration, $date, $etab){
     static $query = null;
 
     if ($query == null) {
-      $req = 'SELECT SUM(src.places) - (SELECT SUM(f.places) not_avaible FROM reservation as r INNER JOIN furniture as f ON r.idFurniture = f.id WHERE r.idEtablishement = :etab AND CAST(r.arrival as DATE) = :d AND CAST(r.arrival as TIME) <= :arrival AND CAST(FROM_UNIXTIME(UNIX_TIMESTAMP(r.arrival)+r.duration) as TIME) >= :arrival) total FROM ( SELECT f.places FROM `zone_has_schudle` as zhs INNER JOIN schudle as s ON s.id = zhs.idSchudle INNER JOIN zone as z ON z.id = zhs.idZone LEFT JOIN has_furniture as hf ON hf.idZone = z.id LEFT JOIN furniture as f ON f.id = hf.idFurniture WHERE CAST(s.begin as time) <= :arrival AND CAST(s.end as time) >= CAST(FROM_UNIXTIME(UNIX_TIMESTAMP(:arrival)+:duration) as TIME) AND hf.idZone IS NOT NULL AND f.idEtablishement = :etab) src';
+      $req = 'Call IsPlaceForReservation(:etab,:d,:arrival, :duration, @avaible)';
       $query = database()->prepare($req);
     }
   
@@ -68,7 +71,6 @@ function GetReservationForDateAndTime($arrival, $duration, $date, $etab){
         $query->bindParam(':etab', $etab, PDO::PARAM_STR);
         
         $query->execute();
-        var_dump($query);
         $res = $query->fetchAll(PDO::FETCH_ASSOC);
         return $res;
     }
@@ -76,6 +78,8 @@ function GetReservationForDateAndTime($arrival, $duration, $date, $etab){
       error_log($e->getMessage());
     }
 }
+
+
 
 if(isset($_GET['week'])){
     echo json_encode(GetReservationsForCurrentWeek());
@@ -86,6 +90,7 @@ else if(isset($_GET['range']) && isset($_GET['begin']) && isset($_GET['end']) &&
     $etab = $_GET['etab'];
     echo json_encode(GetReservationsForRange($begin, $end, $etab));
 }
+// /reservation/get/?full&arrival=12:00&duration=3600&date=2020-05-14&etab=1
 else if(isset($_GET['full']) && isset($_GET['arrival']) && isset($_GET['duration']) && isset($_GET['date']) && isset($_GET['etab'])){
     $arrival = $_GET['arrival'];
     $duration = $_GET['duration'];

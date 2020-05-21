@@ -600,7 +600,7 @@ Les objectifs pour le poster
   - Il est possible d'afficher les horaires d'une zone en cliquant sur le bouton "horaires"
 - Il faut ajouter une table qui affiche les fournitures de la zone, je vais donc utiliser l'application que m. Garcia m'avais envoyé pour générer des fournitures
   - J'ai générer 100 meubles 
-    - Ils ont tous un nom aléatoire (d'unn être humain haha)
+    - Ils ont tous un nom aléatoire (d'un être humain haha)
     - ils sont tous bleus
     - Ils ont tous une forme et un type différent
 
@@ -1008,6 +1008,63 @@ Voilà comment je vais faire à partir de maintenant sur la page principale de R
 - Ne pas mettre du style dans l'html 
   - Favoriser le nom de classe
 
-ATTENTION : Il faut pas que j'oublie que le calendrier dois seulement s'afficher pour les restaurants qui ont l'option ! 
-Il faut également qui je fasse des diagrammes de fonctionnement en plus que celui que j'avais fait.
--> Jeudi + Vendredi = documentation à fond pou mettre à jour
+ATTENTION : 
+- ~~Il faut pas que j'oublie que le calendrier dois seulement s'afficher pour les restaurants qui ont l'option !~~ [OK]
+- Il faut également qui je fasse des diagrammes de fonctionnement en plus que celui que j'avais fait.
+- -> Jeudi + Vendredi = documentation à fond pou mettre à jour
+
+---
+## 20.05.20
+
+- Ajout du numéro de téléphone et de l'adresse mail sur la page du restaurant 
+- Il faut maintenant que je créer la page de réservation 
+  - Cette page va récupérer tous les horaires disponibles pour le restaurant durant la journée
+  - Elle va également permettre à l'utilisateur de changer la date si il le souhaites à nouveau 
+  - Une fois valider, la réservation pour le restaurant ce ferra automatiquement 
+
+- Si un utilistateur n'est pas connecté, il est automatiquement rediriger sur la page du fast login
+  - Cette page permet de logger une personne rapidement et de revenir sur la page actuelle 
+  - Cette page nécéssite dans la session un variable ```returnlink``` qui permet la redirection après le login
+
+- J'ai créer une routine MySQL afin de pouvoir facilement appler la fonction quand j'en ai besoin 
+  - la fonction s'appelle : GetAvaiblePlaces 
+    - Paramètres :
+      - idETab : id de l'établissement
+      - dateday : la date
+      - arrival : heure d'arrivée 
+      - duration : durée en secondes estimées du repas
+    - sortie : 
+      - avaible : le nombre de places disponbiles 
+    - Appeler : ~~```Call GetAvaiblePlaces(1,'2020-05-14','12:30', 3600, @avaible)```~~
+    - Changement : ```Call IsPlaceForReservation(1,'2020-05-14','12:00', 3600, @avaible)```
+      (Il fallait que je fasse attention aussi au rendez-vous qui étaient déjà pris après, car si il n'y avait plus de places à 19h, je ne pouvais pas accepter une réservation à 18h50 si il y a avait des places de libres)
+![Questionnement sur les réservations](./Documentation/images/questionnement_reservations.jpg)
+![Solution](./Documentation/images/solution_reservation.jpg)
+
+- Pour la page de réservation je ne sais pas si je dois d'abord choisir l'heure et ensuite afficher le nombre de places disponibles ou demander le nombres de personnes et ensuite afficher les horaires disponibles.
+  - Je pense que je vais d'abord demander les horaires et que en fonction des horaires je vais chercher le nombres de places disponibles 
+
+- ~~Il faut que j'améliore la procédure et pour ce faire je dois mettre un boucle dans celle-ci ~~
+  - ~~Lien : ```https://www.ibm.com/support/producthub/iias/docs/content/SSHRBY/com.ibm.swg.im.dashdb.apdv.sqlpl.doc/doc/c0024352.html```~~
+- Cette fonction me donne donc le nombres de places disponibles pour une heure avec une durée
+  - Il faut maintenant ajouter la requête correspondante dans l'API
+
+### Appel avec m. Garcia
+- Ajouter des pages sur la page d'acceuil
+  - Afin d'afficher maximum 25-30 restaurants par page
+- Filtre par région
+- Parler dans la documentation du fait que nous avons eu des retours de nadège, c'est pour ça qu'il y atout le temps des changements
+
+---
+## 21.05.20
+- Pour récupérer tous les cérenaux horaires des restaurants du jour
+  - Le ou les crenaux horaires du jour : ```SELECT s.id, s.begin,s.end FROM opening as o INNER JOIN schudle as s ON s.id = o.idSchudle WHERE o.idEtablishement = 1 AND o.idDay = 4```
+
+- ENORME JOURNEE DOCUMENTATION 
+
+
+---
+## 22.05.20
+[A FAIRE]
+- Mettre à jour tout le cheat sheet de l'API
+- Ajouter des diagrammes d'activités

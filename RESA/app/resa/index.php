@@ -88,25 +88,27 @@
                                   ?>
                                 <?php if($val->open != null):?>
 
-                                <a class="card ms-portfolio-item open" style="display: inline-block"  href="<?php echo "./etablissement.php?id=".$val->id;?>">
+                                <a class="card ms-portfolio-item open" style="display: inline-block"
+                                    href="<?php echo "./etablissement.php?id=".$val->id;?>">
                                     <img class="" style="width: 100%; background-size: cover;"
                                         src="<?php echo count($img) < 1 ? $path."images/background/?no_image" : $img[0]->full_path ?>"
                                         alt="photo du restaurant : <?php echo $val->name ?>">
                                     <div class="ms-portfolio-item-content">
-                                        <h3 style="color:white" class="name">
-                                            <?php echo $val->name ?></h3>
+                                        <h3 style="color:white" class="name"><?php echo $val->name ?></h3>
                                     </div>
                                 </a>
                                 <?php else:?>
-                                <div class="card ms-portfolio-item closed" style="display: inline-block">
-                                    <img class="" style="width: 100%; background-size: cover;"
-                                        src="<?php echo count($img) < 1 ? $path."images/background/?no_image" : $img[0]->full_path ?>"
-                                        alt="photo du restaurant : <?php echo $val->name ?>">
-                                    <div class="ms-portfolio-item-content">
-                                        <h1 style="color:red">FERME</h1>
-                                        <h3 style="color:white" class="name"><?php echo $val->name ?></h3>
-                                    </div>
-                                </div>
+                                <a class="card ms-portfolio-item closed" style="display: inline-block"
+                                    href="<?php echo "./etablissement.php?id=".$val->id;?>">
+                                        <img class="" style="width: 100%; background-size: cover;"
+                                            src="<?php echo count($img) < 1 ? $path."images/background/?no_image" : $img[0]->full_path ?>"
+                                            alt="photo du restaurant : <?php echo $val->name ?>">
+                                        <div class="ms-portfolio-item-content">
+                                            <h1 style="color:red">FERME</h1>
+                                            <h3 style="color:white" class="name"><?php echo $val->name ?></h3>
+                                        </div>
+                                </a>
+
                                 <?php endif; ?>
 
                                 <?php endforeach; ?>
