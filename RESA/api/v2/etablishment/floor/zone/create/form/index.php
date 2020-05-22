@@ -15,13 +15,13 @@ if(isset($_POST)){
     if(count($_POST) > 0){
         $data = $_POST['name'];
         if(CheckData($data)){
-            SendDataZone($data, $_POST['user'], $_POST['floor'], $FullPathToAPI);
+            SendDataZone($data, $_POST['floor'], $FullPathToAPI);
         }
     }
     
 }
 
-function SendDataZone($name, $idUser, $idFloor, $path){
+function SendDataZone($name, $idFloor, $path){
     $name = str_replace(' ', '%20', $name);
 
     $linkCreateZone = $path."etablishment/floor/zone/create/?create&name=".$name;

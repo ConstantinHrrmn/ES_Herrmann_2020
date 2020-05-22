@@ -186,9 +186,9 @@ else if(isset($_GET['todayschudles']) && isset($_GET['idEtab'])){
   $date = $date['wday'];
   echo json_encode(GetDaySchudles($id,$date));
 }
-// etablishment/schudle/get?todayschudlesandplaces&idEtab=XX&date=YYYY-MM-DD
+// etablishment/schudle/get?schudlesandplaces&idEtab=XX&date=YYYY-MM-DD
 // Récupère tous les horaires du restaurant pour la journée avec les places disponbiles
-else if(isset($_GET['todayschudlesandplaces']) && isset($_GET['idEtab']) && isset($_GET['date'])){
+else if(isset($_GET['schudlesandplaces']) && isset($_GET['idEtab']) && isset($_GET['date'])){
   $id = $_GET['idEtab'];
   $date = $_GET['date'];
   //echo json_encode(GetDaySchudles($id));

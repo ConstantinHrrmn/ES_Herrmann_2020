@@ -1067,4 +1067,4 @@ ATTENTION :
 ## 22.05.20
 [A FAIRE]
 - Mettre à jour tout le cheat sheet de l'API
-- Ajouter des diagrammes d'activités
+- Ajouter des diagrammes d'activités [OK]
