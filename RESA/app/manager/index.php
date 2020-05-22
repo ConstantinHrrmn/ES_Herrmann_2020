@@ -106,11 +106,11 @@
           <div class="ms-auth-form">
 
             <form class="needs-validation" novalidate="" id="loginForm" method="POST" action="#">
-              <h1>Connexion au restaurant</h1>
+              <h1>Connexion à l'établissement</h1>
               <p>Veuillez entrer votre mail et votre mot de passe ainsi que le nom du restaurant pour continuer</p>
 
               <div class="mb-3">
-                <label for="validationCustom08">Nom du Restaurant</label>
+                <label for="validationCustom08">Nom de l'établissement</label>
                 <div class="input-group">
                   <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom du restaurant" required="" >
                   <div class="invalid-feedback">

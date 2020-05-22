@@ -1068,3 +1068,6 @@ ATTENTION :
 [A FAIRE]
 - Mettre à jour tout le cheat sheet de l'API
 - Ajouter des diagrammes d'activités [OK]
+
+### Appel avec m. Garcia (avant évaluation intermédiaire)
+- Enlever le (intermédiaire) dans les résumés

@@ -55,7 +55,7 @@ function GetReservationsForRange($begin, $end, $etab){
     }
 }
 
-function GetReservationForDateAndTime($arrival, $duration, $date, $etab){
+function IsPlaceForReservation($arrival, $duration, $date, $etab){
     static $query = null;
 
     if ($query == null) {
@@ -96,6 +96,6 @@ else if(isset($_GET['full']) && isset($_GET['arrival']) && isset($_GET['duration
     $duration = $_GET['duration'];
     $date = $_GET['date'];
     $etab = $_GET['etab'];
-    echo json_encode(GetReservationForDateAndTime($arrival, $duration, $date, $etab));
+    echo json_encode(IsPlaceForReservation($arrival, $duration, $date, $etab));
 }
 

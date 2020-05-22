@@ -130,9 +130,11 @@ function GetImageForUser($id, $FullPathToAPI){
   }
 }
 
+// /images/get/?data&id=[id]
 if(isset($_GET['data']) && isset($_GET['id'])){
     echo json_encode(GetImageData($_GET['id']) );
 }
+// /images/get/?etablishment&id=[id]
 else if(isset($_GET['etablishment']) && isset($_GET['id'])){
   $images = GetImagesForEtablishment($_GET['id'], $FullPathToAPI);
   if($images != null){
@@ -144,10 +146,10 @@ else if(isset($_GET['etablishment']) && isset($_GET['id'])){
   
 }
 else if(isset($_GET['dish']) && isset($_GET['id'])){
-    echo json_encode(GetImagesForDish($_GET['id'], $FullPathToAPI));
+    //echo json_encode(GetImagesForDish($_GET['id'], $FullPathToAPI));
 }
 else if(isset($_GET['user']) && isset($_GET['id'])){
-  echo json_encode(GetImageForUser($_GET['id'], $FullPathToAPI));
+  //echo json_encode(GetImageForUser($_GET['id'], $FullPathToAPI));
 }
 else if(isset($_GET['id'])){
     header("Location: ".$FullPathToAPI.GetImagePath($_GET['id']));
