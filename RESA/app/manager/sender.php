@@ -21,12 +21,12 @@ if(isset($_SESSION['sender'])){
         }
         // RESA PRO
         else if($level == '2'){
-            header("Location: ./resapro/sender.php");
+            header("Location: ./resapro/index.php");
             exit();
         }
         // RESA FULL
         else if($level == '3'){
-            header("Location: ./resafull/sender.php");
+            header("Location: ./resafull/index.php");
             exit();
         }
     }

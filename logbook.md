@@ -1071,3 +1071,11 @@ ATTENTION :
 
 ### Appel avec m. Garcia (avant évaluation intermédiaire)
 - Enlever le (intermédiaire) dans les résumés
+
+---
+## 23.05.20
+
+### Evaluation intermediaire
+- Reprendre l'export de la BDD et d'y mettre des commentaires (en anglais) et l'ajouter dans la doc
+- Mettre à jour le .htacces
+- Ajouter les planning dans la doc
