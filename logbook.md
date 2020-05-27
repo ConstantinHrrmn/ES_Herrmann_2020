@@ -1079,3 +1079,15 @@ ATTENTION :
 - Reprendre l'export de la BDD et d'y mettre des commentaires (en anglais) et l'ajouter dans la doc
 - Mettre à jour le .htacces
 - Ajouter les planning dans la doc
+- Passer la doc dans antidote
+
+---
+## 27.05.20
+
+Aujourd'hui, l'objectif est de finir les réservations du côté du client. Il faut donc que je regarde ce que j'ai déjà fait:
+- un client voit le calendrier du mois en cours, il faudrait ajouter en orange le jour actuel et en rouge les jours fermés. [plus tard]
+- Pour réserver, je dois demander a l'utilisateur, quel nombre de personnes il(s) seront
+  - Pour ce faire, je vais afficher des petites cartes avec le nombres de personnes 
+
+- je perd beaucoup de temps a trouver les bonnes requêtes et à créer les vues ( c'est pour cette raison que mon journal de bord est un peu vide)
+-  

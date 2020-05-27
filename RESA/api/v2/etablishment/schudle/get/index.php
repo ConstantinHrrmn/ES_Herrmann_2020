@@ -8,7 +8,9 @@ VERSION     : 1.0
 *******************************************************************************/
 
 // On inclu le connecteur de la base de données
-require_once '../../../pdo.php';
+if(file_exists('../../../pdo.php')){
+  require_once '../../../pdo.php';
+}
 
 /*
 * Récupère les horaires du restaurant pour la semaine
@@ -105,8 +107,6 @@ function GetActualOpeningStatus($idEtab){
 }
 
 function GetDaySchudles($idEtab, $day){
-  
-
   static $query = null;
 
     if ($query == null) {
@@ -185,6 +185,15 @@ else if(isset($_GET['todayschudles']) && isset($_GET['idEtab'])){
   $date = getdate();
   $date = $date['wday'];
   echo json_encode(GetDaySchudles($id,$date));
+}
+// etablishment/schudle/get?todayschudles&idEtab=XX&date=YYYY-MM-DD
+// Récupère tous les horaires du restaurant pour la journée d'une date donnée
+else if(isset($_GET['dayschudle']) && isset($_GET['idEtab']) && isset($_GET['date'])){
+  $id = $_GET['idEtab'];
+  $date = $_GET['date'];
+  $timestamp = strtotime($date);
+  $day = date('w', $timestamp);
+  echo json_encode(GetDaySchudles($id,$day));
 }
 // etablishment/schudle/get?schudlesandplaces&idEtab=XX&date=YYYY-MM-DD
 // Récupère tous les horaires du restaurant pour la journée avec les places disponbiles

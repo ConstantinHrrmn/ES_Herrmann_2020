@@ -1,0 +1,3 @@
+function ChoosePeople(amount){
+    
+}

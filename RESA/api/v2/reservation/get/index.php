@@ -98,4 +98,3 @@ else if(isset($_GET['full']) && isset($_GET['arrival']) && isset($_GET['duration
     $etab = $_GET['etab'];
     echo json_encode(IsPlaceForReservation($arrival, $duration, $date, $etab));
 }
-

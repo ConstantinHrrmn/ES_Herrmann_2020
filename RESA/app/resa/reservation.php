@@ -14,6 +14,8 @@
         //unset($_SESSION['selectedEtablissement']);
         if(isset($_SESSION['user'])){
             $user = $_SESSION['user'];
+            $link = $path."etablishment/schudle/get/?dayschudle&idEtab=".$etablissement->id."&date=".$date;
+            $schudles = json_decode(file_get_contents($link));
         }else{
             $_SESSION['returnlink'] = "reservation.php?id=".$etablissement->id."&day=".$day."&month=".$month."&year=".$year;
             header("Location: fast_login.php");
@@ -125,13 +127,62 @@
                             <div class="ms-panel ms-panel-fh">
                                 <div class="ms-panel-body">
                                     <h5>Nombres de personnes</h5>
+                                    <div class="row">
+                                        <?php for($i = 1; $i <= 9; $i++):?>
+                                        <div class="col-md-2  col-ms-3 col-m-3">
+                                            <button class="col-md-12 btn btn-primary"
+                                                onclick="ChoosePeople(<?php echo $i ?>)">
+                                                <?php echo $i ?>
+
+                                            </button>
+                                        </div>
+                                        <?php endfor; ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-6 col-md-12">
                             <div class="ms-panel ms-panel-fh">
                                 <div class="ms-panel-body">
-                                    <h5>Horaires</h5>
+                                    <h5>Moment de la journée</h5>
+                                    <div class="row">
+                                        
+                                        <?php 
+                                        $morning = true;
+                                        $launch = true;
+                                        $dinner =true;
+                                        foreach($schudles as $s):
+                                            $begin = explode(':', $s->begin);
+                                            $end = explode(':', $s->end);
+                                        ?>
+
+                                        <?php if($end[0] >= 11):?>
+                                            <div class="col-md-4">
+                                                <button class="col-md-12 btn btn-primary">
+                                                    MATIN
+                                                </button>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <?php if($end[0] >= 15):?>
+                                            <div class="col-md-4">
+                                                <button class="col-md-12 btn btn-primary">
+                                                    MIDI
+                                                </button>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <?php if($end[0] >= 23):?>
+                                            <div class="col-md-4">
+                                                <button class="col-md-12 btn btn-primary">
+                                                    SOIR
+                                                </button>
+                                            </div>
+                                        <?php endif; ?>
+
+
+                                        <?php endforeach; ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -154,6 +205,7 @@
     <!-- Costic core JavaScript -->
     <script src="./assets/js/framework.js"></script>
 
+    <script src="./assets/js/reservation.js"></script>
 </body>
 
 </html>
