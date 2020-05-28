@@ -1090,4 +1090,24 @@ Aujourd'hui, l'objectif est de finir les réservations du côté du client. Il f
   - Pour ce faire, je vais afficher des petites cartes avec le nombres de personnes 
 
 - je perd beaucoup de temps a trouver les bonnes requêtes et à créer les vues ( c'est pour cette raison que mon journal de bord est un peu vide)
--  
+
+
+---
+## 27.05.20
+
+J'étais parti sur le fait que l'utilisateur choisissais une date sur le calendrier, puis il choisissais le nombre de personnes et le créneau horaire. 
+- Après une discussion avec m. Garcia, j'ai décider de tout mettre dans une sorte de widget. 
+  - LE gros calendrier à été remplacer par un petit widget avec un formulaire qui demande la date, l'heure et le nombre de personnes. Ce formulaire redirige après sur une page qui va vérifier si la réservation est bien valide et si c'est le cas, la créer dans la base de données.
+
+- Le fromulaire éxiste et envoie 3 données :
+  - la date 
+  - l'heure
+  - le nombre de personnes 
+  (l'utilisateur est déjà connecté et enregistré dans la session, pas besoin de l'envoyer)
+
+- Il me manque que à faire les messages d'avertissements pour la validation ou le refus de la réservation.
+- (Je dois encore faire l'algorithme qui va proposer au client un autre horaire le plus proche quand il n'y a pas de place.) à voir comment je vais faire
+
+### Appel avec m. Garcia
+- J'ai priviligié le fait de vouloir aller dans le restaurant au lieu de rechercher les restaurants disponibles à une date
+- Changer les boutons par un dropdown

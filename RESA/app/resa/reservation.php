@@ -126,14 +126,13 @@
                         <div class="col-xl-6 col-md-12">
                             <div class="ms-panel ms-panel-fh">
                                 <div class="ms-panel-body">
-                                    <h5>Nombres de personnes</h5>
+                                    <h5>Nombres de personnes : <span id="nombre_personnes">veuillez choisir</span></h5>
                                     <div class="row">
                                         <?php for($i = 1; $i <= 9; $i++):?>
                                         <div class="col-md-2  col-ms-3 col-m-3">
                                             <button class="col-md-12 btn btn-primary"
                                                 onclick="ChoosePeople(<?php echo $i ?>)">
                                                 <?php echo $i ?>
-
                                             </button>
                                         </div>
                                         <?php endfor; ?>
@@ -144,9 +143,9 @@
                         <div class="col-xl-6 col-md-12">
                             <div class="ms-panel ms-panel-fh">
                                 <div class="ms-panel-body">
-                                    <h5>Moment de la journée</h5>
+                                    <h5>Moment de la journée :  <span id="moment_journee">veuillez choisir</span></h5>
                                     <div class="row">
-                                        
+
                                         <?php 
                                         $morning = true;
                                         $launch = true;
@@ -157,27 +156,27 @@
                                         ?>
 
                                         <?php if($end[0] >= 11):?>
-                                            <div class="col-md-4">
-                                                <button class="col-md-12 btn btn-primary">
-                                                    MATIN
-                                                </button>
-                                            </div>
+                                        <div class="col-md-4">
+                                            <button class="col-md-12 btn btn-primary" onclick="ChooseTime(1)">
+                                                MATIN
+                                            </button>
+                                        </div>
                                         <?php endif; ?>
 
-                                        <?php if($end[0] >= 15):?>
-                                            <div class="col-md-4">
-                                                <button class="col-md-12 btn btn-primary">
-                                                    MIDI
-                                                </button>
-                                            </div>
+                                        <?php if($end[0] >= 14):?>
+                                        <div class="col-md-4">
+                                            <button class="col-md-12 btn btn-primary" onclick="ChooseTime(2)">
+                                                MIDI
+                                            </button>
+                                        </div>
                                         <?php endif; ?>
 
                                         <?php if($end[0] >= 23):?>
-                                            <div class="col-md-4">
-                                                <button class="col-md-12 btn btn-primary">
-                                                    SOIR
-                                                </button>
-                                            </div>
+                                        <div class="col-md-4">
+                                            <button class="col-md-12 btn btn-primary" onclick="ChooseTime(3)">
+                                                SOIR
+                                            </button>
+                                        </div>
                                         <?php endif; ?>
 
 

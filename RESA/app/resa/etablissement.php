@@ -4,6 +4,12 @@
 
   session_start();
 
+  if(isset($_SESSION['user'])){
+    $user = $_SESSION['user'];
+  }else{
+      $user=null;
+  }
+
   if(isset($_GET['id'])){
       $link = $path."etablishment/get/?id=".$_GET['id'];
       $data = json_decode(file_get_contents($link));
@@ -13,10 +19,48 @@
       }else{
         $link_images = $path."images/get/?etablishment&id=".$data->id;
         $images = json_decode(file_get_contents($link_images));
-
         $_SESSION['selectedEtablissement'] = $data;
       }
+  }
 
+  if(isset($_POST['rechercher'])){
+    $date = null;
+    $heure = null;
+    $amount = null;
+    $duration = 0;
+
+    if(strlen($_POST['date']) > 0){
+        $tmp = $_POST['date'];
+        $tmp = explode("/", $tmp);
+
+        $m = $tmp[0];
+        $d = $tmp[1];
+        $y = $tmp[2];
+
+        $date = $y."-".$m."-".$d;
+    }
+
+    if(strlen($_POST['hour']) > 0){
+        $heure = $_POST['hour'];
+        $tmp = explode(":", $heure);
+        $duration = ($tmp[0] >= 6 && $tmp[0] < 11) ? 1800 : (($tmp[0] > 11 && $tmp[0] < 18) ? 3600 : (($tmp[0] >= 18 && $tmp[0] < 23) ? 7200 : 5000));
+    }
+
+    if(strlen($_POST['amount']) > 0){
+        $amount = $_POST['amount'];
+    }
+
+    if($date == null || $heure == null || $amount == null){
+
+    }else{
+        $link = $path."reservation/get/?full&arrival=".$heure."&duration=".$duration."&date=".$date."&etab=".$data->id;
+        $avaible = json_decode(file_get_contents($link));
+        if($avaible->avaible == null || $avaible->avaible < $amount){
+            echo "plus de place";
+        }else{
+            echo "il y a de la place !";
+        }
+    }
   }
 ?>
 
@@ -44,6 +88,12 @@
 
     <link href="./assets/css/custom.css" rel="stylesheet">
     <link href="./assets/css/calendar.css" rel="stylesheet">
+
+    <!-- Bootstrap Date-Picker Plugin -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
 
 
 </head>
@@ -146,13 +196,63 @@
                             <div class="ms-panel ms-panel-fh">
                                 <?php if($data->subscription > 1):?>
                                 <div class="ms-panel-body">
-                                    <?php
-                                    include './assets/php/calendar.php';
-                                    
-                                    $calendar = new Calendar($_GET['id']);
-                                    
-                                    echo $calendar->show();
-                                    ?>
+                                    <div class="bootstrap-iso">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                                    <?php if($user == null):?>
+                                                    <h5>Vouzs devez vous connecter afin de réserver</h5>
+                                                    <?php $_SESSION['returnlink'] = "etablissement.php?id=".$data->id; ?>
+                                                    <a href="fast_login.php" class="btn btn-primary">Connexion</a>
+                                                    <?php else : ?>
+                                                    <!-- Form code begins -->
+                                                    <form method="post" action="#">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-sm-6 col-xs-12">
+
+                                                                    <!-- Date input -->
+                                                                    <label class="control-label" for="date">Date</label>
+                                                                    <input class="form-control" id="date" name="date"
+                                                                        placeholder="MM/DD/YYY" type="text"
+                                                                        onchange="DateChoosen(<?php echo $data->id?>)" />
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-6 col-xs-12" id="hourdiv"
+                                                                    style="display:none">
+                                                                        <label for="hour">Heure</label>
+                                                                        <select class="form-control" id="hour" name="hour">
+                                                                        </select>
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-6 col-xs-12" id="close"
+                                                                    style="display:none">
+                                                                        <h3>FERMER</h3>
+                                                                </div>
+
+                                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                    <label for="amount">Personnes</label>
+                                                                    <select class="form-control" id="amount" name="amount">
+                                                                        <?php for($i = 1; $i < 12; $i++): ?>
+                                                                        <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                                                        <?php endfor; ?>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <!-- Submit button -->
+                                                            <button class="btn btn-primary " name="rechercher"
+                                                                type="submit">Rechercher</button>
+                                                        </div>
+                                                    </form>
+                                                    <!-- Form code ends -->
+                                                    <?php endif; ?>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <?php else : ?>
                                 <div class="ms-panel-body">
@@ -181,7 +281,7 @@
 
     <!-- Costic core JavaScript -->
     <script src="./assets/js/framework.js"></script>
-
+    <script src="./assets/js/reservation.js"></script>
 </body>
 
 </html>

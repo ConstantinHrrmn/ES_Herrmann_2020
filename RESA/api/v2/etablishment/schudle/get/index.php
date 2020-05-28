@@ -12,6 +12,15 @@ if(file_exists('../../../pdo.php')){
   require_once '../../../pdo.php';
 }
 
+$times = array(
+  array(0,5,"nuit"),
+  array(6,10,"matin"),
+  array(11,15,"midi"),
+  array(16,18,"après-midi"),
+  array(19,23,"soir")
+);
+
+
 /*
 * Récupère les horaires du restaurant pour la semaine
 * Params:
@@ -193,7 +202,39 @@ else if(isset($_GET['dayschudle']) && isset($_GET['idEtab']) && isset($_GET['dat
   $date = $_GET['date'];
   $timestamp = strtotime($date);
   $day = date('w', $timestamp);
-  echo json_encode(GetDaySchudles($id,$day));
+
+  $schudles = GetDaySchudles($id,$day);
+
+  $times = array();
+
+  foreach($schudles as $s){
+    $begin = explode(':', $s['begin']);
+    $end = explode(':', $s['end']); 
+
+    if($end[0] < $begin[0]){
+      for($i=$begin[0]; $i <= 23; $i++){
+        for($min=0; $min<60; $min+=15){
+          array_push($times, $i.":".$min);
+        }
+      }
+      for($i=0; $i <= $end[0]; $i++){
+        for($min=0; $min<60; $min+=15){
+          array_push($times, $i.":".$min);
+        }
+      }
+    }
+    else{
+      for($i=$begin[0]; $i <= $end[0]; $i++){
+        for($min=0; $min<60; $min+=15){
+          array_push($times, $i.":".$min);
+        }
+      }
+    }
+  }
+
+  echo json_encode($times);
+
+  //echo json_encode();
 }
 // etablishment/schudle/get?schudlesandplaces&idEtab=XX&date=YYYY-MM-DD
 // Récupère tous les horaires du restaurant pour la journée avec les places disponbiles

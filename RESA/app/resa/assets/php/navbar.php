@@ -22,7 +22,7 @@
   <aside id="ms-side-nav" class="side-nav fixed ms-aside-scrollable ms-aside-left">
     <!-- Logo -->
     <div class="logo-sn ms-d-block-lg">
-      <a class="pl-0 ml-0 text-center" href="index.html">
+      <a class="pl-0 ml-0 text-center" href="index.php">
         <img src="./assets/img/logo.png" alt="logo">
       </a>
     </div>

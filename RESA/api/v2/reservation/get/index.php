@@ -71,7 +71,7 @@ function IsPlaceForReservation($arrival, $duration, $date, $etab){
         $query->bindParam(':etab', $etab, PDO::PARAM_STR);
         
         $query->execute();
-        $res = $query->fetchAll(PDO::FETCH_ASSOC);
+        $res = $query->fetch(PDO::FETCH_ASSOC);
         return $res;
     }
     catch (Exception $e) {
