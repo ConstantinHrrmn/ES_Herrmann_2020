@@ -1,6 +1,8 @@
 <?php
 //session_start();
 
+header("Access-Control-Allow-Origin: *");
+
 //Constantes
 define("DB_HOST", "localhost");
 define("DB_NAME", "resa_v2");

@@ -1,0 +1,47 @@
+.closed{
+    opacity: 0.3; /* Real browsers */
+    filter: alpha(opacity = 50); /* MSIE */
+  }
+
+.restaurant-banner{
+  height: 405px; 
+  width: 100%; 
+  width: 100vw;
+  
+  overflow: hidden; 
+  background-position: center; 
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+  
+.restaurant-banner-main{
+  overflow: hidden; 
+}
+
+.gallery {
+  -webkit-column-count: 3;
+  -moz-column-count: 3;
+  column-count: 3;
+  -webkit-column-width: 33%;
+  -moz-column-width: 33%;
+  column-width: 33%; }
+
+  .gallery .pics {
+    -webkit-transition: all 350ms ease;
+    transition: all 350ms ease; }
+    .gallery .animation {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1); }
+    
+    .zoom {
+      transition: transform .2s; /* Animation */
+    }
+    
+    .zoom:hover {
+      transform: scale(2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    }
+
+.selectamount{
+  background-color: yellowgreen;
+}

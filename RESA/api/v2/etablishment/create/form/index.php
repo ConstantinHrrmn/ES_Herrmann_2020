@@ -1,4 +1,5 @@
 <?php
+ header("Access-Control-Allow-Origin: *");
 /*******************************************************************************
 AUTEUR      : Constantin Herrmann
 LIEU        : CFPT Informatique Genève

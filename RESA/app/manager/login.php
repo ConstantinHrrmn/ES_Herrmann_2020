@@ -19,17 +19,15 @@
     // Converts it into a PHP object
     $data = json_decode($json);
 
-    $_SESSION['user'] = $data;
-
     if($data != false){
-        $_SESSION['user'] = $data;
-        header("Location: ./profile.php");
-        exit();
-      }
+      $_SESSION['user'] = $data;
+      header("Location: ./newestablishment.php");
+      exit();
+    }
   }
 
   if(isset($_POST['connexion'])){
-    $link = $path."user/get/";
+    
     if(isset($_POST['password'])){
       $password = hash('sha256', $_POST['password']);
       if(isset($_POST['username'])){
@@ -73,14 +71,14 @@
     <title>Login</title>
     <!-- Iconic Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="./vendors/iconic-fonts/flat-icons/flaticon.css">
-    <link href="./vendors/iconic-fonts/font-awesome/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style/vendors/iconic-fonts/flat-icons/flaticon.css">
+    <link href="./style/vendors/iconic-fonts/font-awesome/css/all.min.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
-    <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./style/assets/css/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery UI -->
-    <link href="./assets/css/jquery-ui.min.css" rel="stylesheet">
+    <link href="./style/assets/css/jquery-ui.min.css" rel="stylesheet">
     <!-- Costic styles -->
-    <link href="./assets/css/style.css" rel="stylesheet">
+    <link href="./style/assets/css/style.css" rel="stylesheet">
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="./favicon.ico">
 
@@ -122,7 +120,7 @@
 
                         <form class="needs-validation" novalidate="" id="loginForm" method="POST" action="#">
                             <h1>Connexion à votre compte</h1>
-                            <p>Veuillez entrer votre mail et votre mot de passe pour continuer</p>
+                            <p>Afin de pouvoir créer un établissement, il faut d'abord vous identifier</p>
 
                             <div class="mb-3">
                                 <label for="validationCustom08">Email</label>
@@ -153,8 +151,10 @@
 
                             <input type="submit" class="btn btn-primary mt-4 d-block w-100" id="connexion"
                                 name="connexion" value="Se connecter">
+                            <div class="form-group">
                                 <label class="d-block mt-3"><a href="#" class="btn-link" data-toggle="modal"
                                         data-target="#modal-createaccount">Créer un compte</a></label>
+                            </div>
 
                         </form>
 
@@ -165,6 +165,32 @@
         </div>
 
         <!-- Forgot Password Modal -->
+        <div class="modal fade" id="modal-12" tabindex="-1" role="dialog" aria-labelledby="modal-12">
+            <div class="modal-dialog modal-dialog-centered modal-min" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <i class="flaticon-secure-shield d-block"></i>
+                        <h1>Mot de passe oublié ?</h1>
+                        <p> Entrer votre adresse email </p>
+                        <form method="post">
+                            <div class="ms-form-group has-icon">
+                                <input type="text" placeholder="Email Address" class="form-control"
+                                    name="forgot-password" value="">
+                                <i class="material-icons">email</i>
+                            </div>
+                            <button type="submit" class="btn btn-primary shadow-none">Réinitialiser le mot de
+                                passe</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Email used Modal -->
         <div class="modal fade" id="modal-12" tabindex="-1" role="dialog" aria-labelledby="modal-12">
             <div class="modal-dialog modal-dialog-centered modal-min" role="document">
                 <div class="modal-content">
@@ -276,17 +302,17 @@
 
     <!-- SCRIPTS -->
     <!-- Global Required Scripts Start -->
-    <script src="./assets/js/jquery-3.3.1.min.js"></script>
-    <script src="./assets/js/popper.min.js"></script>
-    <script src="./assets/js/bootstrap.min.js"></script>
-    <script src="./assets/js/perfect-scrollbar.js"> </script>
-    <script src="./assets/js/jquery-ui.min.js"> </script>
+    <script src="./style/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="./style/assets/js/popper.min.js"></script>
+    <script src="./style/assets/js/bootstrap.min.js"></script>
+    <script src="./style/assets/js/perfect-scrollbar.js"> </script>
+    <script src="./style/assets/js/jquery-ui.min.js"> </script>
     <!-- Global Required Scripts End -->
 
     <!-- Costic core JavaScript -->
-    <script src="./assets/js/framework.js"></script>
+    <script src="./style/assets/js/framework.js"></script>
 
-    <script src="./assets/js/custom/login.js"></script>
+    <script src="./style/assets/js/custom/login.js"></script>
 
 </body>
 

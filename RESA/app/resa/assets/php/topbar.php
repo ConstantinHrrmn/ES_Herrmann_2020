@@ -16,6 +16,7 @@
                 <span class="ms-toggler-bar bg-primary"></span>
                 <span class="ms-toggler-bar bg-primary"></span>
             </div>
+
             <div class="logo-sn logo-sm ms-d-block-sm">
                 <a class="pl-0 ml-0 text-center navbar-brand mr-0" href="./index.php">
                     <img src="./assets/img/logo.png" alt="logo">

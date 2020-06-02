@@ -1,4 +1,5 @@
 <?php
+ header("Access-Control-Allow-Origin: *");
 /*******************************************************************************
 AUTEUR      : Constantin Herrmann
 LIEU        : CFPT Informatique Genève
@@ -19,7 +20,7 @@ function GetAllEtablishements(){
     static $query = null;
 
     if ($query == null) {
-      $req = 'SELECT e.id, e.name, e.address, e.phone, e.email, m.name as menu_name, m.description as menu_descritpion, (SELECT s.id FROM opening as o INNER JOIN schudle as s ON s.id = o.idSchudle WHERE o.idDay = '.$idDay.' AND o.idEtablishement = e.id AND UNIX_TIMESTAMP(s.begin) < UNIX_TIMESTAMP(NOW()) AND UNIX_TIMESTAMP(s.end) > UNIX_TIMESTAMP(NOW()) LIMIT 1) as open FROM `establishment` as e LEFT JOIN menu as m ON e.id = m.id';
+      $req = 'SELECT e.id, e.name, e.phone, e.email, m.name as menu_name, m.description as menu_descritpion, (SELECT s.id FROM opening as o INNER JOIN schudle as s ON s.id = o.idSchudle WHERE o.idDay = '.$idDay.' AND o.idEtablishement = e.id AND UNIX_TIMESTAMP(s.begin) < UNIX_TIMESTAMP(NOW()) AND UNIX_TIMESTAMP(s.end) > UNIX_TIMESTAMP(NOW()) LIMIT 1) as open FROM `establishment` as e LEFT JOIN menu as m ON e.id = m.id';
       $query = database()->prepare($req);
     }
   
@@ -44,7 +45,7 @@ function GetAllEtablishementsForManager($idUser){
   static $query = null;
 
     if ($query == null) {
-      $req = 'SELECT e.id, e.name, e.address, e.phone FROM `is_in_as` as iia INNER JOIN `establishment` as e ON e.id = iia.idEtablishement WHERE iia.idUser = :u AND iia.idPermission = 2';
+      $req = 'SELECT e.id, e.name, e.phone FROM `is_in_as` as iia INNER JOIN `establishment` as e ON e.id = iia.idEtablishement WHERE iia.idUser = :u AND iia.idPermission = 2';
       $query = database()->prepare($req);
     }
   
@@ -71,7 +72,7 @@ function GetEtablishementById($idEtablishement){
     static $query = null;
 
     if ($query == null) {
-      $req = 'SELECT e.id, e.name, e.address, e.phone, e.email, e.level as subscription, m.name as menu_name, m.description as menu_descritpion, (SELECT s.id FROM opening as o INNER JOIN schudle as s ON s.id = o.idSchudle WHERE o.idDay = '.$day.' AND o.idEtablishement = e.id AND UNIX_TIMESTAMP(s.begin) < UNIX_TIMESTAMP(NOW()) AND UNIX_TIMESTAMP(s.end) > UNIX_TIMESTAMP(NOW()) LIMIT 1) as open FROM `establishment` as e LEFT JOIN menu as m ON e.id = m.id WHERE e.id = '.$idEtablishement;
+      $req = 'SELECT e.id, e.name, e.phone, e.email, e.level as subscription, m.name as menu_name, m.description as menu_descritpion, (SELECT s.id FROM opening as o INNER JOIN schudle as s ON s.id = o.idSchudle WHERE o.idDay = '.$day.' AND o.idEtablishement = e.id AND UNIX_TIMESTAMP(s.begin) < UNIX_TIMESTAMP(NOW()) AND UNIX_TIMESTAMP(s.end) > UNIX_TIMESTAMP(NOW()) LIMIT 1) as open FROM `establishment` as e LEFT JOIN menu as m ON e.id = m.id WHERE e.id = '.$idEtablishement;
       $query = database()->prepare($req);
     }
   

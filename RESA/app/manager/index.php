@@ -58,7 +58,7 @@
   <title>Login</title>
   <!-- Iconic Fonts -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="./vendors/iconic-fonts/flat-icons/flaticon.css">
+  <link rel="stylesheet" href="./style/vendors/iconic-fonts/flat-icons/flaticon.css">
     <link href="./style/vendors/iconic-fonts/font-awesome/css/all.min.css" rel="stylesheet">
   <!-- Bootstrap core CSS -->
   <link href="./style/assets/css/bootstrap.min.css" rel="stylesheet">
@@ -106,7 +106,7 @@
           <div class="ms-auth-form">
 
             <form class="needs-validation" novalidate="" id="loginForm" method="POST" action="#">
-              <h1>Connexion à l'établissement</h1>
+              <h1>Connexion manager</h1>
               <p>Veuillez entrer votre mail et votre mot de passe ainsi que le nom du restaurant pour continuer</p>
 
               <div class="mb-3">
@@ -140,7 +140,8 @@
               </div>
 
               <input type="submit" class="btn btn-primary mt-4 d-block w-100" id="connexion" name ="connexion" value="Se connecter">
-              <p class="mb-0 mt-3 text-center">Pas de compte ? <a class="btn-link" href="default-register.html">En créer un maintenant</a> </p>
+
+              <p class="mb-0 mt-3 text-center">Pas de restaurant ?<a class="btn-link" href="login.php">En créer un maintenant</a> </p>
 
             </form>
 

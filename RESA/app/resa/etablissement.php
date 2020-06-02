@@ -23,45 +23,8 @@
       }
   }
 
-  if(isset($_POST['rechercher'])){
-    $date = null;
-    $heure = null;
-    $amount = null;
-    $duration = 0;
+  include "./assets/php/reservation.php";
 
-    if(strlen($_POST['date']) > 0){
-        $tmp = $_POST['date'];
-        $tmp = explode("/", $tmp);
-
-        $m = $tmp[0];
-        $d = $tmp[1];
-        $y = $tmp[2];
-
-        $date = $y."-".$m."-".$d;
-    }
-
-    if(strlen($_POST['hour']) > 0){
-        $heure = $_POST['hour'];
-        $tmp = explode(":", $heure);
-        $duration = ($tmp[0] >= 6 && $tmp[0] < 11) ? 1800 : (($tmp[0] > 11 && $tmp[0] < 18) ? 3600 : (($tmp[0] >= 18 && $tmp[0] < 23) ? 7200 : 5000));
-    }
-
-    if(strlen($_POST['amount']) > 0){
-        $amount = $_POST['amount'];
-    }
-
-    if($date == null || $heure == null || $amount == null){
-
-    }else{
-        $link = $path."reservation/get/?full&arrival=".$heure."&duration=".$duration."&date=".$date."&etab=".$data->id;
-        $avaible = json_decode(file_get_contents($link));
-        if($avaible->avaible == null || $avaible->avaible < $amount){
-            echo "plus de place";
-        }else{
-            echo "il y a de la place !";
-        }
-    }
-  }
 ?>
 
 <!DOCTYPE html>
@@ -75,8 +38,9 @@
     <title><?php echo "HOLLA"?></title>
     <!-- Iconic Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="./vendors/iconic-fonts/flat-icons/flaticon.css">
-    <link href="./vendors/iconic-fonts/font-awesome/css/all.min.css" rel="stylesheet">
+    
+    <!--<link rel="stylesheet" href="./vendors/iconic-fonts/flat-icons/flaticon.css">
+    <link href="./vendors/iconic-fonts/font-awesome/css/all.min.css" rel="stylesheet">-->
     <!-- Bootstrap core CSS -->
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery UI -->
@@ -95,7 +59,37 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
 
+            <!-- Global Required Scripts Start -->
+    <script src="./assets/js/jquery-3.3.1.min.js"></script>
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="./assets/js/perfect-scrollbar.js"> </script>
+    <script src="./assets/js/jquery-ui.min.js"> </script>
+        <!-- Costic core JavaScript -->
+        <script src="./assets/js/framework.js"></script>
+    <script src="./assets/js/reservation.js"></script>
 
+    <?php 
+        if($reservation === -1){
+            ShowModal('ERREUR', 'Veuillez vérifier vos entrées', "etablissement.php?id=".$data->id, "Desolé");
+        }else if($reservation === null){
+            ShowModal('Pas de place !', 'Malheureusement le restaurant n`as pas de place disponible pour l`horaire choisi...', "etablissement.php?id=".$data->id, "Je comprend");
+        }else if(isset($resdata)){
+            ShowModal("Validé", "Votre réservation pour le ".$resdata[0]." à ".$resdata[1]. " pour ".$resdata[2]." pers. à bien été prise en compte", "index.php", "SUPER !");
+        }
+
+        function ShowModal($title, $message, $link, $end){
+            echo '<script>
+            $(document).ready(function(){
+                $("#result").modal(\'show\');
+                $("#resultmessage").text(\''.$title.'\');
+                $("#message").text(\''.$message.'\');
+                $("#resultlink").text(\''.$end.'\');
+                $("#resultlink").attr("href", \''.$link.'\');
+            });
+        </script>';
+        }
+    ?>
 </head>
 
 <body class="ms-body ms-primary-theme">
@@ -124,6 +118,7 @@
 
     <!-- Main Content -->
     <main class="body-content">
+        
         <!-- Navigation Bar -->
         <?php include './assets/php/topbar.php'; ?>
 
@@ -147,6 +142,7 @@
 
             <div class="tab-content">
                 <div class="tab-pane active" id="informations">
+
                     <div class="row">
                         <div class="col-xl-6 col-md-12">
                             <div class="ms-panel ms-panel-fh">
@@ -168,15 +164,13 @@
                         </div>
 
                     </div>
-                    <div class="row">
 
+                    <div class="row">
                         <div class="col-xl-6 col-md-12">
                             <div class="ms-panel ms-panel-fh">
-
                                 <div class="ms-panel-body">
                                     <!-- Grid row -->
                                     <div class="gallery" id="gallery">
-
                                         <?php foreach($images as $image):?>
                                         <!-- Grid column -->
                                         <div class="mb-3 pics animation all 2">
@@ -185,7 +179,6 @@
                                         </div>
                                         <!-- Grid column -->
                                         <?php endforeach; ?>
-
                                     </div>
                                     <!-- Grid row -->
                                 </div>
@@ -200,13 +193,12 @@
                                         <div class="container-fluid">
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
-
+                                                    <h5>Réservation par RESA</h5>
                                                     <?php if($user == null):?>
-                                                    <h5>Vouzs devez vous connecter afin de réserver</h5>
+                                                    <h5>Vous devez vous connecter afin de réserver</h5>
                                                     <?php $_SESSION['returnlink'] = "etablissement.php?id=".$data->id; ?>
                                                     <a href="fast_login.php" class="btn btn-primary">Connexion</a>
                                                     <?php else : ?>
-                                                    <!-- Form code begins -->
                                                     <form method="post" action="#">
                                                         <div class="form-group">
                                                             <div class="row">
@@ -220,35 +212,33 @@
                                                                 </div>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12" id="hourdiv"
                                                                     style="display:none">
-                                                                        <label for="hour">Heure</label>
-                                                                        <select class="form-control" id="hour" name="hour">
-                                                                        </select>
+                                                                    <label for="hour">Heure</label>
+                                                                    <select class="form-control" id="hour" name="hour">
+                                                                    </select>
                                                                 </div>
                                                                 <div class="col-md-6 col-sm-6 col-xs-12" id="close"
                                                                     style="display:none">
-                                                                        <h3>FERMER</h3>
+                                                                    <h3>FERMER</h3>
                                                                 </div>
 
                                                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                                                     <label for="amount">Personnes</label>
-                                                                    <select class="form-control" id="amount" name="amount">
+                                                                    <select class="form-control" id="amount"
+                                                                        name="amount">
                                                                         <?php for($i = 1; $i < 12; $i++): ?>
-                                                                        <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                                                        <option value="<?php echo $i ?>">
+                                                                            <?php echo $i ?></option>
                                                                         <?php endfor; ?>
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                         <div class="form-group">
-                                                            <!-- Submit button -->
-                                                            <button class="btn btn-primary " name="rechercher"
-                                                                type="submit">Rechercher</button>
+                                                            <button class="btn btn-primary " name="rechercher" id="rechercher"
+                                                                type="submit" style="display:none">Rechercher</button>
                                                         </div>
                                                     </form>
-                                                    <!-- Form code ends -->
                                                     <?php endif; ?>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -263,6 +253,28 @@
                                 <?php endif; ?>
                             </div>
                         </div>
+
+                        <div style="display:none">
+                            <button class="btn btn-primary" data-toggle="modal" id="resultbutton" data-target="#result"></button>
+                        </div>
+
+
+                        <div class="modal fade" id="result" tabindex="-1" role="dialog" aria-labelledby="result">
+                            <div class="modal-dialog modal-dialog-centered modal-min" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body text-center">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                                        <h1 id="resultmessage">MESSAGE</h1>
+                                        <p id="message"></p>
+
+                                        <a href="index.php" id="resultlink" class="btn btn-primary">SUPER</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -271,17 +283,9 @@
     </main>
 
     <!-- SCRIPTS -->
-    <!-- Global Required Scripts Start -->
-    <script src="./assets/js/jquery-3.3.1.min.js"></script>
-    <script src="./assets/js/popper.min.js"></script>
-    <script src="./assets/js/bootstrap.min.js"></script>
-    <script src="./assets/js/perfect-scrollbar.js"> </script>
-    <script src="./assets/js/jquery-ui.min.js"> </script>
     <!-- Global Required Scripts End -->
 
-    <!-- Costic core JavaScript -->
-    <script src="./assets/js/framework.js"></script>
-    <script src="./assets/js/reservation.js"></script>
+
 </body>
 
 </html>

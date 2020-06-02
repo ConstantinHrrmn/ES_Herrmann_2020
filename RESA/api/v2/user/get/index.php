@@ -214,6 +214,36 @@ function LoginEtablishementManager($n, $e, $p){
   }
 }
 
+/*
+* Vérifie si il y à déjà un compte avec le mail
+* Params :
+*   - $email : l'email à vérifier
+*/
+function CheckMailExists($email){
+  static $query = null;
+
+  if ($query == null) {
+    $req = 'SELECT `id` FROM `user` WHERE `email` = :email';
+    $query = database()->prepare($req);
+  }
+
+  try {
+    $query->bindParam(":email", $email, PDO::PARAM_STR);
+    $query->execute();
+    $res = $query->fetch(PDO::FETCH_ASSOC);
+  }
+  catch (Exception $e) {
+    error_log($e->getMessage());
+    $res = false;
+  }
+
+  if($res == null || $res == false){
+    return false;
+  }else{
+    return true;
+  }
+}
+
 if(isset($_GET['byPermission'])){
   $idPermission = $_GET['byPermission'];
   // Vérification qu'il s'agit bien d'un int
@@ -276,6 +306,9 @@ else if(isset($_GET['id'])){
   }else{
     echo json_encode("Valeur non integer");
   }
+}
+else if(isset($_GET['checkmail']) && isset($_GET['email'])){
+  echo json_encode(CheckMailExists($_GET['email']));
 }
 else{
   echo json_encode(GetAllUsers());

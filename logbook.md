@@ -1093,7 +1093,7 @@ Aujourd'hui, l'objectif est de finir les réservations du côté du client. Il f
 
 
 ---
-## 27.05.20
+## 28.05.20
 
 J'étais parti sur le fait que l'utilisateur choisissais une date sur le calendrier, puis il choisissais le nombre de personnes et le créneau horaire. 
 - Après une discussion avec m. Garcia, j'ai décider de tout mettre dans une sorte de widget. 
@@ -1111,3 +1111,42 @@ J'étais parti sur le fait que l'utilisateur choisissais une date sur le calendr
 ### Appel avec m. Garcia
 - J'ai priviligié le fait de vouloir aller dans le restaurant au lieu de rechercher les restaurants disponibles à une date
 - Changer les boutons par un dropdown
+
+---
+## 29.05.20
+
+- Il faut maintenant que je trouve les fournitures qui ont de la place au moment ou le client souhaites venir.
+  - Il faut également que je gère la fusion de tables si il n'y à plus de places
+
+// On vérifie la durée estimée pour les réservations 
+// Entre 6h et 11h : 1800 sec = 30 min
+// entre 11h et 18h : 3600 sec = 1 h
+// entre 18h et 23h : 7200 sec = 2 h
+// entre 23h et 6h : 5000 sec = 1h25
+
+
+- Il y a donc des message d'erreurs qui s'affichent quand un utilisateur ne peut pas réserver et un message de validation quand tout est ok.
+  - Maintenant il faut passer à la partie ou l'utilisateur réserve éffectivement et celle ou le gérant du restaurant recois bien les réservations
+
+- Avant ça, il faut que je fasse ça (->   - Il faut également que je gère la fusion de tables si il n'y à plus de places)
+  - Une fois que ça sera fait, il faudra que je fasse la page de gestion de l'établissement
+    - (je crois d'ailleurs que j'ai pas mal de modifications à faire ... à voir)
+
+- Donc, il faut que je fasse une requete SQL qui vérifie que les tables soient bien disponibles au moment de la réservation, ensuite, il faut que je vérifie si une table avec le minimum de nombre de place est disponible
+
+- J'y pense maintenant, mais il faut que je fasse le formulaire de création de compte
+
+---
+## 02.06.20
+
+- choses faites
+  - Création d'un utilisateur à partir de toutes les pages de login
+    - L'utilisateur est automatiquement rediriger sur la page correspondantes en fonction d'ou il vient
+  - Comme j'ai changer la table des établissements, je dois m'assurer que toutes les requetes que j'avais déjà faites soient compatibles
+    - Si elles ne le sont pas, l'application va afficher des erreurs ! 
+  - Création de la page de nouvel établissement 
+    - l'utilisateur va pouvoir choisir l'abonnement qu'il souhaites prendre 
+      - Je vais faire un vérioficateur de cartes factis, afin de juste montrer le concept
+
+- Je vais devoir aussi m'occuper de la partie administration des établissements
+- Je dois aussi correctement finir la partie des réservations afin que ces dernières s'affichent dans les menus

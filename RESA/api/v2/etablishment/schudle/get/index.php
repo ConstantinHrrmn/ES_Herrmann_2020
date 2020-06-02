@@ -1,4 +1,5 @@
 <?php
+
 /*******************************************************************************
 AUTEUR      : Constantin Herrmann
 LIEU        : CFPT Informatique Genève

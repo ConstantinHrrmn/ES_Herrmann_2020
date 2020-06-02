@@ -79,8 +79,6 @@ function IsPlaceForReservation($arrival, $duration, $date, $etab){
     }
 }
 
-
-
 if(isset($_GET['week'])){
     echo json_encode(GetReservationsForCurrentWeek());
 }

@@ -23,7 +23,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title><?php echo "Votre compte (".$user->first_name." ".$user->last_name.")" ?></title>
+    <title><?php echo "Mes réservations (".$user->first_name." ".$user->last_name.")" ?></title>
     <!-- Iconic Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./vendors/iconic-fonts/flat-icons/flaticon.css">
@@ -75,7 +75,7 @@
 
             <div class="ms-profile-overview">
                 <div class="ms-profile-cover">
-                    
+
                     <div class="ms-profile-user-info">
                         <h1 class="ms-profile-username"><?php echo $user->first_name ?> <?php echo $user->last_name ?>
                         </h1>
@@ -92,78 +92,18 @@
                         <div class="col-xl-6 col-md-12">
                             <div class="ms-panel ms-panel-fh">
                                 <div class="ms-panel-body">
-                                    <h2 class="section-title">Toutes les informations</h2>
+                                    <h2 class="section-title">Mes réservations à venir</h2>
                                     <table class="table ms-profile-information">
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">Nom complet</th>
-                                                <td><?php echo $user->first_name." ".$user->last_name ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Téléphone</th>
-                                                <td><?php echo $user->phone ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Email</th>
-                                                <td><?php echo $user->email?></td>
-                                            </tr>
-                                        </tbody>
+
                                     </table>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="ms-panel ms-panel-fh">
-                                <div class="ms-panel-header">
-                                    <h6>Liens rapides</h6>
-                                </div>
-                                <div class="ms-panel-body clearfix">
 
-                                    <ul class="nav nav-tabs d-flex tabs-round has-gap nav-justified mb-4"
-                                        role="tablist">
-                                        <li role="presentation"><a href="#reservations" aria-controls="reservations"
-                                                class="active" role="tab" data-toggle="tab">Réservations</a></li>
-                                        <li role="presentation"><a href="#changemenetpdp" aria-controls="changemenetpdp"
-                                                role="tab" data-toggle="tab">Changer photo de profil</a></li>
-                                    </ul>
-
-                                    <div class="tab-content">
-                                        <div role="tabpanel" class="tab-pane active show fade in" id="reservations">
-                                            <h1>ICI VONT S'AFFICHER LES RESERVATIONS</h1>
-                                        </div>
-                                        <div role="tabpanel" class="tab-pane fade" id="changemenetpdp">
-                                            <h1>ICI VA ETRE UN FORMULAIRE POUR CHANGER LA PHOTO DE PROFIL</h1>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-
-                <div class="tab-pane" id="reservationspassees">
-                    <div class="col-md-12">
-                        <div class="ms-panel">
-                            <div class="ms-panel-body">
-                                <h1>Les réservations passées</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-pane" id="modifer">
-                <div class="col-md-12">
-                        <div class="ms-panel">
-                            <div class="ms-panel-body">
-                                <h1>Modifier le compte</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>      
             </div>
-        </div>
     </main>
 
     <!-- SCRIPTS -->
