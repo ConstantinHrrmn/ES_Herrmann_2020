@@ -1,4 +1,9 @@
 <?php
+
+/*
+Ce fichier permet de rediriger l'utilisateur sur la page correspondante à l'abonnement qu'il possède avec son restaurant
+*/
+
 session_start();
 include "../vars.php";
 

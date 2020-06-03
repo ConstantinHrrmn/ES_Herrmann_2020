@@ -1150,3 +1150,8 @@ J'étais parti sur le fait que l'utilisateur choisissais une date sur le calendr
 
 - Je vais devoir aussi m'occuper de la partie administration des établissements
 - Je dois aussi correctement finir la partie des réservations afin que ces dernières s'affichent dans les menus
+
+---
+## 03.06.20
+- Ajout d'une table appellée "subscription" qui va enregistrer les différents niveaux d'abonnement
+  - Modification de la redirection et de la requete dans l'API

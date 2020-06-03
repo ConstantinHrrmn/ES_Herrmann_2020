@@ -1,5 +1,4 @@
 <?php
- header("Access-Control-Allow-Origin: *");
 /*******************************************************************************
 AUTEUR      : Constantin Herrmann
 LIEU        : CFPT Informatique Genève
@@ -115,7 +114,7 @@ function GetSubscriptionLevel($id){
   static $query = null;
 
     if ($query == null) {
-      $req = 'SELECT `level` FROM `establishment` WHERE `id` = :id';
+      $req = 'SELECT s.id, s.name, s.price, s.level FROM establishment as e INNER JOIN subscriptions as s ON s.id = e.id_subscription WHERE e.id = :id';
       $query = database()->prepare($req);
     }
   
