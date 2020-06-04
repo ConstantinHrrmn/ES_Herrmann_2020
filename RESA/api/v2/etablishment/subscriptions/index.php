@@ -57,6 +57,7 @@ function GetSubscriptionById($id){
   return $res;
 }
 
+
 if(isset($_GET['all'])){
     echo json_encode(GetAllSubscriptions());
 }else if(isset($_GET['id'])){

@@ -10,11 +10,13 @@ if(isset($_SESSION['user'])){
         $link = $path."etablishment/subscriptions/?id=".$_GET['subscription'];
         $data = json_decode(file_get_contents($link));
         if(!$data){
-            header("Location: ./newestablishment.php");
+            header("Location: ./subscriptions.php");
             exit();
+        }else{
+            $_SESSION['subs'] = $data;
         }
     }else{
-        header("Location: ./newestablishment.php");
+        header("Location: ./subscriptions.php");
         exit();
     }
 
@@ -83,9 +85,8 @@ if(isset($_POST['free'])){
         if(isset($_POST['valider'])){
             $number = $_POST['number'];
             $cvc = $_POST['cvc'];
-        
             if(strlen($number) == 16 && is_numeric($number) && strlen($cvc) == 3 && is_numeric($cvc)){
-                echo "MAMAN";
+                
                 ShowModal('SUPER !', 'Vous pouvez maintenant créer votre établissement', "createestablishment.php", "C`est parti !");
             }else{
                 ShowModal('Mince...', 'Il dois y avoir une erreur dans les données saisies', "", "je recommence");

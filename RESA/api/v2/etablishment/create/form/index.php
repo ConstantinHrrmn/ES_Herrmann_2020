@@ -19,13 +19,17 @@ include '../../../vars.php';
 // On vérifie que les données soient bien existantes
 if(isset($_POST) && isset($_FILES)){
     if(count($_POST) > 0 && count($_FILES) > 0){
+        
         if(CheckData($_POST)){
             SendData($_POST, $_FILES, $FullPathToAPI);
+            $_SESSION['etab'] = true;
             header("Location: {$_SERVER['HTTP_REFERER']}");
             exit();
         }
         else{
-            echo json_encode(false);
+            $_SESSION['etab'] = false;
+            header("Location: {$_SERVER['HTTP_REFERER']}");
+            exit();
         }
     }
     else{
@@ -36,23 +40,19 @@ if(isset($_POST) && isset($_FILES)){
 
 function CheckData($data){
     $name = $data['name'];
-    $adress = $data['adress'];
     $phone = $data['phone'];
     $email = $data['email'];
 
     if(filter_var($email, FILTER_VALIDATE_EMAIL)){
         if(is_string($name)){
-            if(is_string($adress)){
+
                 if(is_string($phone)){
                     return true;
                 }
                 else{
                     return false;
                 }
-            }
-            else{
-                return false;
-            }
+
         }
         else{
             return false;
@@ -67,9 +67,12 @@ function SendData($data, $images, $path){
 
     $queryData = array(
         'name' => $data['name'],
-        'address' => $data['adress'],
         'phone' => $data['phone'],
         'email' => $data['email'],
+        'street' => $data['street'],
+        'town' => $data['city'],
+        'npa' => $data['npa'],
+        'country' => $data['country'],
         'creatorID' => $_SESSION['user']->id
     );
 
@@ -77,6 +80,7 @@ function SendData($data, $images, $path){
     file_get_contents($link1);
 
     $lastid = json_decode(file_get_contents($path."etablishment/get/?last"));
+
 
     $images_amount = count($images['photos']['name']);
 

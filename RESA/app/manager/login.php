@@ -21,7 +21,7 @@
 
     if($data != false){
       $_SESSION['user'] = $data;
-      header("Location: ./newestablishment.php");
+      header("Location: ./subscriptions.php");
       exit();
     }
   }

@@ -1155,3 +1155,14 @@ J'étais parti sur le fait que l'utilisateur choisissais une date sur le calendr
 ## 03.06.20
 - Ajout d'une table appellée "subscription" qui va enregistrer les différents niveaux d'abonnement
   - Modification de la redirection et de la requete dans l'API
+
+---
+## 04.06.20
+- Afin de pouvoir ajouter le bouton d'ouverture et de fermeture spontannée de l'établissement, il faudrait que j'ajoute une table nommée "instant closing" qui viendrais faire un overwrite de la table schudle.
+  - A noter dans la doc.
+
+- Création du formulaire dans le manager
+  - Il faut maintenant que je fasse la liaison avec l'api
+  - Changement de l'api pour pouvoir mettre aux nouvelles normes de ma BDD
+    - Supression du champ "adresse"
+    - Ajout des champs : route, npa, ville, pays

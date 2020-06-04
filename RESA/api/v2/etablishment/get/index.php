@@ -71,7 +71,7 @@ function GetEtablishementById($idEtablishement){
     static $query = null;
 
     if ($query == null) {
-      $req = 'SELECT e.id, e.name, e.phone, e.email, e.level as subscription, m.name as menu_name, m.description as menu_descritpion, (SELECT s.id FROM opening as o INNER JOIN schudle as s ON s.id = o.idSchudle WHERE o.idDay = '.$day.' AND o.idEtablishement = e.id AND UNIX_TIMESTAMP(s.begin) < UNIX_TIMESTAMP(NOW()) AND UNIX_TIMESTAMP(s.end) > UNIX_TIMESTAMP(NOW()) LIMIT 1) as open FROM `establishment` as e LEFT JOIN menu as m ON e.id = m.id WHERE e.id = '.$idEtablishement;
+      $req = 'SELECT e.id, e.name, e.phone, e.email, e.id_subscription as subscription, m.name as menu_name, m.description as menu_descritpion, (SELECT s.id FROM opening as o INNER JOIN schudle as s ON s.id = o.idSchudle WHERE o.idDay = '.$day.' AND o.idEtablishement = e.id AND UNIX_TIMESTAMP(s.begin) < UNIX_TIMESTAMP(NOW()) AND UNIX_TIMESTAMP(s.end) > UNIX_TIMESTAMP(NOW()) LIMIT 1) as open FROM `establishment` as e LEFT JOIN menu as m ON e.id = m.id WHERE e.id = '.$idEtablishement;
       $query = database()->prepare($req);
     }
   
