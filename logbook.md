@@ -1146,7 +1146,7 @@ J'étais parti sur le fait que l'utilisateur choisissais une date sur le calendr
     - Si elles ne le sont pas, l'application va afficher des erreurs ! 
   - Création de la page de nouvel établissement 
     - l'utilisateur va pouvoir choisir l'abonnement qu'il souhaites prendre 
-      - Je vais faire un vérioficateur de cartes factis, afin de juste montrer le concept
+      - Je vais faire un vérioficateur de carts factis, afin de juste montrer le concept
 
 - Je vais devoir aussi m'occuper de la partie administration des établissements
 - Je dois aussi correctement finir la partie des réservations afin que ces dernières s'affichent dans les menus
@@ -1166,3 +1166,38 @@ J'étais parti sur le fait que l'utilisateur choisissais une date sur le calendr
   - Changement de l'api pour pouvoir mettre aux nouvelles normes de ma BDD
     - Supression du champ "adresse"
     - Ajout des champs : route, npa, ville, pays
+
+---
+## Jour 326493 (je pers la tête)
+
+### Appel avec m. Garcia
+- Mettre l'heure de la réservation à l'heure actuelle
+- 
+- Un manager peut donc créer un établissement facilement depuis l'application de manager
+  - Il faut que j'ajoute dans l'API le niveau d'abonnement que l'utilisateur à pris [ok]
+  - Il faut aussi que je change la manière dont j'envoie les données [ok]
+
+- Une fois que j'aurais fini correctement la création de l'établissement, il faudra que je crée la page d'administration du blog, afin que l'utilisateur puisse gérer les données de base de son établissement.
+
+- J'avais un gros problème de redirection dans mon application...
+  - Quand je me connectais sur un etablissement créer depuis l'application, je ne me faisait pas rediriger sur la page de gestion de l'établissement. J'ai donc du changer le script de la page de login pour m'accorder.
+
+Il ne me reste plus que la soirée pour coder, je vais donc juste faire la modification des horaires d'un restaurant afin de l'afficher ouvert ou fermer
+
+
+### Pour mettre en ligne mon application je dois changer le chemin dans ces fichiers 
+- api/v2 : vars.php
+- manager/style/assets/css/ : style.css
+  - il y a 2 endroits 
+- resa/assets/css/ : style.css
+  - il y a 2 endroits 
+- resa/assets/js : reservation.js
+
+- J'a ajouter la pagen de gestion des zones pour l'abonnement de RESA Full 
+  - J'ai du changer les variables demandées + les copnditions de redirections
+
+- Je vais créer la page pour afficher les employés du restaurant
+  - Pour ce faire, je dois d'abord créer la requete dans l'API
+  - C'est tout bon
+
+- J'ai créer et ajouter toutes les photos des pages manquantes dans l'application

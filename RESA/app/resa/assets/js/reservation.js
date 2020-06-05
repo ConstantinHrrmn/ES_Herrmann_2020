@@ -19,7 +19,7 @@ function DateChoosen(etab){
     var date = data.split("/");
     console.log(date);
     var finalDate = date[2]+"-"+date[0]+"-"+date[1];
-    var link = "http://10.0.0.13/Travail_diplome_ES_2020/RESA/api/v2/etablishment/schudle/get?dayschudle&idEtab="+etab+"&date="+finalDate;
+    var link = "http://10.0.0.3/Travail_diplome_ES_2020/RESA/api/v2/etablishment/schudle/get?dayschudle&idEtab="+etab+"&date="+finalDate;
     $.getJSON(link, function(data) {
         var sel = document.getElementById('hour');
         removeOptions(sel);

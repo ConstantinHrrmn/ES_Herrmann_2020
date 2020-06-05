@@ -111,56 +111,52 @@
         <!-- Body Content Wrapper -->
         <div class="ms-content-wrapper ms-auth">
 
-            <div class="ms-auth-container">
-                <div class="ms-auth-col">
-                    <div class="ms-auth-bg"></div>
-                </div>
-                <div class="ms-auth-col">
-                    <div class="ms-auth-form">
+            <div class="container">
+                <div class="ms-auth-form">
 
-                        <form class="needs-validation" novalidate="" id="loginForm" method="POST" action="#">
-                            <h1>Connexion à votre compte</h1>
-                            <p>Afin de pouvoir créer un établissement, il faut d'abord vous identifier</p>
+                    <form class="needs-validation" novalidate="" id="loginForm" method="POST" action="#">
+                        <h1>Connexion à votre compte</h1>
+                        <p>Afin de pouvoir créer un établissement, il faut d'abord vous identifier</p>
 
-                            <div class="mb-3">
-                                <label for="validationCustom08">Email</label>
-                                <div class="input-group">
-                                    <input type="email" class="form-control" id="username" name="username"
-                                        placeholder="Email Address" required="">
-                                    <div class="invalid-feedback">
-                                        Veuillez entrer un email valide
-                                    </div>
+                        <div class="mb-3">
+                            <label for="validationCustom08">Email</label>
+                            <div class="input-group">
+                                <input type="email" class="form-control" id="username" name="username"
+                                    placeholder="Email Address" required="">
+                                <div class="invalid-feedback">
+                                    Veuillez entrer un email valide
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="mb-2">
-                                <label for="validationCustom09">Mot de passe</label>
-                                <div class="input-group">
-                                    <input type="password" class="form-control" id="password" name="password"
-                                        placeholder="Password" required="">
-                                    <div class="invalid-feedback">
-                                        Veuillez entrer un mot de passe
-                                    </div>
+                        <div class="mb-2">
+                            <label for="validationCustom09">Mot de passe</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="Password" required="">
+                                <div class="invalid-feedback">
+                                    Veuillez entrer un mot de passe
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label class="d-block mt-3"><a href="#" class="btn-link" data-toggle="modal"
-                                        data-target="#modal-12">Mot de passe oublié ?</a></label>
-                            </div>
+                        <div class="form-group">
+                            <label class="d-block mt-3"><a href="#" class="btn-link" data-toggle="modal"
+                                    data-target="#modal-12">Mot de passe oublié ?</a></label>
+                        </div>
 
-                            <input type="submit" class="btn btn-primary mt-4 d-block w-100" id="connexion"
-                                name="connexion" value="Se connecter">
-                            <div class="form-group">
-                                <label class="d-block mt-3"><a href="#" class="btn-link" data-toggle="modal"
-                                        data-target="#modal-createaccount">Créer un compte</a></label>
-                            </div>
+                        <input type="submit" class="btn btn-primary mt-4 d-block w-100" id="connexion" name="connexion"
+                            value="Se connecter">
+                        <div class="form-group">
+                            <label class="d-block mt-3"><a href="#" class="btn-link" data-toggle="modal"
+                                    data-target="#modal-createaccount">Créer un compte</a></label>
+                        </div>
 
-                        </form>
+                    </form>
 
-                    </div>
                 </div>
             </div>
+
 
         </div>
 

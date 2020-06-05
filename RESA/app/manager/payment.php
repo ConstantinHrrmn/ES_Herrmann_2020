@@ -19,7 +19,6 @@ if(isset($_SESSION['user'])){
         header("Location: ./subscriptions.php");
         exit();
     }
-
 }
 else{
     header("Location: ./login.php");

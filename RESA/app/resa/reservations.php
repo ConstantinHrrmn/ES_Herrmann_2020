@@ -87,21 +87,7 @@
 
             <div class="tab-content">
                 <div class="tab-pane active" id="informations">
-                    <div class="row">
-
-                        <div class="col-xl-6 col-md-12">
-                            <div class="ms-panel ms-panel-fh">
-                                <div class="ms-panel-body">
-                                    <h2 class="section-title">Mes réservations à venir</h2>
-                                    <table class="table ms-profile-information">
-
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
+                <img src="./assets/img/fakes/reservations.jpg" style="width: 100%; height: auto;" alt="">
                 </div>
             </div>
     </main>

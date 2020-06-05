@@ -6,16 +6,12 @@ include "../style/assets/php/images.php";
 session_start();
 
 if(isset($_SESSION['etab']) && isset($_SESSION['user'])){
-    $user = $_SESSION['user'];
     $etab = $_SESSION['etab'];
-    $schudle = json_decode(file_get_contents($path."etablishment/schudle/get?id=".$etab->id));
-    $etablishment =  null;
-    $etab = $_SESSION['etab'];
-    if($etab->subscription == 1){
-        
+    if($etab->subscription == 3 || $etab->subscription == 2){
+
     }
     else{
-        header("Location: ../sender.php");
+        header("Location: ../index.php");
         exit();
     }
 }
@@ -80,7 +76,16 @@ else{
         <?php include '../style/assets/php/topbar.php'; ?>
 
         <div class="ms-content-wrapper">
-            <img src="../style/assets/img/fakes/blog.jpg" style="width: 100%; height: auto;" alt="">
+            <div class="row">
+                <div class="col-xl-12 col-md-12">
+                    <div class="ms-panel ms-panel-fh">
+                        <div class="ms-panel-body">
+                            <a href="../sender.php" class="btn btn-primary" style="margin: 0">Retour</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img src="../style/assets/img/fakes/reservation.jpg" style="width: 100%; height: auto;" alt="">
         </div>
 
 

@@ -184,6 +184,7 @@ function Login($email, $password){
   }
 }
 
+
 function LoginEtablishementManager($n, $e, $p){
   global $key;
   $pass = hash('sha256', hash('sha256', $key).$p);
@@ -243,6 +244,33 @@ function CheckMailExists($email){
     return true;
   }
 }
+
+
+function IsAllowedToBeHere($idUser, $idEtab){
+  static $query = null;
+
+  if ($query == null) {
+    $req = 'SELECT p.id as permission FROM `is_in_as` as iia INNER JOIN permission AS p ON p.id = iia.idPermission WHERE (iia.idEtablishement ='.$idEtab.' AND iia.idUser = '.$idUser.') OR (iia.idPermission = 1 AND iia.idUser = '.$idUser.')';
+    $query = database()->prepare($req);
+  }
+
+  try {
+    $query->execute();
+    $res = $query->fetch(PDO::FETCH_ASSOC);
+  }
+  catch (Exception $e) {
+    error_log($e->getMessage());
+    $res = false;
+  }
+
+  if($res == null || $res == false){
+    return false;
+  }else{
+    return true;
+  }
+}
+
+
 
 if(isset($_GET['byPermission'])){
   $idPermission = $_GET['byPermission'];
@@ -309,6 +337,9 @@ else if(isset($_GET['id'])){
 }
 else if(isset($_GET['checkmail']) && isset($_GET['email'])){
   echo json_encode(CheckMailExists($_GET['email']));
+}
+else if(isset($_GET['u']) && isset($_GET['e'])){
+  echo json_encode(IsAllowedToBeHere($_GET['u'], $_GET['e']));
 }
 else{
   echo json_encode(GetAllUsers());

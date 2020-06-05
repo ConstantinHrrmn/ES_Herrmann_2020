@@ -6,13 +6,9 @@ include "../style/assets/php/images.php";
 session_start();
 
 if(isset($_SESSION['etab']) && isset($_SESSION['user'])){
-    $user = $_SESSION['user'];
     $etab = $_SESSION['etab'];
-    $schudle = json_decode(file_get_contents($path."etablishment/schudle/get?id=".$etab->id));
-    $etablishment =  null;
-    $etab = $_SESSION['etab'];
-    if($etab->subscription == 1){
-        
+    if($etab->subscription == 3){
+        $employes = json_decode(file_get_contents($path."user/employes/?workingFor=".$etab->id));
     }
     else{
         header("Location: ../sender.php");
@@ -80,8 +76,47 @@ else{
         <?php include '../style/assets/php/topbar.php'; ?>
 
         <div class="ms-content-wrapper">
-            <img src="../style/assets/img/fakes/blog.jpg" style="width: 100%; height: auto;" alt="">
-        </div>
+            <div class="row">
+                <div class="col-xl-12 col-md-12">
+                    <div class="ms-panel ms-panel-fh">
+                        <div class="ms-panel-body">
+                            <a href="../sender.php" class="btn btn-primary" style="margin: 0">Retour</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ms-panel-body">
+
+                <div class="table-responsive">
+                    <table class="table table-hover thead-primary">
+                        <thead>
+                            <tr>
+                                <th scope="col">Identifiant</th>
+                                <th scope="col">Nom & prénom</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Téléphone</th>
+                                <th scope="col">Job</th>
+
+                                <th scope="col">Modifer</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($employes as $employee) : ?>
+                            <tr>
+                                <th scope="row"><?php echo $employee->user_username?></th>
+                                <td><?php echo $employee->user_lastname." ".$employee->user_firstname?></td>
+                                <td><?php echo $employee->email?></td>
+                                <td><?php echo $employee->phone?></td>
+                                <td><?php echo $employee->permission_name?></td>
+                                <td><a href="">[modifier]</a></td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
 
         </div>

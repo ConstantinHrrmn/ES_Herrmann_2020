@@ -145,13 +145,16 @@ else if(isset($_GET['etablishment']) && isset($_GET['id'])){
   }
   
 }
+
 else if(isset($_GET['dish']) && isset($_GET['id'])){
     //echo json_encode(GetImagesForDish($_GET['id'], $FullPathToAPI));
 }
+
 else if(isset($_GET['user']) && isset($_GET['id'])){
   echo json_encode(GetImageForUser($_GET['id'], $FullPathToAPI));
 }
+
 else if(isset($_GET['id'])){
     header("Location: ".$FullPathToAPI.GetImagePath($_GET['id']));
     exit();
-}
+} 

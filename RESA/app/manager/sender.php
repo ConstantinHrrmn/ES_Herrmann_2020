@@ -9,7 +9,7 @@ include "../vars.php";
 
 if(isset($_SESSION['sender'])){
     $id = $_SESSION['sender'];
-    if(is_numeric($id)){
+    if(is_numeric($id)){ 
         $queryData = array(
             'i' => $id
           );
@@ -20,17 +20,17 @@ if(isset($_SESSION['sender'])){
         $level = $data->level;
 
         // RESA BLOG
-        if($level == '1'){
+        if($level == 1){
             header("Location: ./resablog/index.php");
             exit();
         }
         // RESA PRO
-        else if($level == '2'){
+        else if($level == 2){
             header("Location: ./resapro/index.php");
             exit();
         }
         // RESA FULL
-        else if($level == '3'){
+        else if($level == 3){
             header("Location: ./resafull/index.php");
             exit();
         }

@@ -20,7 +20,7 @@ function GetEmployesForEtablishement($idEtablishement){
   static $query = null;
 
   if ($query == null) {
-    $req = 'SELECT u.id as id,  u.first_name as user_firstname, u.last_name as user_lastname, p.name as permission_name, p.level as permission_level FROM is_in_as as iis INNER JOIN permission as p ON p.id = iis.idPermission INNER JOIN user as u ON u.id = iis.idUser WHERE iis.idEtablishement = '.$idEtablishement;
+    $req = 'SELECT u.id as id,  u.first_name as user_firstname, u.last_name as user_lastname, p.name as permission_name, p.level as permission_level, u.username as user_username, u.email as email, u.phone as phone FROM is_in_as as iis INNER JOIN permission as p ON p.id = iis.idPermission INNER JOIN user as u ON u.id = iis.idUser WHERE iis.idEtablishement = '.$idEtablishement;
     $query = database()->prepare($req);
   }
 

@@ -23,11 +23,11 @@ include '../../vars.php';
 *   - $npa : npa de l'adresse
 *   - $country : l'id du pays
 */
-function CreateEtablishment($n, $p, $m, $street, $town, $npa, $country){
+function CreateEtablishment($n, $p, $m, $street, $town, $npa, $country, $subs){
     static $query = null;
 
     if ($query == null) {
-      $req = 'INSERT INTO `establishment`(`name`, `phone`, `email`, `street`, `npa`, `city`, `country`) VALUES (:n, :p, :m, :street, :npa, :town, :country)';
+      $req = 'INSERT INTO `establishment`(`name`, `phone`, `email`, `street`, `npa`, `city`, `country`, `id_subscription`) VALUES (:n, :p, :m, :street, :npa, :town, :country, :s)';
       $query = database()->prepare($req);
     }
   
@@ -39,7 +39,8 @@ function CreateEtablishment($n, $p, $m, $street, $town, $npa, $country){
         $query->bindParam(':town', $town, PDO::PARAM_STR);
         $query->bindParam(':npa', $npa, PDO::PARAM_INT);
         $query->bindParam(':country', $country, PDO::PARAM_INT);
-
+        $query->bindParam(':s', $subs, PDO::PARAM_INT);
+        
         $query->execute();
         $query->fetch();
 
@@ -72,7 +73,7 @@ function CreateIsInAs($idEtablishment, $idUser, $idPermission){
     }
 }
 
-if(isset($_GET['name']) && isset($_GET['phone']) && isset($_GET['email']) && isset($_GET['creatorID']) && isset($_GET['street']) && isset($_GET['town']) && isset($_GET['npa']) && isset($_GET['country'])){
+if(isset($_GET['name']) && isset($_GET['phone']) && isset($_GET['email']) && isset($_GET['creatorID']) && isset($_GET['street']) && isset($_GET['town']) && isset($_GET['npa']) && isset($_GET['country']) && isset($_GET['subs'])){
     $name = $_GET['name'];
     $phone = $_GET['phone'];
     $email = $_GET['email'];
@@ -81,15 +82,16 @@ if(isset($_GET['name']) && isset($_GET['phone']) && isset($_GET['email']) && iss
     $town = $_GET['town'];
     $npa = $_GET['npa'];
     $country = $_GET['country'];
+    $subs = $_GET['subs'];
 
-    if(CreateEtablishment($name, $phone, $email, $street, $town, $npa, $country)){
+    if(CreateEtablishment($name, $phone, $email, $street, $town, $npa, $country, $subs)){
         $json = json_decode(file_get_contents($FullPathToAPI."etablishment/get/?last"));
         $lastid = $json->last;
         CreateIsInAs((int)$lastid, (int)$creator, "2");
     }
 }
 // Vérifie qu'il y aie bien le nom, l'adresse, le numéro de téléphone et l'email dans les paramètres
-else if(isset($_GET['name']) && isset($_GET['phone']) && isset($_GET['email'])  && isset($_GET['street']) && isset($_GET['town']) && isset($_GET['npa']) && isset($_GET['country'])){
+else if(isset($_GET['name']) && isset($_GET['phone']) && isset($_GET['email'])  && isset($_GET['street']) && isset($_GET['town']) && isset($_GET['npa']) && isset($_GET['country']) && isset($_GET['subs'])){
     $name = $_GET['name'];
     $phone = $_GET['phone'];
     $email = $_GET['email'];

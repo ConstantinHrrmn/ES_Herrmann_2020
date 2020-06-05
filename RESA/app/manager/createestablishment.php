@@ -24,8 +24,21 @@ else{
     BackToSubs();
 }
 
-if($_SESSION['etab']){
-    
+if(isset($_SESSION['etab'])){
+     if($_SESSION != false){
+         $sub = $_SESSION['subs'];
+         if($subs == 1){
+            header("Location: ./resablog/");
+            exit();
+         }else if($subs == 2){
+            header("Location: ./resapro/");
+            exit();
+         } else if($subs == 2){
+            header("Location: ./resafull/");
+            exit();
+         }
+        
+     }
 }
 
 ?>
@@ -97,7 +110,9 @@ if($_SESSION['etab']){
                         <h6>Création de l'établissement</h6>
                     </div>
                     <div class="ms-panel-body">
-                    <form action="<?php echo $path."etablishment/create/form/"; ?>" method="post" enctype="multipart/form-data" id="creationEtablissement" class="needs-validation clearfix" novalidate>
+                        <form action="<?php echo $path."etablishment/create/form/"; ?>" method="post"
+                            enctype="multipart/form-data" id="creationEtablissement" class="needs-validation clearfix"
+                            novalidate>
 
                             <div class="form-row">
 
@@ -161,8 +176,8 @@ if($_SESSION['etab']){
                                     </div>
                                 </div>
 
-                                 <!-- City -->
-                                 <div class="col-md-2 mb-3">
+                                <!-- City -->
+                                <div class="col-md-2 mb-3">
                                     <label for="valid4">City</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="valid5" name="city"
@@ -191,14 +206,15 @@ if($_SESSION['etab']){
                                 <div class="col-md-12 mb-3">
                                     <label for="valid3">Images</label>
                                     <div class="input-group">
-                                    <input type="file" class="form-control" multiple name="photos[]" id="photos">
+                                        <input type="file" class="form-control" multiple name="photos[]" id="photos">
                                     </div>
                                 </div>
 
                                 <!-- Bouton valider -->
                                 <div class="col-md-12 mb-3">
                                     <div class="input-group">
-                                        <input type="submit" class="btn btn-primary" id="validatedCustomFile" value="Créer">
+                                        <input type="submit" class="btn btn-primary" id="validatedCustomFile"
+                                            value="Créer">
                                     </div>
                                 </div>
 
