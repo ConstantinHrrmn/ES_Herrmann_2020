@@ -3,7 +3,9 @@
 
   // On lance la session afin de récupérer les variables
   session_start();
-
+  unset($_SESSION['etab']);
+  unset($_SESSION['subs']);
+  
   if(isset($_POST['connexion'])){
     if(isset($_POST['password'])){
       $password = hash('sha256', $_POST['password']);

@@ -8,6 +8,7 @@ if(isset($_SESSION['user'])){
     $user = $_SESSION['user'];
 
     $subs = json_decode(file_get_contents($path."etablishment/subscriptions/?all"));
+    
 }
 else{
     header("Location: ./login.php");
