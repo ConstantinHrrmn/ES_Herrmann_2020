@@ -10,7 +10,6 @@ VERSION     : 1.0
 include '../../../../vars.php';
 
 // etablishment/floor/zone/create/form/
-
 if(isset($_POST)){
     if(count($_POST) > 0){
         $data = $_POST['name'];
@@ -21,6 +20,12 @@ if(isset($_POST)){
     
 }
 
+/* 
+* Création d'un étage dans l'établissement
+*   - $name : le nom de l'étage
+*   - $idEtablishment : l'id de l'établissement'
+*   - $path : le chemin jusqu'à l'API
+*/
 function SendDataFloor($name, $idEtablishment, $path){
     $name = str_replace(' ', '%20', $name);
 
@@ -31,6 +36,7 @@ function SendDataFloor($name, $idEtablishment, $path){
     exit();
 }
 
+// Vérifie si l'entrée est bien une chaine de caractères
 function CheckData($data){
     return (is_string($data));
 }

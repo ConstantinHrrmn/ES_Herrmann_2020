@@ -12,7 +12,9 @@ if(file_exists('../../pdo.php')){
     require_once '../../pdo.php';
 }
 
-
+/*
+* Récupère les les dates de la semaine en cours
+*/
 function GetWeekDates(){
     $date = getdate();
     $wday = $date['wday'];
@@ -28,11 +30,9 @@ function GetWeekDates(){
     return $days;
 }
 
-function GetReservationsForCurrentWeek(){
-    $week = GetWeekDates();
-    var_dump($week); 
-}
-
+/*
+* Récupère les réservation pour une intervalle entre 2 dates pour un établissement
+*/
 function GetReservationsForRange($begin, $end, $etab){
     static $query = null;
 
@@ -55,6 +55,14 @@ function GetReservationsForRange($begin, $end, $etab){
     }
 }
 
+/*
+* Récupère si il y a une place pour une réservation
+* Params:
+*     - arrival : l'heure d'arrivée
+*     - duration : la durée estimée
+*     - date : la date de la réservation
+*     - etab : l'id de l'établissement
+*/
 function IsPlaceForReservation($arrival, $duration, $date, $etab){
     static $query = null;
 
@@ -62,7 +70,6 @@ function IsPlaceForReservation($arrival, $duration, $date, $etab){
       $req = 'Call IsPlaceForReservation(:etab,:d,:arrival, :duration, @avaible)';
       $query = database()->prepare($req);
     }
-  
     try {
         
         $query->bindParam(':arrival', $arrival, PDO::PARAM_STR);
@@ -79,10 +86,8 @@ function IsPlaceForReservation($arrival, $duration, $date, $etab){
     }
 }
 
-if(isset($_GET['week'])){
-    echo json_encode(GetReservationsForCurrentWeek());
-}
-else if(isset($_GET['range']) && isset($_GET['begin']) && isset($_GET['end']) && isset($_GET['etab'])){
+
+if(isset($_GET['range']) && isset($_GET['begin']) && isset($_GET['end']) && isset($_GET['etab'])){
     $begin = $_GET['begin'];
     $end = $_GET['end'];
     $etab = $_GET['etab'];

@@ -72,6 +72,11 @@ function ForAllHisZones($id){
     
 }
 
+/*
+* Récupère le jour de la semaine
+* Params:
+*     - day : l'id du jour
+*/
 function GetWeekDay($day){
     $id = $day['wday'];
 
@@ -92,6 +97,11 @@ function GetWeekDay($day){
     }
 }
 
+/*
+* Récupère l'état actuel d'ouverture d'un restaurant
+* Params:
+*     - idEtab : l'id du restaurant
+*/
 function GetActualOpeningStatus($idEtab){
     $date = getdate();
     $idDay = $date['wday'];
@@ -116,6 +126,12 @@ function GetActualOpeningStatus($idEtab){
     }
 }
 
+/*
+* Récupère les horaires de la journée d'un établissement
+* Params:
+*     - idEtab : l'id du restaurant
+*     - day : l'id de la journlée
+*/
 function GetDaySchudles($idEtab, $day){
   static $query = null;
 
@@ -134,31 +150,6 @@ function GetDaySchudles($idEtab, $day){
     }
     catch (Exception $e) {
       error_log($e->getMessage());
-    }
-}
-
-function GetSchudlesWithPlaces($idEtab, $date){
-    $yourDate = DateTime::createFromFormat("Y-m-d", $date);
-    $dateday = $yourDate->format("w");
-
-    $schudles = GetDaySchudles($idEtab, $dateday);
-    $hour = 1;
-    $quarter = 15;
-
-    foreach($schudles as $schudle){
-      $tempsBegin = explode(':', $schudle['begin']);
-      $tempsEnd = explode(':', $schudle['end']);
-      for($i = $tempsBegin[0]; $i <= 2; $i+=$hour){
-        for($j = $tempsBegin[1]; $j <= $tempsEnd[1]; $j+=$quarter){
-          $arrival = $i.":".$j;
-          $duration = $i < 17 ? 3600 : 7200;
-          echo $i;
-          //GetReservationForDateAndTime($arrival, $duration, $date, $idEtab);
-          //echo json_encode(GetReservationForDateAndTime($arrival, $duration, $date, $idEtab));
-        }
-      }
-      var_dump($tempsBegin);
-      var_dump($tempsEnd);
     }
 }
 
@@ -236,14 +227,6 @@ else if(isset($_GET['dayschudle']) && isset($_GET['idEtab']) && isset($_GET['dat
   echo json_encode($times);
 
   //echo json_encode();
-}
-// etablishment/schudle/get?schudlesandplaces&idEtab=XX&date=YYYY-MM-DD
-// Récupère tous les horaires du restaurant pour la journée avec les places disponbiles
-else if(isset($_GET['schudlesandplaces']) && isset($_GET['idEtab']) && isset($_GET['date'])){
-  $id = $_GET['idEtab'];
-  $date = $_GET['date'];
-  //echo json_encode(GetDaySchudles($id));
-  GetSchudlesWithPlaces($id, $date);
 }
 // etablishment/schudle/get?today
 // Récupère le jour de la semaine

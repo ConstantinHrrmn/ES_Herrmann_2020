@@ -65,7 +65,6 @@ function CheckData($data){
 
 // Envoie des données dans la base de données
 function SendData($data, $subs, $images, $path){
-
     $queryData = array(
         'name' => $data['name'],
         'phone' => $data['phone'],

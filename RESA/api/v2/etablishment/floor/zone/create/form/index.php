@@ -10,7 +10,6 @@ VERSION     : 1.0
 include '../../../../../vars.php';
 
 // etablishment/floor/zone/create/form/
-
 if(isset($_POST)){
     if(count($_POST) > 0){
         $data = $_POST['name'];
@@ -21,6 +20,12 @@ if(isset($_POST)){
     
 }
 
+/* 
+* Création d'une zone dans l'établissement
+*   - $name : le nom de la zone
+*   - $idFloor : l'id de l'étage
+*   - $path : le chemin jusqu'à l'API
+*/
 function SendDataZone($name, $idFloor, $path){
     $name = str_replace(' ', '%20', $name);
 
@@ -36,6 +41,7 @@ function SendDataZone($name, $idFloor, $path){
     exit();
 }
 
+// Vérifie si l'entrée est bien une chaine de caractères
 function CheckData($data){
     return (is_string($data));
 }

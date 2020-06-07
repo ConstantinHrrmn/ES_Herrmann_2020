@@ -110,6 +110,11 @@ function GetLastInsertedEtablishement(){
   return $res;
 }
 
+/*
+* Récupère le niveau d'abonnement d'un établissement
+* Params:
+*     - id : l'id de l'établissement dont on veut les infos
+*/
 function GetSubscriptionLevel($id){
   static $query = null;
 

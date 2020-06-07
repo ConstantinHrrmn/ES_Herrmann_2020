@@ -13,16 +13,7 @@ include '../../pdo.php';
 
 include '../../vars.php';
 
-/* 
-* Création d'un établissement avec comme paramètres :
-*   - $n : le nom 
-*   - $p : le numéro de téléphone
-*   - $m : l'adresse email
-*   - $street : le nom de la rue + le numéro
-*   - $town : la ville
-*   - $npa : npa de l'adresse
-*   - $country : l'id du pays
-*/
+
 function CreateEtablishment($n, $p, $m, $street, $town, $npa, $country, $subs){
     static $query = null;
 
@@ -51,7 +42,12 @@ function CreateEtablishment($n, $p, $m, $street, $town, $npa, $country, $subs){
       return false;
     }
 }
-
+/* 
+* Création du lien entre un établissement et un utilisateur
+*   - $idEtablishment : l'id de l'établissement
+*   - $idUser : l'id de l'utilisateur
+*   - $idPermission : l'id de la permission
+*/
 function CreateIsInAs($idEtablishment, $idUser, $idPermission){
     static $query = null;
 
@@ -73,6 +69,7 @@ function CreateIsInAs($idEtablishment, $idUser, $idPermission){
     }
 }
 
+// Cération d'un établissement avec un créateur
 if(isset($_GET['name']) && isset($_GET['phone']) && isset($_GET['email']) && isset($_GET['creatorID']) && isset($_GET['street']) && isset($_GET['town']) && isset($_GET['npa']) && isset($_GET['country']) && isset($_GET['subs'])){
     $name = $_GET['name'];
     $phone = $_GET['phone'];
@@ -90,7 +87,7 @@ if(isset($_GET['name']) && isset($_GET['phone']) && isset($_GET['email']) && iss
         CreateIsInAs((int)$lastid, (int)$creator, "2");
     }
 }
-// Vérifie qu'il y aie bien le nom, l'adresse, le numéro de téléphone et l'email dans les paramètres
+// Création d'un établissement sans créateur
 else if(isset($_GET['name']) && isset($_GET['phone']) && isset($_GET['email'])  && isset($_GET['street']) && isset($_GET['town']) && isset($_GET['npa']) && isset($_GET['country']) && isset($_GET['subs'])){
     $name = $_GET['name'];
     $phone = $_GET['phone'];
@@ -99,8 +96,9 @@ else if(isset($_GET['name']) && isset($_GET['phone']) && isset($_GET['email'])  
     $town = $_GET['town'];
     $npa = $_GET['npa'];
     $country = $_GET['country'];
+    $subs = $_GET['subs'];
 
-    if(CreateEtablishment($name, $phone, $email, $street, $town, $npa, $country)){
+    if(CreateEtablishment($name, $phone, $email, $street, $town, $npa, $country, $subs)){
         echo json_encode("OK");
         var_dump($_GET);
     }else{

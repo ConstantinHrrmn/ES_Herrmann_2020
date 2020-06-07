@@ -1,4 +1,6 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+
 // Ce fichier regroupe toutes les variables globale que j'utilise dans plusieurs fichiers
 
 // Le chemin complet jusqu'à l'API
