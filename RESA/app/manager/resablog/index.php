@@ -6,13 +6,11 @@ include "../style/assets/php/images.php";
 session_start();
 
 if(isset($_SESSION['etab']) && isset($_SESSION['user'])){
-    $user = $_SESSION['user'];
-    $etab = $_SESSION['etab'];
-    $schudle = json_decode(file_get_contents($path."etablishment/schudle/get?id=".$etab->id));
-    $etablishment =  null;
     $etab = $_SESSION['etab'];
     if($etab->subscription == 1){
-        
+        $schudles = json_decode(file_get_contents($path."etablishment/schudle/get/?id=".$etab->id));
+        $menu = json_decode(file_get_contents($path."menu/get/?all&id=".$etab->id));
+        $photos = json_decode(file_get_contents($path."images/get/?etablishment&id=".$etab->id));
     }
     else{
         header("Location: ../sender.php");
@@ -80,7 +78,153 @@ else{
         <?php include '../style/assets/php/topbar.php'; ?>
 
         <div class="ms-content-wrapper">
-            <img src="../style/assets/img/fakes/blog.jpg" style="width: 100%; height: auto;" alt="">
+            <div class="row">
+
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12">
+                            <div class="ms-panel ms-panel-fh">
+                                <div class="ms-panel-header">
+                                    <h6>Horaires</h6>
+                                </div>
+                                <div class="ms-panel-body">
+                                    <div class="table-responsive">
+                                        <table class="table thead-secondary">
+                                            <thead>
+                                                <tr>
+                                                    <?php foreach($schudles as $schudle) :?>
+                                                    <th scope="col" style="background-color: gray;">
+                                                        <?php echo $schudle->dname; ?></th>
+                                                    <?php endforeach; ?>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <?php foreach($schudles as $schudle) :
+                                            if(isset($schudle->closed)) :?>
+                                                    <th scope="col"><?php echo "FERMER"; ?></th>
+                                                    <?php else: ?>
+                                                    <th scope="col"><?php echo $schudle->sbegin." - ".$schudle->send; ?>
+                                                    </th>
+                                                    <?php endif;
+                                            endforeach; ?>
+                                                </tr>
+                                                <tr>
+                                                    <?php foreach($schudles as $schudle) :?>
+                                                    <td><a href="#" style="color:black">[modifier]</a></td>
+                                                    <?php endforeach; ?>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <?php if(count($menu->infos) > 0) : ?>
+
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12">
+                            <div class="ms-panel ms-panel-fh">
+                                <div class="ms-panel-header">
+                                    <h6>Menus & plats - <?php echo $menu->infos[0]->name; ?></h6>
+                                </div>
+                                <div class="ms-panel-body">
+                                    <div class="row">
+                                        <?php foreach($menu->dishes as $dish):?>
+                                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                                            <div class="ms-card">
+                                                <div class="ms-card-img">
+                                                    <img src="https://via.placeholder.com/530x240" alt="card_img">
+                                                </div>
+                                                <div class="ms-card-body">
+
+                                                    <div class="new">
+                                                        <h6 class="mb-0"><?php echo $dish->dish_name; ?>
+                                                        </h6>
+                                                        <h6 class="ms-text-primary mb-0">
+                                                            <?php echo $dish->dish_price;?> CHF
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <?php else: ?>
+
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12">
+                            <div class="ms-panel ms-panel-fh">
+                                <div class="ms-panel-header">
+                                    <h6>Menus & plats</h6>
+                                </div>
+                                <div class="ms-panel-body">
+                                    <button class="btn btn-secondary">Créer un menu</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <?php endif;?>
+
+                </div>
+
+                <div class="col-4">
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12">
+                            <div class="ms-panel ms-panel-fh">
+                                <div class="ms-panel-header">
+                                    <h6>Modifications</h6>
+                                </div>
+                                <div class="ms-panel-body">
+                                    <div class="table-responsive">
+                                        <button class="btn btn-secondary" style="width: 100%">Informations</button>
+                                        <button class="btn btn-secondary" style="width: 100%">Widgets</button>
+                                        <button class="btn btn-secondary" style="width: 100%">Suppression</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12">
+                            <div class="ms-panel ms-panel-fh">
+                                <div class="ms-panel-header">
+                                    <h6>Photos</h6>
+                                </div>
+                                <div class="ms-panel-body">
+                                    <div class="row">
+
+                                        <?php foreach($photos as $photo):?>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                            <div class="ms-card">
+                                                <div class="ms-card-img">
+                                                    <img src="<?php echo $photo->full_path?>" alt="card_img">
+                                                </div>
+                                                <a href="#" style="color:red;">Supprimer</a>
+                                            </div>
+                                        </div>
+
+                                        <?php endforeach; ?>
+                                    </div>
+                                    <button class="btn btn-secondary" style="width: 100%;">Ajouter</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
 
 

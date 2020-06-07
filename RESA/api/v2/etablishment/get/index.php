@@ -16,6 +16,9 @@ include '../../pdo.php';
 function GetAllEtablishements(){
   $date = getdate();
   $idDay = $date['wday'];
+
+  $idDay = $idDay == 0 ? 7 : $idDay;
+  
     static $query = null;
 
     if ($query == null) {
